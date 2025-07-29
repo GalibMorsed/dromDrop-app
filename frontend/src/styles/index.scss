@@ -1,0 +1,46 @@
+$primary-color: #4f46e5;
+$secondary-color: #6366f1;
+$text-color: #333;
+$light-bg: #f9f9f9;
+$border-radius: 12px;
+
+:root {
+  --background-color: #fff;
+  --background-light: #fff;
+  --shadow-color: rgba(0, 0, 0, 0.2);
+  --primary-color: #3a99ff;
+  --text-color: #0a0a0a;
+  --text-light: #575757;
+  --font-size: 16px;
+  --animation-speed: 1;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+img {
+  object-fit: cover;
+}
+body {
+  font-size: var(--font-size);
+  font-family: "Roboto", sans-serif;
+  background-color: var(--background-light);
+}
+a {
+  text-decoration: none;
+}
+p {
+  font-weight: bolder;
+  color: var(--text-color);
+}
+
+//Home Page Components Styling
+@import url(homeCompStyling/homeNav.scss);
+@import url(homeCompStyling/homeSection1.scss);
+@import url(homeCompStyling/homeSection2.scss);
+@import url(homeCompStyling/homeSection3.scss);
+@import url(homeCompStyling/homeSection4.scss);
+@import url(homeCompStyling/homeSection5.scss);
+@import url(homeCompStyling/homeFooter.scss);
