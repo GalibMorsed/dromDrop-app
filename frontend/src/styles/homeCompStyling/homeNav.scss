@@ -1,0 +1,109 @@
+.home-navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(90deg, #e3f0ff 0%, #eafaf1 100%);
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+  padding: 1.2rem 2rem;
+  margin: 0.3rem auto;
+  max-width: 1400px;
+  box-shadow: 0 4px 24px rgba(30, 58, 138, 0.1);
+  backdrop-filter: blur(8px);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  transition: box-shadow 0.3s, padding 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+    gap 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+
+  &:hover {
+    box-shadow: 0 8px 32px rgba(30, 58, 138, 0.18);
+  }
+
+  .navbar-left {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+
+    .navbar__logo {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      object-fit: cover;
+      box-shadow: 0 2px 8px rgba(30, 58, 138, 0.1);
+      border: 2px solid #efffef;
+    }
+
+    .navbar__title {
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: #1e3a8a;
+      margin-left: 0.7rem;
+      letter-spacing: 0.03em;
+      text-shadow: 0 1px 2px rgba(30, 58, 138, 0.08);
+    }
+  }
+
+  .navbar-center {
+    list-style: none;
+    display: flex;
+    gap: 2.5rem;
+
+    li a {
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 1rem;
+      color: #162b65;
+      transition: color 0.25s ease, font-weight 0.25s ease;
+
+      &:hover {
+        color: #1e3a8a;
+        font-weight: 600;
+      }
+    }
+  }
+
+  .navbar-right {
+    .cta-btn {
+      padding: 0.8rem 2rem;
+      background: linear-gradient(90deg, #1e3a8a 0%, #2a60b8 100%);
+      color: #fff;
+      font-weight: 700;
+      font-size: 1.05rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(30, 58, 138, 0.1);
+      transition: background 0.3s, box-shadow 0.3s;
+
+      &:hover {
+        background: linear-gradient(90deg, #2a60b8 0%, #1e3a8a 100%);
+        box-shadow: 0 4px 16px rgba(30, 58, 138, 0.18);
+      }
+    }
+  }
+
+  /* Responsive: Hide center links on small screens */
+  @media (max-width: 765px) {
+    .navbar-center {
+      display: none;
+    }
+  }
+
+  /* Extra small screens adjustments */
+  @media (max-width: 525px) {
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+    gap: 1.5rem;
+    opacity: 0.95;
+    transform: translateY(0);
+    .cta-btn {
+      width: 100%;
+      font-size: 1rem;
+      padding: 0.7rem 1rem;
+    }
+  }
+}

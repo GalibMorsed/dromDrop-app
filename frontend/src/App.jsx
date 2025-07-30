@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import RefrshHandler from "./refrshHandler.jsx";
-import Login from "./authPages/Login.jsx";
-import Signup from "./authPages/Signup.jsx";
 import Home from "./sourcePages/homePage.jsx";
+import AdminLogin from "./authPages/adminLogin.jsx";
+import StaffLogin from "./authPages/staffLogin.jsx";
+import StudentLogin from "./authPages/studentLogin.jsx";
+import AdminSignup from "./authPages/adminSignup.jsx";
+import StudentSignup from "./authPages/studentSignup.jsx";
 import AdminPage from "./sourcePages/adminPage.jsx";
 import StaffPage from "./sourcePages/staffPage.jsx";
 import StudentPage from "./sourcePages/studentPage.jsx";
@@ -22,8 +25,11 @@ function App() {
         {/* Redirect root to /home */}
         <Route path="/" element={<Navigate to="/home" />} />
         <Route path="/home" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
+        <Route path="/adminSignup" element={<AdminSignup />} />
+        <Route path="/studentSignup" element={<StudentSignup />} />
+        <Route path="/adminLogin" element={<AdminLogin />} />
+        <Route path="/staffLogin" element={<StaffLogin />} />
+        <Route path="/studentLogin" element={<StudentLogin />} />
         {/* Private routes */}
         <Route
           path="/adminPage"

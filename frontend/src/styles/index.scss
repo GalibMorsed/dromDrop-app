@@ -44,3 +44,33 @@ p {
 @import url(homeCompStyling/homeSection4.scss);
 @import url(homeCompStyling/homeSection5.scss);
 @import url(homeCompStyling/homeFooter.scss);
+
+.btn {
+  border: none;
+  outline: none;
+  background-color: var(--primary-color);
+  color: #fff;
+  padding: 0.75em 1em;
+  text-transform: uppercase;
+  font-size: 1em;
+  font-weight: bold;
+  letter-spacing: 1px;
+  border-radius: 3px;
+  box-shadow: 0 2px 6px var(--shadow-color);
+  &:hover {
+    box-shadow: 0 1px 3px var(--shadow-color);
+  }
+}
+.custom-img {
+  background-color: rgb(163, 132, 132);
+  height: 0;
+  width: 100%;
+  position: relative;
+  img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+}
