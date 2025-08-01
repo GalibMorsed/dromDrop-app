@@ -13,7 +13,9 @@ export default function HomeNav() {
           alt="DormDrop Logo"
           className="navbar__logo"
         />
-        <span className="navbar__title">DormDrop</span>
+        <span className="navbar__title">
+          <Link to="/">DormDrop</Link>
+        </span>
       </div>
 
       {/* Center Links (desktop) */}
