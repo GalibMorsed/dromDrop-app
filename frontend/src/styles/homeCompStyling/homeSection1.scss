@@ -1,5 +1,5 @@
 .section1 {
-  position: relative;
+  position: sticky;
   animation: section1-fade-in 1.2s cubic-bezier(0.23, 1, 0.32, 1);
   width: 100%;
   min-height: 60vh;
@@ -110,7 +110,7 @@
   }
 
   /* <525px: column layout */
-  @media (max-width: 525px) {
+  @media (max-width: 560px) {
     .section1-container {
       flex-direction: column;
       text-align: center;
