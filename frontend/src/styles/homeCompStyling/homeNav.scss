@@ -28,6 +28,16 @@
     align-items: center;
     gap: 0.6rem;
 
+    .navbar__title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      transition: 0.3s;
+      a {
+        color: #1e3a8a;
+        text-decoration: none;
+      }
+    }
+
     .navbar__logo {
       width: 42px;
       height: 42px;
@@ -50,14 +60,6 @@
         opacity: 1;
         transform: translateY(0);
       }
-    }
-
-    .navbar__title {
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: #1e3a8a;
-      text-decoration: none;
-      transition: color 0.3s;
     }
   }
 

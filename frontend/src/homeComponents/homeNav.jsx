@@ -14,7 +14,9 @@ export default function HomeNav() {
           className="navbar__logo"
         />
         <span className="navbar__title">
-          <Link to="/">DormDrop</Link>
+          <Link to="/" className="DromDrop">
+            DormDrop
+          </Link>
         </span>
       </div>
 

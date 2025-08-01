@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 export default function HomeSection3() {
   return (
@@ -23,9 +24,11 @@ export default function HomeSection3() {
             designed for campus efficiency.
           </p>
           <div className="button-group">
-            <button className="sec3-btn login-btn">Admin Login</button>
+            <button className="sec3-btn login-btn">
+              <Link to="/adminLogin">Admin Login</Link>
+            </button>
             <button className="sec3-btn signup-btn">
-              Create Admin Account
+              <Link to="/adminSignup">Create Admin Account</Link>
             </button>
           </div>
         </div>
