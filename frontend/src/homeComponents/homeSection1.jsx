@@ -9,7 +9,7 @@ export default function HomeSection1() {
         {/* Left (Image) */}
         <div className="section1-left">
           <img
-            src="/sec1_img.avif"
+            src="homeSecImgs/sec1_img.avif"
             alt="Laundry Service"
             className="section1-image"
           />

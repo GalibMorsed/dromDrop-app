@@ -25,7 +25,7 @@ export default function HomeSection4() {
           {/* Right Side - Image */}
           <div className="section4-right">
             <img
-              src="/sec1_img.avif"
+              src="homeSecImgs/sec4-img.webp"
               alt="DormDrop Staff"
               className="section4-image"
             />

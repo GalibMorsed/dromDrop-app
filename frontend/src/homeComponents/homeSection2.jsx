@@ -29,7 +29,7 @@ export default function HomeSection2() {
           {/* Right: Image */}
           <div className="section2-right">
             <img
-              src="/sec1_img.avif"
+              src="homeSecImgs/sec2-img.jpg"
               alt="Students Laundry"
               className="section2-image"
             />

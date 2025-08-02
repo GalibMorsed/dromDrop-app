@@ -10,6 +10,7 @@ import StudentSignup from "./authPages/studentSignup.jsx";
 import AdminPage from "./sourcePages/adminPage.jsx";
 import StaffPage from "./sourcePages/staffPage.jsx";
 import StudentPage from "./sourcePages/studentPage.jsx";
+import AboutUs from "./homeComponents/aboutUs.jsx";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -30,6 +31,7 @@ function App() {
         <Route path="/adminLogin" element={<AdminLogin />} />
         <Route path="/staffLogin" element={<StaffLogin />} />
         <Route path="/studentLogin" element={<StudentLogin />} />
+        <Route path="/aboutUs" element={<AboutUs />} />
         {/* Private routes */}
         <Route
           path="/adminPage"
