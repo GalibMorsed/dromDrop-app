@@ -38,6 +38,9 @@ p {
   color: var(--text-color);
 }
 
+//Auth Pages Styling
+@import url(authPages.scss);
+
 //Home Page Components Styling
 @import url(homeCompStyling/homeNav.scss);
 @import url(homeCompStyling/homeSection1.scss);
