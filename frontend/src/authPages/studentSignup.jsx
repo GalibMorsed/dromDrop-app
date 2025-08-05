@@ -5,10 +5,10 @@ import { handleError, handleSuccess } from "../utils";
 
 function StudentSignup() {
   const [signupInfo, setSignupInfo] = useState({
-    name: "",
+    uniqueId: "",
     email: "",
     password: "",
-    role: "Student",
+    role: "Student/User",
   });
 
   const [loading, setLoading] = useState(false);
@@ -22,41 +22,37 @@ function StudentSignup() {
     }));
   };
 
-  const validatePassword = (password) => {
-    const minLength = /.{6,}/;
-    const hasNumber = /\d/;
-    const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/;
-    if (!minLength.test(password))
-      return "Password must be at least 6 characters long.";
-    if (!hasNumber.test(password))
-      return "Password must contain at least one number.";
-    if (!hasSpecialChar.test(password))
-      return "Password must contain at least one special character.";
-    return null;
-  };
-
   const handleSignup = async (e) => {
     e.preventDefault();
-    const { name, email, password, role } = signupInfo;
+    const { uniqueId, email, password, role } = signupInfo;
 
-    if (!name || !email || !password) {
-      return handleError("Name, email, and password are required");
-    }
-
-    const passwordError = validatePassword(password);
-    if (passwordError) {
-      return handleError(passwordError);
+    if (!uniqueId || !email || !password) {
+      return handleError("UniqueId, email, and password are required");
     }
 
     try {
       setLoading(true);
-      const url = "/";
-      const response = await fetch(url, {
+
+      // Step 1: Check if Unique ID is valid
+      const checkUrl = "http://localhost:6060/auth/checkUniqueId";
+      const checkResponse = await fetch(checkUrl, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(signupInfo),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ uniqueId }),
+      });
+
+      const checkResult = await checkResponse.json();
+      if (!checkResult.success) {
+        setLoading(false);
+        return handleError(checkResult.message || "Invalid Unique ID");
+      }
+
+      // Step 2: If valid, proceed with signup
+      const signupUrl = "http://localhost:6060/auth/UserSignup";
+      const response = await fetch(signupUrl, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password, role }),
       });
 
       const result = await response.json();
@@ -84,13 +80,14 @@ function StudentSignup() {
         <h1>Signup Here</h1>
         <form onSubmit={handleSignup}>
           <div>
-            <label htmlFor="name">Unique ID</label>
+            <label htmlFor="uniqueId">Unique ID</label>
             <input
               onChange={handleChange}
-              type="uniqueId"
+              type="text"
+              name="uniqueId"
               autoFocus
               placeholder="Enter the given unique id..."
-              value={signupInfo.name}
+              value={signupInfo.uniqueId}
             />
           </div>
           <div>
@@ -128,7 +125,7 @@ function StudentSignup() {
             {loading ? "Signing up..." : "Signup"}
           </button>
           <span>
-            Already have an account? <Link to="/studentLogin">Login</Link> here.
+            Already have an account? <Link to="/studentLogin">Login</Link>
           </span>
         </form>
       </div>
