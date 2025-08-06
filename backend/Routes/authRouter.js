@@ -1,13 +1,22 @@
-const { signin, login } = require("../Controllers/authController");
+const {
+  signin,
+  login,
+  adminLogin,
+  adminSignup,
+} = require("../Controllers/authController");
 const {
   signinValidation,
   loginValidation,
+  adminSignupValidation,
+  adminLoginValidation,
 } = require("../Middlewares/authValidation");
-const { Router } = require("express");
 
+const { Router } = require("express");
 const router = Router();
 
 router.post("/Userlogin", loginValidation, login);
 router.post("/Usersignin", signinValidation, signin);
+router.post("/Adminlogin", adminLoginValidation, adminLogin);
+router.post("/Adminsignup", adminSignupValidation, adminSignup);
 
 module.exports = router;

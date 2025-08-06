@@ -5,7 +5,7 @@ import { handleError, handleSuccess } from "../utils";
 
 function AdminSignup() {
   const [signupInfo, setSignupInfo] = useState({
-    name: "",
+    institution: "",
     email: "",
     password: "",
     role: "Administrator",
@@ -22,35 +22,17 @@ function AdminSignup() {
     }));
   };
 
-  const validatePassword = (password) => {
-    const minLength = /.{6,}/;
-    const hasNumber = /\d/;
-    const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/;
-    if (!minLength.test(password))
-      return "Password must be at least 6 characters long.";
-    if (!hasNumber.test(password))
-      return "Password must contain at least one number.";
-    if (!hasSpecialChar.test(password))
-      return "Password must contain at least one special character.";
-    return null;
-  };
-
   const handleSignup = async (e) => {
     e.preventDefault();
-    const { name, email, password, role } = signupInfo;
+    const { institution, email, password, role } = signupInfo;
 
-    if (!name || !email || !password) {
-      return handleError("Name, email, and password are required");
-    }
-
-    const passwordError = validatePassword(password);
-    if (passwordError) {
-      return handleError(passwordError);
+    if (!institution || !email || !password) {
+      return handleError("Institution, email, and password are required");
     }
 
     try {
       setLoading(true);
-      const url = "/";
+      const url = "http://localhost:6060/auth/adminSignup";
       const response = await fetch(url, {
         method: "POST",
         headers: {
@@ -81,16 +63,18 @@ function AdminSignup() {
     <div className="wholeConatiner">
       <h1 className="logo">DormDrop</h1>
       <div className="auth-container">
-        <h1>Signup Here</h1>
+        <h1>Admin Signup</h1>
         <form onSubmit={handleSignup}>
           <div>
-            <label htmlFor="name">Institution name</label>
+            <label htmlFor="institution">Institution Name</label>
             <input
               onChange={handleChange}
-              type="institution"
+              type="text"
+              name="institution"
               autoFocus
               placeholder="Enter your institution name..."
-              value={signupInfo.name}
+              value={signupInfo.institution}
+              required
             />
           </div>
           <div>
@@ -101,6 +85,7 @@ function AdminSignup() {
               name="email"
               placeholder="Enter your email..."
               value={signupInfo.email}
+              required
             />
           </div>
           <div>
@@ -111,6 +96,7 @@ function AdminSignup() {
               name="password"
               placeholder="Enter your password..."
               value={signupInfo.password}
+              required
             />
           </div>
           <div>
@@ -124,7 +110,7 @@ function AdminSignup() {
               className="readonly-field"
             />
           </div>
-          <button className="auth-btn" type="submit" disabled={loading}>
+          <button className="auth-btn btn" type="submit" disabled={loading}>
             {loading ? "Signing up..." : "Signup"}
           </button>
           <span>
@@ -132,7 +118,7 @@ function AdminSignup() {
           </span>
         </form>
       </div>
-      <ToastContainer />
+      <ToastContainer position="top-right" autoClose={3000} theme="colored" />
     </div>
   );
 }

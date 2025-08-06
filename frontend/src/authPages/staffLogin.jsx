@@ -103,7 +103,7 @@ function StaffLogin() {
               className="readonly-field"
             />
           </div>
-          <button className="auth-btn" type="submit">
+          <button className="auth-btn btn" type="submit">
             Login
           </button>
           <span>

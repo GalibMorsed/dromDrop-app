@@ -9,6 +9,7 @@ function AdminLogin() {
     password: "",
   });
 
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -28,7 +29,8 @@ function AdminLogin() {
     }
 
     try {
-      const url = "/";
+      setLoading(true);
+      const url = "http://localhost:6060/auth/adminLogin";
       const response = await fetch(url, {
         method: "POST",
         headers: {
@@ -38,12 +40,11 @@ function AdminLogin() {
       });
 
       const result = await response.json();
-      const { success, message, jwtToken, name, error } = result;
+      const { success, message, jwtToken, email, error } = result;
 
       if (success) {
         handleSuccess(message);
         localStorage.setItem("token", jwtToken);
-        localStorage.setItem("loggedInUser", name);
         localStorage.setItem("userEmail", email);
         setTimeout(() => navigate("/adminPage"), 1000);
       } else {
@@ -53,12 +54,14 @@ function AdminLogin() {
       console.log(result);
     } catch (err) {
       handleError(err.message);
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <div className="wholeConatiner">
-      <h1 className="logo">DromDrop</h1>
+      <h1 className="logo">DormDrop</h1>
       <div className="auth-container">
         <h1>Admin Login</h1>
         <form onSubmit={handleLogin}>
@@ -70,6 +73,7 @@ function AdminLogin() {
               name="email"
               placeholder="Enter your email..."
               value={loginInfo.email}
+              required
             />
           </div>
           <div>
@@ -80,21 +84,22 @@ function AdminLogin() {
               name="password"
               placeholder="Enter your password..."
               value={loginInfo.password}
+              required
             />
           </div>
-          <button className="auth-btn" type="submit">
-            Login
+          <button className="auth-btn btn" type="submit" disabled={loading}>
+            {loading ? "Logging in..." : "Login"}
           </button>
           <span>
             <Link to="/">Forgot Password?</Link>
           </span>
           <span>
             Don't have an account?{" "}
-            <Link to="/studentSignup"> Create Account</Link>
+            <Link to="/adminSignup"> Create Account</Link>
           </span>
         </form>
       </div>
-      <ToastContainer />
+      <ToastContainer position="top-right" autoClose={3000} theme="colored" />
     </div>
   );
 }

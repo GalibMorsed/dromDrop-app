@@ -87,7 +87,7 @@ function StudentLogin() {
               required
             />
           </div>
-          <button className="auth-btn" type="submit" disabled={loading}>
+          <button className="auth-btn btn" type="submit" disabled={loading}>
             {loading ? "Logging in..." : "Login"}
           </button>
           <span>

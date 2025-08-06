@@ -121,7 +121,7 @@ function StudentSignup() {
               className="readonly-field"
             />
           </div>
-          <button className="auth-btn" type="submit" disabled={loading}>
+          <button className="auth-btn btn" type="submit" disabled={loading}>
             {loading ? "Signing up..." : "Signup"}
           </button>
           <span>
