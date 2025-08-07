@@ -22,7 +22,7 @@ export default function AdminNav() {
           className="admin-navbar__logo"
         />
         <span className="admin-navbar__title">
-          <p className="admin-brand">Welcome,Admin</p>
+          <p className="admin-brand">Hii,Admin</p>
         </span>
       </div>
 
