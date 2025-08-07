@@ -51,6 +51,13 @@ p {
 @import url(homeCompStyling/homeFooter.scss);
 @import url(homeCompStyling/aboutUs.scss);
 
+//Admin Page Components Styling
+@import url(adminCompStyling/adminNav.scss);
+@import url(adminCompStyling/adminSection1.scss);
+@import url(adminCompStyling/adminSection2.scss);
+@import url(adminCompStyling/adminSection3.scss);
+@import url(adminCompStyling/adminSection4.scss);
+
 .btn {
   border: none;
   outline: none;
