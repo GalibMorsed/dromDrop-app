@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import { handleError, handleSuccess } from "../utils";
 
-function AdminLogin() {
+function AdminLogin({ setIsAuthenticated }) {
   const [loginInfo, setLoginInfo] = useState({
     email: "",
     password: "",
@@ -46,6 +46,8 @@ function AdminLogin() {
         handleSuccess(message);
         localStorage.setItem("token", jwtToken);
         localStorage.setItem("userEmail", email);
+        localStorage.setItem("role", "admin");
+        setIsAuthenticated(true);
         setTimeout(() => navigate("/adminPage"), 1000);
       } else {
         handleError(error?.details?.[0]?.message || message);

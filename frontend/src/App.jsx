@@ -12,38 +12,115 @@ import StaffPage from "./sourcePages/staffPage.jsx";
 import StudentPage from "./sourcePages/studentPage.jsx";
 import AboutUs from "./homeComponents/aboutUs.jsx";
 
-function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+// Private route wrapper
+const PrivateRoute = ({ element, isAuthenticated, allowedRole }) => {
+  const userRole = localStorage.getItem("role");
+  return isAuthenticated && userRole === allowedRole ? (
+    element
+  ) : (
+    <Navigate to="/home" />
+  );
+};
 
-  const PrivateRoute = ({ element }) => {
-    return isAuthenticated ? element : <Navigate to="/home" />;
-  };
+// Public route wrapper
+const PublicRoute = ({ element, isAuthenticated }) => {
+  return isAuthenticated ? <Navigate to="/home" /> : element;
+};
+
+function App() {
+  const [isAuthenticated, setIsAuthenticated] = useState(
+    !!localStorage.getItem("token")
+  );
 
   return (
     <div className="App">
       <RefrshHandler setIsAuthenticated={setIsAuthenticated} />
       <Routes>
-        {/* Redirect root to /home */}
         <Route path="/" element={<Navigate to="/home" />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/adminSignup" element={<AdminSignup />} />
-        <Route path="/studentSignup" element={<StudentSignup />} />
-        <Route path="/adminLogin" element={<AdminLogin />} />
-        <Route path="/staffLogin" element={<StaffLogin />} />
-        <Route path="/studentLogin" element={<StudentLogin />} />
+
+        {/* Public routes*/}
+        <Route
+          path="/home"
+          element={
+            <PublicRoute isAuthenticated={isAuthenticated} element={<Home />} />
+          }
+        />
+        <Route
+          path="/adminLogin"
+          element={
+            <PublicRoute
+              element={<AdminLogin setIsAuthenticated={setIsAuthenticated} />}
+            />
+          }
+        />
+        <Route
+          path="/staffLogin"
+          element={
+            <PublicRoute
+              element={<StaffLogin setIsAuthenticated={setIsAuthenticated} />}
+            />
+          }
+        />
+        <Route
+          path="/studentLogin"
+          element={
+            <PublicRoute
+              element={<StudentLogin setIsAuthenticated={setIsAuthenticated} />}
+            />
+          }
+        />
+        <Route
+          path="/adminSignup"
+          element={
+            <PublicRoute
+              isAuthenticated={isAuthenticated}
+              element={<AdminSignup />}
+            />
+          }
+        />
+        <Route
+          path="/studentSignup"
+          element={
+            <PublicRoute
+              isAuthenticated={isAuthenticated}
+              element={<StudentSignup />}
+            />
+          }
+        />
+
+        {/* Static page */}
         <Route path="/aboutUs" element={<AboutUs />} />
-        {/* Private routes */}
+
+        {/* Private routes*/}
         <Route
           path="/adminPage"
-          element={<PrivateRoute element={<AdminPage />} />}
+          element={
+            <PrivateRoute
+              isAuthenticated={isAuthenticated}
+              allowedRole="admin"
+              element={<AdminPage />}
+            />
+          }
         />
         <Route
           path="/staffPage"
-          element={<PrivateRoute element={<StaffPage />} />}
+          element={
+            <PrivateRoute
+              isAuthenticated={isAuthenticated}
+              allowedRole="staff"
+              element={<StaffPage />}
+            />
+          }
         />
         <Route
           path="/studentPage"
-          element={<PrivateRoute element={<StudentPage />} />}
+          element={
+            <PrivateRoute
+              isAuthenticated={isAuthenticated}
+              allowedRole="student/user"
+              element={<StudentPage />}
+            />
+          }
         />
       </Routes>
     </div>

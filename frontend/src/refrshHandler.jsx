@@ -6,24 +6,39 @@ function RefrshHandler({ setIsAuthenticated }) {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (localStorage.getItem("token")) {
+    const token = localStorage.getItem("token");
+    const role = localStorage.getItem("role");
+
+    if (token) {
       setIsAuthenticated(true);
-      const role = localStorage.getItem("role");
-      if (
-        location.pathname === "/" ||
-        location.pathname === "/login" ||
-        location.pathname === "/signup"
-      ) {
+
+      const publicPaths = [
+        "/",
+        "/home",
+        "/adminLogin",
+        "/staffLogin",
+        "/studentLogin",
+        "/adminSignup",
+        "/studentSignup",
+      ];
+
+      if (publicPaths.includes(location.pathname)) {
         if (role === "admin") {
-          navigate("/adminPage", { replace: false });
+          navigate("/adminPage", { replace: true });
         } else if (role === "staff") {
-          navigate("/staffPage", { replace: false });
-        } else if (role === "student") {
-          navigate("/studentPage", { replace: false });
+          navigate("/staffPage", { replace: true });
+        } else if (role === "student/user") {
+          navigate("/studentPage", { replace: true });
         }
       }
+    } else {
+      setIsAuthenticated(false);
+      const privatePaths = ["/adminPage", "/staffPage", "/studentPage"];
+      if (privatePaths.includes(location.pathname)) {
+        navigate("/home", { replace: true });
+      }
     }
-  }, [location, navigate, setIsAuthenticated]);
+  }, [location.pathname, navigate, setIsAuthenticated]);
 
   return null;
 }

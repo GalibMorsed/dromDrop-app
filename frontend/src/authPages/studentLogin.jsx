@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import { handleError, handleSuccess } from "../utils";
 
-function StudentLogin() {
+function StudentLogin({ setIsAuthenticated }) {
   const [loginInfo, setLoginInfo] = useState({
     email: "",
     password: "",
@@ -46,6 +46,8 @@ function StudentLogin() {
         handleSuccess(message);
         localStorage.setItem("token", jwtToken);
         localStorage.setItem("userEmail", email);
+        localStorage.setItem("role", "student/user");
+        setIsAuthenticated(true);
         setTimeout(() => navigate("/studentPage"), 1000);
       } else {
         handleError(error?.details?.[0]?.message || message);
