@@ -46,7 +46,7 @@ function AdminLogin({ setIsAuthenticated }) {
         handleSuccess(message);
         localStorage.setItem("token", jwtToken);
         localStorage.setItem("userEmail", email);
-        localStorage.setItem("role", "admin");
+        localStorage.setItem("role", "Administrator");
         setIsAuthenticated(true);
         setTimeout(() => navigate("/adminPage"), 1000);
       } else {

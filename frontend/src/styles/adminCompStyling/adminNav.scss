@@ -13,108 +13,121 @@
   display: flex;
   align-items: center;
   gap: 0.6rem;
-}
 
-.admin-navbar__logo {
-  width: 42px;
-  height: 42px;
-  border-radius: 50%;
-  object-fit: cover;
-}
+  .admin-navbar__logo {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
 
-.admin-navbar__title {
-  font-size: 1.2rem;
-  font-weight: 600;
-}
-
-.admin-brand {
-  text-decoration: none;
-  color: #fff; /* Changed text color for better contrast on blue background */
+  .admin-navbar__title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #fff;
+  }
 }
 
 .admin-navbar-center {
   display: flex;
   list-style: none;
   gap: 3rem;
-}
 
-.admin-navbar-center li a {
-  text-decoration: none;
-  font-weight: 500;
-  color: #000000;
-  transition: color 0.3s;
-}
+  li a {
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1rem;
+    color: #000000;
+    transition: color 0.3s;
 
-.admin-navbar-center.active {
-  display: flex;
-  flex-direction: column;
-  position: absolute;
-  top: 100%;
-  right: 1.5rem;
-  background: #ffffff;
-  border-radius: 10px;
-  padding: 1rem 1.5rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  gap: 1rem;
-  animation: fadeIn 0.3s ease-in-out;
+    &:hover {
+      color: #606060;
+      font-weight: 400;
+    }
+  }
+
+  &.active {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    right: 1.5rem;
+    background: #ffffff;
+    border-radius: 10px;
+    padding: 1rem 1.5rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    gap: 1rem;
+    animation: fadeIn 0.3s ease-in-out;
+  }
+  .admin-cta-btn {
+    padding: 0.7rem 1.6rem;
+    background: linear-gradient(90deg, #b82a2a 0%, #8a1e1e 100%);
+    color: #fff;
+    font-weight: 600;
+    font-size: 1rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s;
+
+    &:hover {
+      background: linear-gradient(90deg, #8a371e 0%, #b8572a 100%);
+    }
+  }
 }
 
 .admin-navbar-right {
   display: flex;
   align-items: center;
   gap: 0.5rem;
+
+  .admin-cta-btn {
+    padding: 0.7rem 1.6rem;
+    background: linear-gradient(90deg, #b82a2a 0%, #8a1e1e 100%);
+    color: #fff;
+    font-weight: 600;
+    font-size: 1rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s;
+
+    &:hover {
+      background: linear-gradient(90deg, #8a371e 0%, #b8572a 100%);
+    }
+  }
+
+  .admin-hamburger {
+    flex-direction: column;
+    justify-content: space-between;
+    width: 24px;
+    height: 18px;
+    cursor: pointer;
+
+    span {
+      height: 3px;
+      background: #ffffff;
+      border-radius: 2px;
+      transition: 0.3s;
+    }
+
+    &.open span:nth-child(1) {
+      transform: rotate(45deg) translate(4px, 4px);
+    }
+
+    &.open span:nth-child(2) {
+      opacity: 0;
+    }
+
+    &.open span:nth-child(3) {
+      transform: rotate(-45deg) translate(4px, -4px);
+    }
+  }
 }
-
-.admin-cta-btn {
-  padding: 0.7rem 1.6rem;
-  background: linear-gradient(90deg, #b82a2a 0%, #8a1e1e 100%);
-  color: #fff;
-  font-weight: 600;
-  font-size: 1rem;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: background 0.3s;
-}
-
-.admin-cta-btn:hover {
-  background: linear-gradient(90deg, #8a371e 0%, #b8572a 100%);
-}
-
-.admin-hamburger {
-  display: none;
-  flex-direction: column;
-  justify-content: space-between;
-  width: 24px;
-  height: 18px;
-  cursor: pointer;
-}
-
-.admin-hamburger span {
-  height: 3px;
-  background: #fff; /* Changed color to white for contrast */
-  border-radius: 2px;
-  transition: 0.3s;
-}
-
-.admin-hamburger.open span:nth-child(1) {
-  transform: rotate(45deg) translate(4px, 4px);
-}
-
-.admin-hamburger.open span:nth-child(2) {
-  opacity: 0;
-}
-
-.admin-hamburger.open span:nth-child(3) {
-  transform: rotate(-45deg) translate(4px, -4px);
-}
-
-/* Responsive */
-
 .admin-mobile-only {
   display: none;
 }
-@media (max-width: 830px) {
+@media (max-width: 800px) {
   .admin-navbar-center {
     display: none;
   }

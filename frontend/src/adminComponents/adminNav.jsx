@@ -4,6 +4,10 @@ import { useNavigate, Link } from "react-router-dom";
 export default function AdminNav() {
   const [menuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
+  const [role, setRole] = useState("");
+  useEffect(() => {
+    setRole(localStorage.getItem("role"));
+  }, []);
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -21,9 +25,7 @@ export default function AdminNav() {
           alt="Admin"
           className="admin-navbar__logo"
         />
-        <span className="admin-navbar__title">
-          <p className="admin-brand">Hii,Admin</p>
-        </span>
+        <span className="admin-navbar__title">{role}</span>
       </div>
 
       {/* Center Links */}

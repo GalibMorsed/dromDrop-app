@@ -46,7 +46,7 @@ function StudentLogin({ setIsAuthenticated }) {
         handleSuccess(message);
         localStorage.setItem("token", jwtToken);
         localStorage.setItem("userEmail", email);
-        localStorage.setItem("role", "student/user");
+        localStorage.setItem("role", "Students");
         setIsAuthenticated(true);
         setTimeout(() => navigate("/studentPage"), 1000);
       } else {

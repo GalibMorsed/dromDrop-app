@@ -97,7 +97,7 @@ function App() {
           element={
             <PrivateRoute
               isAuthenticated={isAuthenticated}
-              allowedRole="admin"
+              allowedRole="Administrator"
               element={<AdminPage />}
             />
           }
@@ -107,7 +107,7 @@ function App() {
           element={
             <PrivateRoute
               isAuthenticated={isAuthenticated}
-              allowedRole="staff"
+              allowedRole="Faculty"
               element={<StaffPage />}
             />
           }
@@ -117,7 +117,7 @@ function App() {
           element={
             <PrivateRoute
               isAuthenticated={isAuthenticated}
-              allowedRole="student/user"
+              allowedRole="Students"
               element={<StudentPage />}
             />
           }
