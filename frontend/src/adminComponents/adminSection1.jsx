@@ -32,7 +32,7 @@ export default function AdminSection1() {
       <div className="welcome-container">
         <h2 className="welcome-title">Welcome back, {adminData.role} 👋</h2>
         <p className="welcome-subtitle">
-          You're Managing <strong>{adminData.institution}</strong> | Email:{" "}
+          You're Managing: <strong>{adminData.institution}</strong> | Email:{" "}
           <span>{adminData.email}</span>
         </p>
 

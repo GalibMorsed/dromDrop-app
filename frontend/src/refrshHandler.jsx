@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
-function RefrshHandler({ setIsAuthenticated }) {
+function RefreshHandler({ setIsAuthenticated }) {
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -9,38 +9,40 @@ function RefrshHandler({ setIsAuthenticated }) {
     const token = localStorage.getItem("token");
     const role = localStorage.getItem("role");
 
-    if (token) {
+    const publicPaths = [
+      "/",
+      "/home",
+      "/adminLogin",
+      "/staffLogin",
+      "/studentLogin",
+      "/adminSignup",
+      "/studentSignup",
+    ];
+
+    const privatePaths = ["/adminPage", "/staffPage", "/studentPage"];
+
+    if (token && role) {
       setIsAuthenticated(true);
 
-      const publicPaths = [
-        "/",
-        "/home",
-        "/adminLogin",
-        "/staffLogin",
-        "/studentLogin",
-        "/adminSignup",
-        "/studentSignup",
-      ];
-
       if (publicPaths.includes(location.pathname)) {
-        if (role === "admin") {
+        if (role === "Administrator") {
           navigate("/adminPage", { replace: true });
-        } else if (role === "staff") {
+        } else if (role === "Faculty") {
           navigate("/staffPage", { replace: true });
-        } else if (role === "student/user") {
+        } else if (role === "Students") {
           navigate("/studentPage", { replace: true });
         }
       }
     } else {
       setIsAuthenticated(false);
-      const privatePaths = ["/adminPage", "/staffPage", "/studentPage"];
+
       if (privatePaths.includes(location.pathname)) {
-        navigate("/home", { replace: true });
+        navigate("/", { replace: true });
       }
     }
-  }, [location.pathname, navigate, setIsAuthenticated]);
+  }, [location.key]);
 
   return null;
 }
 
-export default RefrshHandler;
+export default RefreshHandler;

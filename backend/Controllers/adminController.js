@@ -14,7 +14,6 @@ const getAdminDashboardInfo = async (req, res) => {
       return res.status(404).json({ message: "Admin not found" });
     }
 
-    // Count students & staff
     const studentCount = await User.countDocuments();
     // const staffCount = await Staff.countDocuments();
 
