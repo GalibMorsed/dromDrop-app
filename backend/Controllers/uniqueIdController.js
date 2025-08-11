@@ -45,11 +45,21 @@ const getUniqueId = async (req, res) => {
     }
 
     const record = await UniqueId.findOne({ email });
+
     if (!record) {
-      return res.status(404).json({ uniqueId: null });
+      // ✅ No record found → success message
+      return res.status(200).json({
+        success: true,
+        message: "No unique ID found. You can create one.",
+        uniqueId: null,
+      });
     }
 
-    res.status(200).json({
+    // ❌ Record exists → error message
+    return res.status(400).json({
+      success: false,
+      message:
+        "A unique ID already exists for this user. Creation not allowed.",
       uniqueId: record.uniqueId,
       institutionName: record.institution,
     });
