@@ -6,7 +6,7 @@ const AdminModel = require("../Models/Admin");
 // added controller for user authentication
 const signin = async (req, res) => {
   try {
-    const { role, email, password, uniqueId, institutionName } = req.body;
+    const { uniqueId, instituteName, email, password, role } = req.body;
     const user = await UserModel.findOne({ email });
     if (user) {
       return res.status(409).json({
@@ -15,11 +15,11 @@ const signin = async (req, res) => {
       });
     }
     const userModel = new UserModel({
-      role,
+      uniqueId,
+      instituteName,
       email,
       password,
-      uniqueId,
-      institutionName,
+      role,
     });
     userModel.password = await bcrypt.hash(password, 10);
     await userModel.save();
@@ -28,8 +28,9 @@ const signin = async (req, res) => {
       success: true,
     });
   } catch (err) {
+    console.error(err); // 👈 see exact cause
     res.status(500).json({
-      message: "Internal server error",
+      message: err.message, // send actual error for now
       success: false,
     });
   }

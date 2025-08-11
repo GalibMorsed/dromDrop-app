@@ -7,7 +7,7 @@ const signinValidation = (req, res, next) => {
     email: Joi.string().email().required(),
     password: Joi.string().min(4).max(100).required(),
     uniqueId: Joi.string().min(4).max(100).required(),
-    institutionName: Joi.string().min(3).max(100).required(),
+    instituteName: Joi.string().min(3).max(100).required(),
   });
   const { error } = schema.validate(req.body);
   if (error) {

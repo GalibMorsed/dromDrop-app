@@ -9,7 +9,7 @@ function StudentSignup() {
     email: "",
     password: "",
     role: "Student/User",
-    institutionName: "",
+    instituteName: "", // used for backend
   });
 
   const [loading, setLoading] = useState(false);
@@ -41,10 +41,11 @@ function StudentSignup() {
       const data = await res.json();
 
       if (data.success) {
-        handleSuccess("✅ Unique ID verified successfully!");
+        handleSuccess("Unique ID verified successfully!");
         setSignupInfo((prev) => ({
           ...prev,
-          institutionName: data.institutionName || "",
+          // Accept either instituteName or institutionName from backend
+          instituteName: data.instituteName || data.institutionName || "",
         }));
         setIsVerified(true);
       } else {
@@ -62,7 +63,7 @@ function StudentSignup() {
   const handleSignup = async (e) => {
     e.preventDefault();
 
-    const { uniqueId, email, password, role, institutionName } = signupInfo;
+    const { uniqueId, email, password, role, instituteName } = signupInfo;
 
     // Force verification before signup
     if (!isVerified) {
@@ -80,7 +81,7 @@ function StudentSignup() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           uniqueId,
-          institutionName,
+          instituteName, // ✅ matches backend schema
           email,
           password,
           role,
@@ -132,9 +133,9 @@ function StudentSignup() {
                   : "Verify"}
               </button>
             </div>
-            {isVerified && signupInfo.institutionName && (
+            {isVerified && signupInfo.instituteName && (
               <p className="institution-info">
-                Institution: <strong>{signupInfo.institutionName}</strong>
+                Institution: <strong>{signupInfo.instituteName}</strong>
               </p>
             )}
           </div>
