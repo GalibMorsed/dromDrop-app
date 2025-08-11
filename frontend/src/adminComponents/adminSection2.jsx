@@ -14,7 +14,7 @@ export default function AdminSection2() {
   useEffect(() => {
     const fetchUniqueId = async () => {
       try {
-        const res = await axios.post(
+        const res = await axios.get(
           "http://localhost:6060/uniqueId/verifyUniqueId",
           { email } // backend uses email for verification
         );
