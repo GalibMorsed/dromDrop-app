@@ -6,7 +6,7 @@ const AdminModel = require("../Models/Admin");
 // added controller for user authentication
 const signin = async (req, res) => {
   try {
-    const { role, email, password } = req.body;
+    const { role, email, password, uniqueId, institutionName } = req.body;
     const user = await UserModel.findOne({ email });
     if (user) {
       return res.status(409).json({
@@ -14,7 +14,13 @@ const signin = async (req, res) => {
         success: false,
       });
     }
-    const userModel = new UserModel({ role, email, password });
+    const userModel = new UserModel({
+      role,
+      email,
+      password,
+      uniqueId,
+      institutionName,
+    });
     userModel.password = await bcrypt.hash(password, 10);
     await userModel.save();
     res.status(201).json({

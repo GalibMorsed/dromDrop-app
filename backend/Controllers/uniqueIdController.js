@@ -38,29 +38,28 @@ const createUniqueId = async (req, res) => {
 
 const getUniqueId = async (req, res) => {
   try {
-    const { email } = req.params;
+    const { email } = req.query;
 
     if (!email) {
       return res.status(400).json({ error: "Email is required" });
     }
 
-    const record = await UniqueId.findOne({ email });
+    const record = await UniqueId.findOne({ adminEmail: email });
 
     if (!record) {
-      // ✅ No record found → success message
       return res.status(200).json({
         success: true,
         message: "No unique ID found. You can create one.",
         uniqueId: null,
+        createdAt: null,
       });
     }
 
-    // ❌ Record exists → error message
-    return res.status(400).json({
-      success: false,
-      message:
-        "A unique ID already exists for this user. Creation not allowed.",
+    return res.status(200).json({
+      success: true,
+      message: "Unique ID found",
       uniqueId: record.uniqueId,
+      createdAt: record.createdAt,
       institutionName: record.institution,
     });
   } catch (error) {
@@ -69,4 +68,28 @@ const getUniqueId = async (req, res) => {
   }
 };
 
-module.exports = { createUniqueId, getUniqueId };
+const verifyUniqueId = async (req, res) => {
+  try {
+    const { uniqueId } = req.body;
+
+    if (!uniqueId) {
+      return res.status(400).json({ error: "Unique ID is required" });
+    }
+
+    const record = await UniqueId.findOne({ uniqueId });
+    if (!record) {
+      return res.status(404).json({ error: "Invalid Unique ID" });
+    }
+
+    res.json({
+      message: "Valid Unique ID",
+      success: true,
+      institutionName: record.institutionName,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Server error" });
+  }
+};
+
+module.exports = { createUniqueId, getUniqueId, verifyUniqueId };

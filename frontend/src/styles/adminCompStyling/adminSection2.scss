@@ -1,144 +1,96 @@
 .admin-section2 {
-  padding: 20px;
-  background: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-  max-width: 600px;
-  margin: auto;
-  font-family: "Poppins", sans-serif;
+  display: flex;
+  justify-content: center;
+  padding: 10vh 20px;
+  background: #f8fafc;
+  min-height: calc(90vh - 180px);
+  animation: fadeInUp 0.6s ease forwards;
 
-  h2 {
-    font-size: 1.6rem;
-    font-weight: 600;
-    color: #333;
-    margin-bottom: 20px;
-  }
-
-  .create-btn {
-    padding: 12px 20px;
-    background: linear-gradient(90deg, #007bff, #0056b3);
-    color: #fff;
-    font-weight: 500;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.3s ease-in-out;
-
-    &:hover {
-      transform: translateY(-2px);
-      background: linear-gradient(90deg, #0056b3, #003d80);
-    }
-  }
-
-  .unique-id-display {
-    label {
-      display: block;
-      font-weight: 500;
-      margin-bottom: 6px;
-      color: #444;
-    }
-    input {
-      width: 100%;
-      padding: 12px;
-      border: 2px solid #ddd;
-      border-radius: 8px;
-      background: #f7f7f7;
-      font-size: 1rem;
-      color: #555;
-      pointer-events: none;
-    }
-  }
-
-  .warning-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.4);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    animation: fadeIn 0.3s ease-in-out;
-    z-index: 999;
-
-    .warning-box {
-      background: #fff;
-      padding: 25px;
-      border-radius: 12px;
-      max-width: 450px;
-      text-align: center;
-      animation: slideUp 0.4s ease-in-out;
-
-      p {
-        font-size: 1rem;
-        margin-bottom: 20px;
-        color: #333;
-      }
-
-      .warning-actions {
-        display: flex;
-        justify-content: space-around;
-
-        .cancel-btn {
-          background: #ccc;
-          border: none;
-          padding: 10px 18px;
-          border-radius: 8px;
-          cursor: pointer;
-          transition: all 0.3s;
-          &:hover {
-            background: #bbb;
-          }
-        }
-
-        .confirm-btn {
-          background: #d9534f;
-          color: #fff;
-          border: none;
-          padding: 10px 18px;
-          border-radius: 8px;
-          cursor: pointer;
-          transition: all 0.3s;
-          &:hover {
-            background: #c9302c;
-          }
-        }
-      }
-    }
-  }
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-@keyframes slideUp {
-  from {
-    transform: translateY(50px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-
-@media (max-width: 600px) {
-  .admin-section2 {
-    padding: 15px;
+  .id-container {
+    background: #ffffff;
+    border-radius: 18px;
+    padding: 40px 35px;
+    max-width: 650px;
+    width: 100%;
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.08);
+    animation: scaleUp 0.4s ease forwards;
+    text-align: center;
 
     h2 {
-      font-size: 1.4rem;
+      font-size: 2rem;
+      font-weight: 700;
+      color: #111827;
+      margin-bottom: 20px;
+      position: relative;
+
+      &::after {
+        content: "";
+        display: block;
+        width: 60px;
+        height: 3px;
+        background: linear-gradient(90deg, #2563eb, #1e40af);
+        margin: 10px auto 0;
+        border-radius: 2px;
+      }
     }
 
-    .warning-box {
-      max-width: 90%;
-      padding: 20px;
+    label {
+      display: block;
+      font-weight: 600;
+      font-size: 1rem;
+      color: #374151;
+      margin-bottom: 10px;
+    }
+
+    input.blocked-field {
+      width: 100%;
+      padding: 14px;
+      font-size: 1.1rem;
+      border-radius: 10px;
+      border: 2px solid #e5e7eb;
+      background-color: #f9fafb;
+      color: #4b5563;
+      cursor: not-allowed;
+      user-select: all;
+      text-align: center;
+      font-weight: 500;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+
+      &:focus {
+        outline: none;
+        border-color: #2563eb;
+        box-shadow: 0 0 8px rgba(37, 99, 235, 0.3);
+      }
+    }
+
+    p {
+      margin-top: 15px;
+      font-size: 0.95rem;
+      color: #6b7280;
+      font-style: italic;
+    }
+  }
+
+  /* Animations */
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes scaleUp {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
     }
   }
 }

@@ -2,9 +2,9 @@ const Admin = require("../Models/Admin");
 
 const verifyAdmin = async (req, res, next) => {
   try {
-    const { role, email } = req.body;
+    const { email, role } = req.query;
 
-    if (!role || !email) {
+    if (!email || !role) {
       return res.status(400).json({ error: "Role and email are required" });
     }
 

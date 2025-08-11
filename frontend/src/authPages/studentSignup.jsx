@@ -9,63 +9,91 @@ function StudentSignup() {
     email: "",
     password: "",
     role: "Student/User",
+    institutionName: "",
   });
 
   const [loading, setLoading] = useState(false);
+  const [verifying, setVerifying] = useState(false);
+  const [isVerified, setIsVerified] = useState(false);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setSignupInfo((prevState) => ({
-      ...prevState,
+    setSignupInfo((prev) => ({
+      ...prev,
       [name]: value,
     }));
   };
 
+  // ✅ Verify Unique ID
+  const verifyUniqueId = async () => {
+    if (!signupInfo.uniqueId.trim()) {
+      return handleError("Please enter a Unique ID to verify.");
+    }
+    try {
+      setVerifying(true);
+      const res = await fetch("http://localhost:6060/uniqueId/verifyUniqueId", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ uniqueId: signupInfo.uniqueId }),
+      });
+
+      const data = await res.json();
+
+      if (data.success) {
+        handleSuccess("✅ Unique ID verified successfully!");
+        setSignupInfo((prev) => ({
+          ...prev,
+          institutionName: data.institutionName || "",
+        }));
+        setIsVerified(true);
+      } else {
+        handleError(data.message || "Invalid Unique ID");
+        setIsVerified(false);
+      }
+    } catch (err) {
+      handleError(err.message);
+    } finally {
+      setVerifying(false);
+    }
+  };
+
+  // ✅ Signup process
   const handleSignup = async (e) => {
     e.preventDefault();
-    const { uniqueId, email, password, role } = signupInfo;
 
-    if (!uniqueId || !email || !password) {
-      return handleError("UniqueId, email, and password are required");
+    const { uniqueId, email, password, role, institutionName } = signupInfo;
+
+    // Force verification before signup
+    if (!isVerified) {
+      return handleError("Please verify your Unique ID before signing up.");
+    }
+
+    if (!email.trim() || !password.trim()) {
+      return handleError("Email and password are required");
     }
 
     try {
       setLoading(true);
-
-      // Step 1: Check if Unique ID is valid
-      const checkUrl = "http://localhost:6060/auth/checkUniqueId";
-      const checkResponse = await fetch(checkUrl, {
+      const response = await fetch("http://localhost:6060/auth/Usersignin", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ uniqueId }),
-      });
-
-      const checkResult = await checkResponse.json();
-      if (!checkResult.success) {
-        setLoading(false);
-        return handleError(checkResult.message || "Invalid Unique ID");
-      }
-
-      // Step 2: If valid, proceed with signup
-      const signupUrl = "http://localhost:6060/auth/UserSignup";
-      const response = await fetch(signupUrl, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password, role }),
+        body: JSON.stringify({
+          uniqueId,
+          institutionName,
+          email,
+          password,
+          role,
+        }),
       });
 
       const result = await response.json();
-      const { success, message, error } = result;
-
-      if (success) {
-        handleSuccess(message);
-        setTimeout(() => navigate("/studentLogin"), 1000);
+      if (result.success) {
+        handleSuccess(result.message || "Signup successful!");
+        setTimeout(() => navigate("/studentLogin"), 1500);
       } else {
-        handleError(error?.details?.[0]?.message || message);
+        handleError(result.error?.details?.[0]?.message || result.message);
       }
-
-      console.log(result);
     } catch (err) {
       handleError(err.message);
     } finally {
@@ -79,17 +107,39 @@ function StudentSignup() {
       <div className="auth-container">
         <h1>Signup Here</h1>
         <form onSubmit={handleSignup}>
-          <div>
+          {/* Unique ID with Verify Button */}
+          <div className="uniqueId-group">
             <label htmlFor="uniqueId">Unique ID</label>
-            <input
-              onChange={handleChange}
-              type="text"
-              name="uniqueId"
-              autoFocus
-              placeholder="Enter the given unique id..."
-              value={signupInfo.uniqueId}
-            />
+            <div className="input-with-btn">
+              <input
+                onChange={handleChange}
+                type="text"
+                name="uniqueId"
+                placeholder="Enter the given unique ID..."
+                value={signupInfo.uniqueId}
+                disabled={isVerified}
+              />
+              <button
+                type="button"
+                className="verify-btn"
+                onClick={verifyUniqueId}
+                disabled={verifying || isVerified}
+              >
+                {verifying
+                  ? "Verifying..."
+                  : isVerified
+                  ? "Verified ✅"
+                  : "Verify"}
+              </button>
+            </div>
+            {isVerified && signupInfo.institutionName && (
+              <p className="institution-info">
+                Institution: <strong>{signupInfo.institutionName}</strong>
+              </p>
+            )}
           </div>
+
+          {/* Email */}
           <div>
             <label htmlFor="email">Email</label>
             <input
@@ -100,6 +150,8 @@ function StudentSignup() {
               value={signupInfo.email}
             />
           </div>
+
+          {/* Password */}
           <div>
             <label htmlFor="password">Password</label>
             <input
@@ -110,6 +162,8 @@ function StudentSignup() {
               value={signupInfo.password}
             />
           </div>
+
+          {/* Role */}
           <div>
             <label htmlFor="role">Position</label>
             <input
@@ -121,9 +175,12 @@ function StudentSignup() {
               className="readonly-field"
             />
           </div>
+
+          {/* Submit */}
           <button className="auth-btn btn" type="submit" disabled={loading}>
             {loading ? "Signing up..." : "Signup"}
           </button>
+
           <span>
             Already have an account? <Link to="/studentLogin">Login</Link>
           </span>
