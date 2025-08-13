@@ -28,9 +28,9 @@ const signin = async (req, res) => {
       success: true,
     });
   } catch (err) {
-    console.error(err); // 👈 see exact cause
+    console.error(err);
     res.status(500).json({
-      message: err.message, // send actual error for now
+      message: err.message,
       success: false,
     });
   }
@@ -88,7 +88,8 @@ const adminSignup = async (req, res) => {
     });
   } catch (err) {
     res.status(500).json({
-      message: "Internal server error",
+      message:
+        "One Admin already exists for this institution can't signup again",
       success: false,
     });
   }

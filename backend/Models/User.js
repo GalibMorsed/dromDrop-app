@@ -5,12 +5,10 @@ const UserSchema = new Schema({
   uniqueId: {
     type: String,
     required: true,
-    unique: true,
   },
   instituteName: {
     type: String,
     required: true,
-    unique: true,
   },
   email: {
     type: String,
