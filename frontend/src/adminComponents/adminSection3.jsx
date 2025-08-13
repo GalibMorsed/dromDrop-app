@@ -1,13 +1,36 @@
 import React, { useState } from "react";
-
+import axios from "axios";
+import { handleError, handleSuccess } from "../utils";
 export default function AdminSection3() {
-  const [staffId, setStaffId] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log({ staffId, password });
-    // TODO: API call
+    setLoading(true);
+
+    try {
+      const response = await axios.post(
+        "http://localhost:6060/auth/Staffsignup",
+        {
+          email,
+          password,
+        }
+      );
+
+      handleSuccess(
+        response.data.message || "Staff account created successfully"
+      );
+      setStaffId("");
+      setPassword("");
+    } catch (err) {
+      handleError(
+        err.response?.data?.message || "Error creating staff account"
+      );
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -20,9 +43,9 @@ export default function AdminSection3() {
         <form onSubmit={handleSubmit} className="admin-section3-form">
           <input
             type="text"
-            placeholder="Enter Staff ID"
-            value={staffId}
-            onChange={(e) => setStaffId(e.target.value)}
+            placeholder="Enter Staff Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             required
           />
           <input
@@ -32,8 +55,8 @@ export default function AdminSection3() {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-          <button type="submit" className="btn-submit">
-            Create Account
+          <button type="submit" className="btn-submit" disabled={loading}>
+            {loading ? "Creating..." : "Create Account"}
           </button>
         </form>
       </div>
