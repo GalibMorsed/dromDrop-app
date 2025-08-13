@@ -1,6 +1,5 @@
 const AdminModel = require("../Models/Admin");
 const User = require("../Models/User");
-// const Staff = require("../Models/Staff");
 
 const getAdminDashboardInfo = async (req, res) => {
   try {
@@ -14,16 +13,17 @@ const getAdminDashboardInfo = async (req, res) => {
       return res.status(404).json({ message: "Admin not found" });
     }
 
-    const studentCount = await User.countDocuments();
-    // const staffCount = await Staff.countDocuments();
+    // Count only users whose institution matches the admin's
+    const studentCount = await User.countDocuments({
+      instituteName: admin.institution,
+    });
 
     res.status(200).json({
       institution: admin.institution,
       email: admin.email,
       role: admin.role,
       studentCount,
-      //   staffCount,
-      message: `Welcome back ${admin.institution} Admin! You currently have ${studentCount} students `,
+      message: `Welcome back ${admin.institution} Admin! You currently have ${studentCount} students.`,
     });
   } catch (error) {
     console.error("Error fetching admin dashboard info:", error);
