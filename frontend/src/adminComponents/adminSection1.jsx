@@ -39,8 +39,9 @@ export default function AdminSection1() {
         <div className="important-info">
           📊 Current System Status:
           <br />
-          <strong>{adminData.studentCount}</strong> students and{" "}
-          <strong>{adminData.staffCount}</strong>0 staff members registered.
+          <strong>{adminData.studentCount}</strong> Students/Users and{" "}
+          <strong>{adminData.staffCount}</strong> Staff/Faculty members
+          registered.
           <br />
           Keep an eye on new sign-ups and ensure data stays up to date!
         </div>
