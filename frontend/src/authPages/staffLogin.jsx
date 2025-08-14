@@ -6,7 +6,7 @@ import { handleError, handleSuccess } from "../utils";
 function StaffLogin() {
   const [loginInfo, setLoginInfo] = useState({
     uniqueId: "",
-    staffId: "",
+    email: "",
     password: "",
     role: "Staff/Faculty",
     instituteName: "",
@@ -26,7 +26,6 @@ function StaffLogin() {
     }));
   };
 
-  // ✅ Verify Unique ID (Same as StudentSignup)
   const verifyUniqueId = async () => {
     if (!loginInfo.uniqueId.trim()) {
       return handleError("Please enter a Unique ID to verify.");
@@ -59,33 +58,39 @@ function StaffLogin() {
     }
   };
 
-  // ✅ Handle Login
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    const { uniqueId, staffId, password, role, instituteName } = loginInfo;
+    const { uniqueId, email, password, role, instituteName } = loginInfo;
 
     if (!isVerified) {
       return handleError("Please verify your Unique ID before logging in.");
     }
 
-    if (!staffId.trim() || !password.trim()) {
-      return handleError("Staff ID and password are required");
+    if (!email.trim() || !password.trim()) {
+      return handleError("Email and password are required");
     }
 
     try {
       setLoading(true);
-      const response = await fetch("http://localhost:6060/auth/staffLogin", {
+      const response = await fetch("http://localhost:6060/auth/Stafflogin", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(loginInfo),
+        body: JSON.stringify({
+          uniqueId,
+          email,
+          password,
+          role,
+          instituteName,
+        }),
       });
 
       const result = await response.json();
       if (result.success) {
         handleSuccess(result.message || "Login successful!");
         localStorage.setItem("token", result.jwtToken);
-        localStorage.setItem("userEmail", staffId);
+        localStorage.setItem("userEmail", email);
+        localStorage.setItem("role", role);
         setTimeout(() => navigate("/staffPage"), 1500);
       } else {
         handleError(result.error?.details?.[0]?.message || result.message);
@@ -103,7 +108,7 @@ function StaffLogin() {
       <div className="auth-container">
         <h1>Staff Login</h1>
         <form onSubmit={handleLogin}>
-          {/* Unique ID with Verify Button */}
+          {/* Unique ID */}
           <div className="uniqueId-group">
             <label htmlFor="uniqueId">Unique ID</label>
             <div className="input-with-btn">
@@ -135,15 +140,15 @@ function StaffLogin() {
             )}
           </div>
 
-          {/* Staff ID */}
+          {/* Email */}
           <div>
-            <label htmlFor="staffId">Staff ID</label>
+            <label htmlFor="email">Email</label>
             <input
               onChange={handleChange}
-              type="text"
-              name="staffId"
-              placeholder="Enter your given staff ID..."
-              value={loginInfo.staffId}
+              type="email"
+              name="email"
+              placeholder="Enter your email..."
+              value={loginInfo.email}
             />
           </div>
 

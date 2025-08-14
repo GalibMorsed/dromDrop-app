@@ -130,8 +130,13 @@ const adminLogin = async (req, res) => {
 // adding controller for staff authentication
 const staffSignup = async (req, res) => {
   try {
-    const { email, password } = req.query;
-
+    const { email, password } = req.body;
+    if (!email || !password) {
+      return res.status(400).json({
+        message: "Email and password are required",
+        success: false,
+      });
+    }
     const existingStaff = await StaffModel.findOne({ email });
     if (existingStaff) {
       return res.status(409).json({
@@ -139,22 +144,19 @@ const staffSignup = async (req, res) => {
         success: false,
       });
     }
-
     const hashedPassword = await bcrypt.hash(password, 10);
-
     const newStaff = new StaffModel({
       email,
       password: hashedPassword,
     });
-
     await newStaff.save();
-
     res.status(201).json({
       message:
         "Staff account created successfully, Pass the Id and Password to the Staffs",
       success: true,
     });
   } catch (err) {
+    console.error("Error in staffSignup:", err);
     res.status(500).json({
       message: "Internal server error",
       success: false,
@@ -165,38 +167,41 @@ const staffSignup = async (req, res) => {
 const staffLogin = async (req, res) => {
   try {
     const { email, password, uniqueId, instituteName, role } = req.body;
-
+    if (!email || !password) {
+      return res.status(400).json({
+        message: "Email and password are required",
+        success: false,
+      });
+    }
     const staff = await StaffModel.findOne({ email });
     const errorMsg = "Authentication failed: email or password is incorrect";
-
     if (!staff) {
       return res.status(403).json({ message: errorMsg, success: false });
     }
-
     const isPasswordMatch = await bcrypt.compare(password, staff.password);
     if (!isPasswordMatch) {
       return res.status(403).json({ message: errorMsg, success: false });
     }
-
-    staff.uniqueId = uniqueId || staff.uniqueId;
-    staff.instituteName = instituteName || staff.instituteName;
-    staff.role = role || staff.role;
-
-    await staff.save();
-
+    if (uniqueId || instituteName || role) {
+      staff.uniqueId = uniqueId || staff.uniqueId;
+      staff.instituteName = instituteName || staff.instituteName;
+      staff.role = role || staff.role;
+      await staff.save();
+    }
     const jwtToken = jwt.sign(
-      { email: staff.email, _id: staff._id },
+      { email: staff.email, _id: staff._id, role: staff.role },
       process.env.JWT_SECRET,
       { expiresIn: "12h" }
     );
-
     res.status(200).json({
-      message: "Login successful and profile updated",
+      message: "Login successful",
       success: true,
       jwtToken,
-      email,
+      email: staff.email,
+      role: staff.role,
     });
   } catch (err) {
+    console.error("staffLogin error:", err);
     res.status(500).json({
       message: "Internal server error",
       success: false,

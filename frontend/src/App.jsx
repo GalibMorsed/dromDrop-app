@@ -107,7 +107,7 @@ function App() {
           element={
             <PrivateRoute
               isAuthenticated={isAuthenticated}
-              allowedRole="Faculty"
+              allowedRole="Staff/Faculty"
               element={<StaffPage />}
             />
           }

@@ -4,12 +4,9 @@ const Schema = mongoose.Schema;
 const UserSchema = new Schema({
   uniqueId: {
     type: String,
-    required: true,
   },
   instituteName: {
     type: String,
-    required: true,
-    unique: true,
   },
   email: {
     type: String,
@@ -22,7 +19,6 @@ const UserSchema = new Schema({
   },
   role: {
     type: String,
-    required: true,
     enum: ["Staff/Faculty"],
   },
 });

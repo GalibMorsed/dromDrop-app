@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { handleError, handleSuccess } from "../utils";
+
 export default function AdminSection3() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -14,20 +14,16 @@ export default function AdminSection3() {
       const response = await axios.post(
         "http://localhost:6060/auth/Staffsignup",
         {
-          email,
-          password,
+          email: email.trim(),
+          password: password.trim(),
         }
       );
 
-      handleSuccess(
-        response.data.message || "Staff account created successfully"
-      );
-      setStaffId("");
+      alert(response.data.message || "Staff account created successfully"); // ✅ success alert
+      setEmail("");
       setPassword("");
     } catch (err) {
-      handleError(
-        err.response?.data?.message || "Error creating staff account"
-      );
+      alert(err.response?.data?.message || "Error creating staff account"); // ❌ error alert
     } finally {
       setLoading(false);
     }
@@ -42,11 +38,12 @@ export default function AdminSection3() {
         </p>
         <form onSubmit={handleSubmit} className="admin-section3-form">
           <input
-            type="text"
+            type="email"
             placeholder="Enter Staff Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
+            autoComplete="email"
           />
           <input
             type="password"
@@ -54,6 +51,7 @@ export default function AdminSection3() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
+            autoComplete="new-password"
           />
           <button type="submit" className="btn-submit" disabled={loading}>
             {loading ? "Creating..." : "Create Account"}
