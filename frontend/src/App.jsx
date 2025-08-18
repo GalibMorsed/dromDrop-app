@@ -11,7 +11,7 @@ import AdminPage from "./sourcePages/adminPage.jsx";
 import StaffPage from "./sourcePages/staffPage.jsx";
 import StudentPage from "./sourcePages/studentPage.jsx";
 import AboutUs from "./homeComponents/aboutUs.jsx";
-
+import CreatingClothes from "./staffComponents/CreatingClothes.jsx";
 // Private route wrapper
 const PrivateRoute = ({ element, isAuthenticated, allowedRole }) => {
   const userRole = localStorage.getItem("role");
@@ -119,6 +119,16 @@ function App() {
               isAuthenticated={isAuthenticated}
               allowedRole="Students"
               element={<StudentPage />}
+            />
+          }
+        />
+        <Route
+          path="/creatingClothes"
+          element={
+            <PrivateRoute
+              isAuthenticated={isAuthenticated}
+              allowedRole="Staff/Faculty"
+              element={<CreatingClothes />}
             />
           }
         />
