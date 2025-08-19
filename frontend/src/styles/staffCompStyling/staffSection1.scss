@@ -45,15 +45,13 @@
     font-size: 1rem;
     font-weight: 600;
     color: #ffffff;
-    background: #2563eb;
+    background: linear-gradient(90deg, #2a3db8 0%, #1b3de4 100%);
     border-radius: 0.6rem;
     text-decoration: none;
     transition: all 0.3s ease;
 
     &:hover {
-      background: #1e40af;
-      transform: translateY(-2px);
-      box-shadow: 0 6px 18px rgba(37, 99, 235, 0.25);
+      background: linear-gradient(90deg, #1b3de4 0%, #2a3db8 100%);
     }
 
     &:active {
