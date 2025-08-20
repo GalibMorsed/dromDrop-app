@@ -7,7 +7,8 @@ export default function CreatingClothes() {
 
   const [clothName, setClothName] = useState("");
   const [clothPrice, setClothPrice] = useState("");
-  const [clothPhoto, setClothPhoto] = useState("");
+  const [clothPhoto, setClothPhoto] = useState(null); // actual file
+  const [preview, setPreview] = useState(""); // preview for UI
 
   const staffEmail = localStorage.getItem("userEmail"); // ✅ from localStorage
 
@@ -16,7 +17,7 @@ export default function CreatingClothes() {
     const fetchClothes = async () => {
       try {
         const res = await fetch(
-          `http://localhost:5000/api/clothes?email=${staffEmail}`
+          `http://localhost:6060/clothes/getClothes?email=${staffEmail}`
         );
         const data = await res.json();
         setClothes(data);
@@ -30,21 +31,22 @@ export default function CreatingClothes() {
 
   // Save cloth to backend
   const handleSaveCloth = async () => {
-    if (!clothName || !selectedOption) return;
+    if (!clothName || !selectedOption || !clothPhoto) return;
 
-    const newCloth = {
-      email: staffEmail,
-      name: clothName,
-      price: selectedOption === "extra" ? clothPrice : "Included",
-      photo: clothPhoto,
-      type: selectedOption, // "laundry" or "extra"
-    };
+    const formData = new FormData();
+    formData.append("staffEmail", staffEmail);
+    formData.append("clothName", clothName);
+    formData.append(
+      "clothPrice",
+      selectedOption === "extra" ? clothPrice : "Included"
+    );
+    formData.append("seletedOption", selectedOption); // laundry or extra
+    formData.append("file", clothPhoto); // actual file upload
 
     try {
-      const res = await fetch(`http://localhost:5000/api/clothes/save`, {
+      const res = await fetch(`http://localhost:6060/clothes/saveCloth`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(newCloth),
+        body: formData, // browser sets content-type
       });
 
       const savedCloth = await res.json();
@@ -53,9 +55,11 @@ export default function CreatingClothes() {
       console.error("Error saving cloth:", error);
     }
 
+    // reset form
     setClothName("");
     setClothPrice("");
-    setClothPhoto("");
+    setClothPhoto(null);
+    setPreview("");
     setShowOptions(false);
     setSelectedOption("");
   };
@@ -64,7 +68,7 @@ export default function CreatingClothes() {
   const handleDelete = async (id) => {
     try {
       const res = await fetch(
-        `http://localhost:5000/api/clothes/delete/${id}`,
+        `http://localhost:6060/clothes/deleteCloth/${id}`,
         { method: "DELETE" }
       );
 
@@ -123,7 +127,7 @@ export default function CreatingClothes() {
 
           {/* Dynamic Form */}
           {selectedOption && (
-            <div className="creatingClothes__form">
+            <form className="creatingClothes__form">
               <input
                 type="text"
                 placeholder="Cloth Name"
@@ -140,18 +144,30 @@ export default function CreatingClothes() {
               )}
               <input
                 type="file"
+                name="avatar"
                 accept="image/*"
-                onChange={(e) =>
-                  setClothPhoto(URL.createObjectURL(e.target.files[0]))
-                }
+                onChange={(e) => {
+                  const file = e.target.files[0];
+                  if (file) {
+                    setClothPhoto(file);
+                    setPreview(URL.createObjectURL(file)); // preview
+                  }
+                }}
               />
+              {preview && (
+                <img
+                  src={preview}
+                  alt="Preview"
+                  style={{ width: "80px", marginTop: "10px" }}
+                />
+              )}
               <button
                 className="creatingClothes__btn creatingClothes__btn--save"
                 onClick={handleSaveCloth}
               >
                 Save Cloth
               </button>
-            </div>
+            </form>
           )}
         </div>
 
@@ -164,7 +180,7 @@ export default function CreatingClothes() {
                 {laundryClothes.map((cloth) => (
                   <li key={cloth._id} className="creatingClothes__item">
                     <img
-                      src={cloth.photo || "https://via.placeholder.com/50"}
+                      src={`http://localhost:5000/api/clothes/${cloth._id}`}
                       alt={cloth.name}
                       className="creatingClothes__photo"
                     />
@@ -194,7 +210,7 @@ export default function CreatingClothes() {
                 {extraClothes.map((cloth) => (
                   <li key={cloth._id} className="creatingClothes__item">
                     <img
-                      src={cloth.photo || "https://via.placeholder.com/50"}
+                      src={`http://localhost:5000/api/clothes/${cloth._id}`}
                       alt={cloth.name}
                       className="creatingClothes__photo"
                     />

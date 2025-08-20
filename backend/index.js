@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const authRouter = require("./Routes/authRouter");
 const uniqueIdRouter = require("./Routes/uniqueIdRouter");
+const clothesRouter = require("./Routes/clothesRouter");
 
 require("dotenv").config();
 require("./Models/db.js");
@@ -17,6 +18,7 @@ app.use(bodyParser.json());
 app.use(cors());
 app.use("/auth", authRouter);
 app.use("/uniqueId", uniqueIdRouter);
+app.use("/clothes", clothesRouter);
 
 app.listen(PORT, (error) => {
   if (error) {
