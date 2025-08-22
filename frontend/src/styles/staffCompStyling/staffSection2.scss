@@ -1,0 +1,119 @@
+.staff-set {
+  width: 100%;
+  padding: 4rem 1.5rem;
+  display: flex;
+  justify-content: center;
+  background: #f8fafc;
+  border-bottom: 1px solid black;
+  animation: fadeInUp 0.6s ease forwards;
+
+  .pick-drop-section {
+    width: 100%;
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 2rem 2.5rem;
+    background: #ffffff;
+    border-radius: 1rem;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    font-family: "Segoe UI", sans-serif;
+    animation: fadeSlideIn 0.7s ease-out;
+
+    .section-title {
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: #1e293b;
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+
+    .date-picker {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+
+      select,
+      input {
+        padding: 0.6rem 1rem;
+        border: 1px solid #d1d5db;
+        border-radius: 1.5rem;
+        font-size: 1rem;
+        outline: none;
+        flex: 1;
+
+        &:focus {
+          border-color: #2563eb;
+        }
+      }
+
+      button {
+        padding: 0.6rem 1.5rem;
+        background-color: #1b3de4;
+        color: white;
+        border: none;
+        border-radius: 0.5rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background-color 0.3s;
+
+        &:hover {
+          background-color: #2a3db8;
+        }
+      }
+    }
+
+    .dates-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+
+      p {
+        font-size: 0.95rem;
+        font-style: italic;
+        color: #64748b;
+        margin-bottom: 2rem;
+        text-align: center;
+      }
+
+      .date-item {
+        display: flex;
+        justify-content: space-between;
+        padding: 0.5rem 1rem;
+        border: 1px solid #e5e7eb;
+        border-radius: 0.5rem;
+        background-color: #f9fafb;
+        font-size: 1rem;
+        span {
+          display: block;
+          font-weight: 600;
+          font-size: 1rem;
+          color: #ce8b2a;
+          margin-bottom: 8px;
+        }
+
+        button {
+          padding: 0.3rem 0.6rem;
+          background-color: #ef4444;
+          color: white;
+          border: none;
+          border-radius: 0.8rem;
+          cursor: pointer;
+          font-size: 0.9rem;
+
+          &:hover {
+            background-color: #b91c1c;
+          }
+        }
+      }
+    }
+
+    @media (max-width: 500px) {
+      padding: 1rem;
+
+      .date-picker {
+        flex-direction: column;
+        gap: 0.8rem;
+      }
+    }
+  }
+}

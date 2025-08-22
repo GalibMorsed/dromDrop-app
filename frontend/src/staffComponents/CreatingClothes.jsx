@@ -233,7 +233,7 @@ export default function CreatingClothes() {
                     <div className="creatingClothes__info">
                       <p className="creatingClothes__name">{cloth.clothName}</p>
                       <p className="creatingClothes__price">
-                        Price: {cloth.clothPrice}
+                        Price: ₹{cloth.clothPrice}
                       </p>
                     </div>
                     <button
