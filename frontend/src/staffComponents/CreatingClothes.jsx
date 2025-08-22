@@ -7,10 +7,10 @@ export default function CreatingClothes() {
 
   const [clothName, setClothName] = useState("");
   const [clothPrice, setClothPrice] = useState("");
-  const [clothPhoto, setClothPhoto] = useState(null); // actual file
-  const [preview, setPreview] = useState(""); // preview for UI
+  const [clothPhoto, setClothPhoto] = useState(null);
+  const [preview, setPreview] = useState("");
 
-  const staffEmail = localStorage.getItem("userEmail"); // ✅ from localStorage
+  const staffEmail = localStorage.getItem("userEmail");
 
   // Fetch clothes from backend
   useEffect(() => {
@@ -23,6 +23,7 @@ export default function CreatingClothes() {
         setClothes(data);
       } catch (err) {
         console.error("Error fetching clothes:", err);
+        alert("⚠️ Failed to fetch clothes from server.");
       }
     };
 
@@ -30,32 +31,40 @@ export default function CreatingClothes() {
   }, [staffEmail]);
 
   // Save cloth to backend
-  const handleSaveCloth = async () => {
-    if (!clothName || !selectedOption || !clothPhoto) return;
+  const handleSaveCloth = async (e) => {
+    e.preventDefault();
+
+    if (!clothName || !selectedOption || !clothPhoto) {
+      alert("⚠️ Please fill all required fields before saving.");
+      return;
+    }
 
     const formData = new FormData();
     formData.append("staffEmail", staffEmail);
     formData.append("clothName", clothName);
-    formData.append(
-      "clothPrice",
-      selectedOption === "extra" ? clothPrice : "Included"
-    );
-    formData.append("seletedOption", selectedOption); // laundry or extra
-    formData.append("file", clothPhoto); // actual file upload
+    formData.append("clothPrice", selectedOption === "extra" ? clothPrice : 0);
+    formData.append("selectedOption", selectedOption);
+    formData.append("file", clothPhoto);
 
     try {
       const res = await fetch(`http://localhost:6060/clothes/saveCloth`, {
         method: "POST",
-        body: formData, // browser sets content-type
+        body: formData,
       });
 
-      const savedCloth = await res.json();
-      setClothes([...clothes, savedCloth]); // add new cloth
+      const result = await res.json();
+
+      if (res.ok) {
+        setClothes([...clothes, result.cloth]);
+        alert("✅ Cloth saved successfully!");
+      } else {
+        alert(`❌ Failed to save cloth: ${result.message || "Unknown error"}`);
+      }
     } catch (error) {
       console.error("Error saving cloth:", error);
+      alert("🚨 Server error while saving cloth.");
     }
 
-    // reset form
     setClothName("");
     setClothPrice("");
     setClothPhoto(null);
@@ -74,15 +83,18 @@ export default function CreatingClothes() {
 
       if (res.ok) {
         setClothes(clothes.filter((cloth) => cloth._id !== id));
+        alert("🗑️ Cloth deleted successfully!");
+      } else {
+        alert("❌ Failed to delete cloth.");
       }
     } catch (error) {
       console.error("Error deleting cloth:", error);
+      alert("🚨 Server error while deleting cloth.");
     }
   };
 
-  // split clothes into two categories
-  const laundryClothes = clothes.filter((c) => c.type === "laundry");
-  const extraClothes = clothes.filter((c) => c.type === "extra");
+  const laundryClothes = clothes.filter((c) => c.selectedOption === "laundry");
+  const extraClothes = clothes.filter((c) => c.selectedOption === "extra");
 
   return (
     <div className="cloth-details">
@@ -127,7 +139,7 @@ export default function CreatingClothes() {
 
           {/* Dynamic Form */}
           {selectedOption && (
-            <form className="creatingClothes__form">
+            <form className="creatingClothes__form" onSubmit={handleSaveCloth}>
               <input
                 type="text"
                 placeholder="Cloth Name"
@@ -144,13 +156,12 @@ export default function CreatingClothes() {
               )}
               <input
                 type="file"
-                name="avatar"
                 accept="image/*"
                 onChange={(e) => {
                   const file = e.target.files[0];
                   if (file) {
                     setClothPhoto(file);
-                    setPreview(URL.createObjectURL(file)); // preview
+                    setPreview(URL.createObjectURL(file));
                   }
                 }}
               />
@@ -162,8 +173,8 @@ export default function CreatingClothes() {
                 />
               )}
               <button
+                type="submit"
                 className="creatingClothes__btn creatingClothes__btn--save"
-                onClick={handleSaveCloth}
               >
                 Save Cloth
               </button>
@@ -171,6 +182,7 @@ export default function CreatingClothes() {
           )}
         </div>
 
+        <h1>Created Clothes History</h1>
         <div className="creatingClothes__listsWrapper">
           {/* Laundry Clothes Section */}
           {laundryClothes.length > 0 && (
@@ -179,13 +191,15 @@ export default function CreatingClothes() {
               <ul className="creatingClothes__list">
                 {laundryClothes.map((cloth) => (
                   <li key={cloth._id} className="creatingClothes__item">
-                    <img
-                      src={`http://localhost:5000/api/clothes/${cloth._id}`}
-                      alt={cloth.name}
-                      className="creatingClothes__photo"
-                    />
+                    {cloth.photo && (
+                      <img
+                        src={cloth.photo}
+                        alt={cloth.clothName}
+                        className="creatingClothes__photo"
+                      />
+                    )}
                     <div className="creatingClothes__info">
-                      <p className="creatingClothes__name">{cloth.name}</p>
+                      <p className="creatingClothes__name">{cloth.clothName}</p>
                       <p className="creatingClothes__price">Price: Included</p>
                     </div>
                     <button
@@ -209,15 +223,17 @@ export default function CreatingClothes() {
               <ul className="creatingClothes__list">
                 {extraClothes.map((cloth) => (
                   <li key={cloth._id} className="creatingClothes__item">
-                    <img
-                      src={`http://localhost:5000/api/clothes/${cloth._id}`}
-                      alt={cloth.name}
-                      className="creatingClothes__photo"
-                    />
+                    {cloth.photo && (
+                      <img
+                        src={cloth.photo}
+                        alt={cloth.clothName}
+                        className="creatingClothes__photo"
+                      />
+                    )}
                     <div className="creatingClothes__info">
-                      <p className="creatingClothes__name">{cloth.name}</p>
+                      <p className="creatingClothes__name">{cloth.clothName}</p>
                       <p className="creatingClothes__price">
-                        Price: {cloth.price}
+                        Price: {cloth.clothPrice}
                       </p>
                     </div>
                     <button

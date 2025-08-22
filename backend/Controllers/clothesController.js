@@ -39,13 +39,13 @@ const getClothes = async (req, res) => {
 
     const clothes = await Cloth.find({ staffEmail: email });
 
-    // convert photo buffer → base64 string for frontend
+    // Convert photo buffer → base64 string for frontend
     const formatted = clothes.map((cloth) => ({
       _id: cloth._id,
-      email: cloth.email,
-      clothType: cloth.clothType,
-      name: cloth.name,
-      price: cloth.price,
+      staffEmail: cloth.staffEmail,
+      selectedOption: cloth.selectedOption,
+      clothName: cloth.clothName,
+      clothPrice: cloth.clothPrice,
       photo: cloth.photo?.data
         ? `data:${cloth.photo.contentType};base64,${cloth.photo.data.toString(
             "base64"

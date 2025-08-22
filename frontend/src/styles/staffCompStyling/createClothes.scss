@@ -1,6 +1,8 @@
 .cloth-details {
   background-color: #f8fafc;
   padding: 1rem;
+  font-family: "Segoe UI", sans-serif;
+  color: #2d3748;
 
   .creatingClothes__card {
     margin-bottom: 1rem;
@@ -14,8 +16,6 @@
     display: flex;
     flex-direction: column;
     gap: 2rem;
-    font-family: "Segoe UI", sans-serif;
-    color: #2d3748; // dark slate for text
 
     &__card {
       background: #ffffff;
@@ -32,11 +32,13 @@
       font-size: 1.4rem;
       font-weight: 600;
       margin-bottom: 1rem;
-      color: #1e3a8a; // deep navy-blue title
+      color: #1e3a8a;
+      text-align: center;
     }
 
     &__btnWrapper {
       margin-top: 1rem;
+      text-align: center;
     }
 
     &__btn {
@@ -49,37 +51,37 @@
       margin: 0.25rem;
 
       &--primary {
-        background: #3b82f6; // soft blue
+        background: #3b82f6;
         color: #fff;
 
         &:hover {
-          background: #2563eb; // darker hover blue
+          background: #2563eb;
         }
       }
 
       &--active {
-        background: #1e40af; // bold navy active
+        background: #1e40af;
         color: #fff;
       }
 
       &--save {
-        background: #10b981; // emerald green
+        background: #10b981;
         color: #fff;
         margin-top: 0.8rem;
 
         &:hover {
-          background: #059669; // darker green
+          background: #059669;
         }
       }
 
       &--delete {
-        background: #ef4444; // soft red
+        background: #ef4444;
         color: #fff;
         font-size: 0.85rem;
         padding: 0.4rem 0.8rem;
 
         &:hover {
-          background: #dc2626; // deeper red
+          background: #dc2626;
         }
       }
     }
@@ -98,9 +100,11 @@
       gap: 0.8rem;
       margin-top: 1.2rem;
 
-      input {
+      input[type="text"],
+      input[type="number"],
+      input[type="file"] {
         padding: 0.6rem;
-        border: 1px solid #cbd5e1; // slate border
+        border: 1px solid #cbd5e1;
         border-radius: 6px;
         font-size: 0.95rem;
         transition: border 0.3s ease;
@@ -111,9 +115,11 @@
           box-shadow: 0 0 5px rgba(59, 130, 246, 0.4);
         }
       }
+      button {
+        align-self: flex-start;
+      }
     }
 
-    /* Laundry clothes left, extra clothes right */
     &__listsWrapper {
       display: flex;
       justify-content: space-around;
@@ -124,7 +130,7 @@
 
         .creatingClothes__title {
           text-align: center;
-          color: #2563eb; // consistent section heading blue
+          color: #2563eb;
         }
       }
     }
@@ -143,21 +149,21 @@
       align-items: center;
       gap: 1rem;
       padding: 0.8rem;
-      border: 1px solid #e2e8f0; // light gray border
+      border: 1px solid #e2e8f0;
       border-radius: 8px;
-      background: #f8fafc; // subtle off-white bg
-      transition: transform 0.2s ease;
+      background: #f8fafc;
+      transition: all 0.2s ease;
 
       &:hover {
         transform: translateY(-2px);
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-        background: #f1f5f9; // light blue-gray on hover
+        background: #f1f5f9;
       }
     }
 
     &__photo {
-      width: 60px;
-      height: 60px;
+      width: 70px;
+      height: 70px;
       object-fit: cover;
       border-radius: 6px;
       border: 1px solid #cbd5e1;
@@ -169,21 +175,62 @@
       .creatingClothes__name {
         font-size: 1rem;
         font-weight: 500;
-        color: #1e293b; // slate blue for names
+        color: #1e293b;
       }
 
       .creatingClothes__price {
         font-size: 0.9rem;
-        color: #475569; // softer gray-blue for price
+        color: #475569;
       }
     }
   }
 
   /* Responsive */
-  @media (max-width: 768px) {
+  @media (max-width: 1024px) {
     .creatingClothes {
       &__listsWrapper {
         flex-direction: column;
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    padding: 0.5rem;
+
+    .creatingClothes {
+      max-width: 95%;
+
+      &__card {
+        padding: 1.2rem;
+      }
+
+      &__title {
+        font-size: 1.3rem;
+      }
+
+      &__photo {
+        width: 60px;
+        height: 60px;
+      }
+    }
+  }
+
+  @media (max-width: 480px) {
+    .creatingClothes {
+      &__form {
+        gap: 0.7rem;
+
+        input[type="text"],
+        input[type="number"],
+        input[type="file"] {
+          font-size: 0.9rem;
+          padding: 0.6rem;
+        }
+      }
+
+      &__btn {
+        padding: 0.55rem 1rem;
+        font-size: 0.9rem;
       }
     }
   }

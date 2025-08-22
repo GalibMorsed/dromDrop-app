@@ -5,22 +5,27 @@ const clothSchema = new Schema({
   staffEmail: {
     type: String,
     required: true,
+    trim: true,
   },
   selectedOption: {
-    type: String, // "laundry" | "extra"
+    type: String,
+    enum: ["laundry", "extra"],
     required: true,
   },
   clothName: {
     type: String,
     required: true,
+    trim: true,
   },
   clothPrice: {
-    type: Schema.Types.Mixed, // <-- allows Number or String
+    type: Number,
     default: 0,
   },
   photo: {
-    data: Buffer, // storing image data
-    contentType: String, // e.g. "image/png" | "image/jpeg"
+    data: Buffer,
+    contentType: {
+      type: String,
+    },
   },
   createdAt: {
     type: Date,
