@@ -12,7 +12,7 @@ export default function CreatingClothes() {
 
   const staffEmail = localStorage.getItem("userEmail");
 
-  // Fetch clothes from backend
+  // ✅ Fetch clothes
   useEffect(() => {
     const fetchClothes = async () => {
       try {
@@ -26,11 +26,10 @@ export default function CreatingClothes() {
         alert("⚠️ Failed to fetch clothes from server.");
       }
     };
-
     if (staffEmail) fetchClothes();
   }, [staffEmail]);
 
-  // Save cloth to backend
+  // ✅ Save cloth
   const handleSaveCloth = async (e) => {
     e.preventDefault();
 
@@ -65,6 +64,7 @@ export default function CreatingClothes() {
       alert("🚨 Server error while saving cloth.");
     }
 
+    // Reset form
     setClothName("");
     setClothPrice("");
     setClothPhoto(null);
@@ -73,7 +73,7 @@ export default function CreatingClothes() {
     setSelectedOption("");
   };
 
-  // Delete cloth from backend
+  // ✅ Delete cloth
   const handleDelete = async (id) => {
     try {
       const res = await fetch(
@@ -99,7 +99,7 @@ export default function CreatingClothes() {
   return (
     <div className="cloth-details">
       <div className="creatingClothes">
-        {/* Create Clothes Section */}
+        {/* Create Clothes */}
         <div className="creatingClothes__card creatingClothes__card--create">
           <h2 className="creatingClothes__title">Create Clothes Items</h2>
 
@@ -132,12 +132,12 @@ export default function CreatingClothes() {
                 }`}
                 onClick={() => setSelectedOption("extra")}
               >
-                Add Extra Clothes with Price
+                Add Extra Clothes (With Price)
               </button>
             </div>
           )}
 
-          {/* Dynamic Form */}
+          {/* Form */}
           {selectedOption && (
             <form className="creatingClothes__form" onSubmit={handleSaveCloth}>
               <input
@@ -169,7 +169,7 @@ export default function CreatingClothes() {
                 <img
                   src={preview}
                   alt="Preview"
-                  style={{ width: "80px", marginTop: "10px" }}
+                  className="creatingClothes__preview"
                 />
               )}
               <button
@@ -182,9 +182,11 @@ export default function CreatingClothes() {
           )}
         </div>
 
-        <h1>Created Clothes History</h1>
+        <h1 className="creatingClothes__historyTitle">
+          Created Clothes History
+        </h1>
         <div className="creatingClothes__listsWrapper">
-          {/* Laundry Clothes Section */}
+          {/* Laundry Clothes */}
           {laundryClothes.length > 0 && (
             <div className="creatingClothes__card creatingClothes__card--list">
               <h2 className="creatingClothes__title">Laundry Clothes</h2>
@@ -214,7 +216,7 @@ export default function CreatingClothes() {
             </div>
           )}
 
-          {/* Extra Clothes Section */}
+          {/* Extra Clothes */}
           {extraClothes.length > 0 && (
             <div className="creatingClothes__card creatingClothes__card--list">
               <h2 className="creatingClothes__title">

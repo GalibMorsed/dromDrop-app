@@ -5,9 +5,8 @@ export default function StaffSection2() {
   const [date, setDate] = useState("");
   const [datesList, setDatesList] = useState([]);
 
-  const userEmail = localStorage.getItem("userEmail"); // ✅ staff email from localStorage
+  const userEmail = localStorage.getItem("userEmail");
 
-  // Fetch dates on load (specific to user)
   useEffect(() => {
     if (!userEmail) return;
 
@@ -53,9 +52,8 @@ export default function StaffSection2() {
 
   return (
     <section className="staff-set">
+      <p className="section-title">Set Pickup / Drop Date</p>
       <div className="pick-drop-section">
-        <p className="section-title">Set Pickup/Drop Date</p>
-
         <div className="date-picker">
           <select value={type} onChange={(e) => setType(e.target.value)}>
             <option value="Pickup">Pickup</option>
@@ -68,17 +66,28 @@ export default function StaffSection2() {
             onChange={(e) => setDate(e.target.value)}
           />
 
-          <button onClick={handleSetDate}>Set</button>
+          <button className="set-btn" onClick={handleSetDate}>
+            Set
+          </button>
         </div>
 
         <div className="dates-list">
           {datesList.length === 0 && <p>No dates set yet.</p>}
-          {datesList.map((item) => (
-            <div key={item._id} className="date-item">
+          {datesList.map((item, index) => (
+            <div
+              key={item._id}
+              className="date-item"
+              style={{ animationDelay: `${index * 0.1}s` }}
+            >
               <span>
                 {item.type}: {item.date}
               </span>
-              <button onClick={() => handleDelete(item._id)}>Delete</button>
+              <button
+                className="dlt-btn"
+                onClick={() => handleDelete(item._id)}
+              >
+                Delete
+              </button>
             </div>
           ))}
         </div>
