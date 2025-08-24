@@ -1,25 +1,54 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 export default function StaffSection2() {
   const [type, setType] = useState("Pickup");
   const [date, setDate] = useState("");
   const [datesList, setDatesList] = useState([]);
 
-  const handleSetDate = () => {
+  const userEmail = localStorage.getItem("userEmail"); // ✅ staff email from localStorage
+
+  // Fetch dates on load (specific to user)
+  useEffect(() => {
+    if (!userEmail) return;
+
+    fetch(`http://localhost:6060/clothes/getDates?userEmail=${userEmail}`)
+      .then((res) => res.json())
+      .then((data) => setDatesList(data))
+      .catch((err) => console.error(err));
+  }, [userEmail]);
+
+  const handleSetDate = async () => {
     if (!date) return alert("Please select a date.");
 
-    // Check if the type already exists
     if (datesList.find((item) => item.type === type)) {
       alert(`A ${type} date already exists. Delete it first to set a new one.`);
       return;
     }
 
-    setDatesList([...datesList, { type, date }]);
-    setDate("");
+    try {
+      const res = await fetch("http://localhost:6060/clothes/addDate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ type, date, userEmail }),
+      });
+
+      const newDate = await res.json();
+      setDatesList([...datesList, newDate]);
+      setDate("");
+    } catch (error) {
+      console.error(error);
+    }
   };
 
-  const handleDelete = (typeToDelete) => {
-    setDatesList(datesList.filter((item) => item.type !== typeToDelete));
+  const handleDelete = async (id) => {
+    try {
+      await fetch(`http://localhost:6060/clothes/deleteDate/${id}`, {
+        method: "DELETE",
+      });
+      setDatesList(datesList.filter((item) => item._id !== id));
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -45,11 +74,11 @@ export default function StaffSection2() {
         <div className="dates-list">
           {datesList.length === 0 && <p>No dates set yet.</p>}
           {datesList.map((item) => (
-            <div key={item.type} className="date-item">
+            <div key={item._id} className="date-item">
               <span>
                 {item.type}: {item.date}
               </span>
-              <button onClick={() => handleDelete(item.type)}>Delete</button>
+              <button onClick={() => handleDelete(item._id)}>Delete</button>
             </div>
           ))}
         </div>
