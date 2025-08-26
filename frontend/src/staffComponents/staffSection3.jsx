@@ -12,15 +12,55 @@ export default function StaffSection3() {
     remarks: "",
   });
 
+  const [loading, setLoading] = useState(false);
+  const [alert, setAlert] = useState({ type: "", message: "" }); // ✅ alert state
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const staffEmail = localStorage.getItem("userEmail"); // staff email
-    console.log({ ...formData, staffEmail });
-    // 👉 send data to backend API here
+
+    try {
+      setLoading(true);
+      const res = await fetch("http://localhost:6060/clothes/createReport", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...formData, staffEmail }),
+      });
+
+      const data = await res.json();
+      if (res.ok) {
+        setAlert({
+          type: "success",
+          message: "Report submitted successfully ✅",
+        });
+        setFormData({
+          hostelName: "",
+          noStudents: "",
+          weekStart: "",
+          weekEnd: "",
+          noClothes: "",
+          totalAmount: "",
+          status: "Pending",
+          remarks: "",
+        });
+      } else {
+        setAlert({
+          type: "error",
+          message: data.message || "Failed to submit report ❌",
+        });
+      }
+    } catch (error) {
+      setAlert({ type: "error", message: "Error submitting report ❌" });
+    } finally {
+      setLoading(false);
+
+      // Auto-hide alert after 3 seconds
+      setTimeout(() => setAlert({ type: "", message: "" }), 3000);
+    }
   };
 
   return (
@@ -118,10 +158,14 @@ export default function StaffSection3() {
             </div>
           </div>
 
-          <button type="submit" className="submit-btn">
-            Submit
+          <button type="submit" className="submit-btn" disabled={loading}>
+            {loading ? "Submitting..." : "Submit"}
           </button>
         </form>
+        {/* ✅ Alert box */}
+        {alert.message && (
+          <div className={`alert ${alert.type}`}>{alert.message}</div>
+        )}
       </div>
     </section>
   );
