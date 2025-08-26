@@ -1,4 +1,7 @@
 const Cloth = require("../Models/Clothes");
+const Reports = require("../Models/Reports");
+const Staff = require("../Models/Staff");
+const Admin = require("../Models/Admin");
 
 // Save a cloth with image
 const saveCloth = async (req, res) => {
@@ -78,4 +81,107 @@ const deleteCloth = async (req, res) => {
   }
 };
 
-module.exports = { saveCloth, getClothes, deleteCloth };
+// Staff creates report
+const createReport = async (req, res) => {
+  try {
+    const {
+      hostelName,
+      noStudents,
+      weekStart,
+      weekEnd,
+      noClothes,
+      totalAmount,
+      status,
+      remarks,
+      staffEmail,
+    } = req.body;
+
+    const staff = await Staff.findOne({ email: staffEmail });
+    if (!staff) {
+      return res.status(404).json({ message: "Staff not found" });
+    }
+
+    const existing = await Reports.findOne({
+      staffEmail,
+      weekStart,
+      weekEnd,
+      hostelName,
+    });
+
+    if (existing) {
+      return res.status(400).json({
+        message:
+          "Report already exists for this hostel on the same pickup & drop dates ❌",
+      });
+    }
+
+    const report = new Reports({
+      hostelName,
+      noStudents,
+      weekStart,
+      weekEnd,
+      noClothes,
+      totalAmount,
+      status,
+      remarks,
+      staffEmail,
+      instituteName: staff.instituteName,
+    });
+
+    await report.save();
+
+    res
+      .status(201)
+      .json({ message: "Report submitted successfully ✅", report });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error ❌" });
+  }
+};
+
+const getReportsForAdmin = async (req, res) => {
+  try {
+    const { email } = req.query;
+
+    const admin = await Admin.findOne({ email });
+    if (!admin) {
+      return res.status(404).json({ message: "Admin not found" });
+    }
+
+    const reports = await Reports.find({
+      instituteName: admin.institution,
+    }).sort({ createdAt: -1 });
+
+    res.status(200).json(reports);
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching reports", error });
+  }
+};
+
+const getReportsByStaff = async (req, res) => {
+  try {
+    const { email } = req.params;
+
+    const staff = await Staff.findOne({ email });
+    if (!staff) {
+      return res.status(404).json({ message: "Staff not found" });
+    }
+
+    const reports = await Reports.find({ staffEmail: email }).sort({
+      createdAt: -1,
+    });
+
+    res.status(200).json(reports);
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching staff reports", error });
+  }
+};
+
+module.exports = {
+  saveCloth,
+  getClothes,
+  deleteCloth,
+  createReport,
+  getReportsForAdmin,
+  getReportsByStaff,
+};
