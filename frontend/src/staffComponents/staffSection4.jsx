@@ -31,42 +31,44 @@ export default function StaffSection4() {
   }, [staffEmail]);
 
   return (
-    <div className="staffReports-container">
-      <h2 className="staffReports-title">My Report History</h2>
+    <section className="report">
+      <div className="staffReports-container">
+        <h2 className="staffReports-title">My Report History</h2>
 
-      {loading ? (
-        <p className="staffReports-loading">Loading reports...</p>
-      ) : reports.length > 0 ? (
-        <div className="staffReports-list">
-          {reports.map((report, index) => (
-            <div key={index} className="staffReports-card">
-              <div className="staffReports-header">
-                <span className="staffReports-date">
-                  {new Date(report.weekStart).toLocaleDateString()} -{" "}
-                  {new Date(report.weekEnd).toLocaleDateString()}
-                </span>
-                <span className="staffReports-hostel">
-                  {" "}
-                  <strong>Hostel:</strong> {report.hostelName}
-                </span>
+        {loading ? (
+          <p className="staffReports-loading">Loading reports...</p>
+        ) : reports.length > 0 ? (
+          <div className="staffReports-list">
+            {reports.map((report, index) => (
+              <div key={index} className="staffReports-card">
+                <div className="staffReports-header">
+                  <span className="staffReports-date">
+                    {new Date(report.weekStart).toLocaleDateString()} -{" "}
+                    {new Date(report.weekEnd).toLocaleDateString()}
+                  </span>
+                  <span className="staffReports-hostel">
+                    {" "}
+                    <strong>Hostel:</strong> {report.hostelName}
+                  </span>
+                </div>
+                <p>
+                  <strong>Total Laundry:</strong> {report.noStudents}
+                </p>
+                <p>
+                  <strong>Extra Items:</strong> {report.extraItems}
+                </p>
+                <div className="staffReports-footer">
+                  <span className="staffReports-amount">
+                    <strong>Total Amount:</strong> ₹{report.totalAmount}
+                  </span>
+                </div>
               </div>
-              <p>
-                <strong>Total Laundry:</strong> {report.noStudents}
-              </p>
-              <p>
-                <strong>Extra Items:</strong> {report.extraItems}
-              </p>
-              <div className="staffReports-footer">
-                <span className="staffReports-amount">
-                  <strong>Total Amount:</strong> ₹{report.totalAmount}
-                </span>
-              </div>
-            </div>
-          ))}
-        </div>
-      ) : (
-        <p className="staffReports-empty">No reports found.</p>
-      )}
-    </div>
+            ))}
+          </div>
+        ) : (
+          <p className="staffReports-empty">No reports found.</p>
+        )}
+      </div>
+    </section>
   );
 }
