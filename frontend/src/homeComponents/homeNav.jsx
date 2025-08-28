@@ -4,6 +4,14 @@ import { Link } from "react-router-dom";
 export default function HomeNav() {
   const [menuOpen, setMenuOpen] = useState(false);
 
+  const handleScroll = (id) => {
+    const target = document.getElementById(id);
+    if (target) {
+      target.scrollIntoView({ behavior: "smooth", block: "start" });
+      setMenuOpen(false);
+    }
+  };
+
   return (
     <nav className="home-navbar">
       {/* Left Section */}
@@ -20,7 +28,7 @@ export default function HomeNav() {
         </span>
       </div>
 
-      {/* Center Links (desktop) */}
+      {/* Center Links (desktop + collapsible) */}
       <ul className={`navbar-center ${menuOpen ? "active" : ""}`}>
         <li>
           <Link to="/studentLogin" onClick={() => setMenuOpen(false)}>
@@ -41,7 +49,9 @@ export default function HomeNav() {
 
       {/* Right Section */}
       <div className="navbar-right">
-        <button className="cta-btn">It's Free → Try now!</button>
+        <button className="cta-btn" onClick={() => handleScroll("section5")}>
+          It's Free → Try now!
+        </button>
 
         {/* Hamburger Icon (mobile) */}
         <div

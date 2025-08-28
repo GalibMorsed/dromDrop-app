@@ -9,11 +9,11 @@ import Footer from "../homeComponents/homeFooter";
 export default function HomePage() {
   return (
     <div>
-      <Section1 />
-      <Section2 />
-      <Section3 />
-      <Section4 />
-      <Section5 />
+      <Section1 id="section1" />
+      <Section2 id="section2" />
+      <Section3 id="section3" />
+      <Section4 id="section4" />
+      <Section5 id="section5" />
       <Footer />
     </div>
   );
