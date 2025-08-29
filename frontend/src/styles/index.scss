@@ -99,6 +99,13 @@ p {
 @import url(staffCompStyling/staffSection4.scss);
 @import url(staffCompStyling/createClothes.scss);
 
+//User Page Components Styling
+@import url(userCompStyling/userNav.scss);
+@import url(userCompStyling/userSection1.scss);
+@import url(userCompStyling/userSection2.scss);
+@import url(userCompStyling/userSection3.scss);
+@import url(userCompStyling/userFooter.scss);
+
 .btn {
   border: none;
   outline: none;
