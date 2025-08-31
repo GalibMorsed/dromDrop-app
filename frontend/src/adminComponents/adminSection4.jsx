@@ -39,69 +39,71 @@ export default function AdminSection4() {
   }, []);
 
   return (
-    <div className="section4-container">
-      <h2 className="section4-title">Weekly Laundry Reports</h2>
+    <section className="admin-report">
+      <div className="section4-container">
+        <h2 className="section4-title">Weekly Laundry Reports</h2>
 
-      {/* Alert */}
-      {alert.message && (
-        <div className={`alert ${alert.type}`}>{alert.message}</div>
-      )}
+        {/* Alert */}
+        {alert.message && (
+          <div className={`alert ${alert.type}`}>{alert.message}</div>
+        )}
 
-      {loading ? (
-        <p className="section4-loading">Loading reports...</p>
-      ) : reports.length > 0 ? (
-        <div className="section4-list">
-          {reports.map((report) => (
-            <div key={report._id} className="section4-card">
-              <div className="section4-header">
-                <strong>Dates:</strong>
-                <span className="section4-date">
-                  {new Date(report.weekStart).toLocaleDateString()} -{" "}
-                  {new Date(report.weekEnd).toLocaleDateString()}
+        {loading ? (
+          <p className="section4-loading">Loading reports...</p>
+        ) : reports.length > 0 ? (
+          <div className="section4-list">
+            {reports.map((report) => (
+              <div key={report._id} className="section4-card">
+                <div className="section4-header">
+                  <strong>Dates:</strong>
+                  <span className="section4-date">
+                    {new Date(report.weekStart).toLocaleDateString()} -{" "}
+                    {new Date(report.weekEnd).toLocaleDateString()}
+                  </span>
+                </div>
+                <span className="section4-staff">
+                  <strong>Staff Email:</strong> {report.staffEmail}
                 </span>
-              </div>
-              <span className="section4-staff">
-                <strong>Staff Email:</strong> {report.staffEmail}
-              </span>
-              <p>
-                <strong>Hostel:</strong> {report.hostelName}
-              </p>
-              <p>
-                <strong>No. of Students:</strong> {report.noStudents}
-              </p>
-              <p>
-                <strong>No. of Clothes:</strong> {report.noClothes}
-              </p>
-              <p>
-                <strong>Status:</strong>{" "}
-                <span
-                  className={
-                    report.status === "Pending"
-                      ? "status-pending"
-                      : "status-completed"
-                  }
-                >
-                  {report.status}
-                </span>
-              </p>
-              {report.remarks && (
                 <p>
-                  <strong>Remarks:</strong> {report.remarks}
+                  <strong>Hostel:</strong> {report.hostelName}
                 </p>
-              )}
-              <div className="section4-footer">
-                <span className="amount">
-                  <strong>Total Amount:</strong> ₹{report.totalAmount}
-                </span>
-                {/* Optional PAY button if needed */}
-                <button className="pay-btn">PAY</button>
+                <p>
+                  <strong>No. of Students:</strong> {report.noStudents}
+                </p>
+                <p>
+                  <strong>No. of Clothes:</strong> {report.noClothes}
+                </p>
+                <p>
+                  <strong>Status:</strong>{" "}
+                  <span
+                    className={
+                      report.status === "Pending"
+                        ? "status-pending"
+                        : "status-completed"
+                    }
+                  >
+                    {report.status}
+                  </span>
+                </p>
+                {report.remarks && (
+                  <p>
+                    <strong>Remarks:</strong> {report.remarks}
+                  </p>
+                )}
+                <div className="section4-footer">
+                  <span className="amount">
+                    <strong>Total Amount:</strong> ₹{report.totalAmount}
+                  </span>
+                  {/* Optional PAY button if needed */}
+                  <button className="pay-btn">PAY</button>
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
-      ) : (
-        <p className="section4-empty">No reports available.</p>
-      )}
-    </div>
+            ))}
+          </div>
+        ) : (
+          <p className="section4-empty">No reports available.</p>
+        )}
+      </div>
+    </section>
   );
 }

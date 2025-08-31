@@ -30,7 +30,7 @@
       left: 50%;
       bottom: 0;
       transform: translateX(-50%);
-      width: 220px;
+      min-width: 260px;
       height: 3px;
       border-radius: 2px;
       background: linear-gradient(90deg, #1e3a8a, #3b82f6, #06b6d4);
