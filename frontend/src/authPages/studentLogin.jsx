@@ -30,7 +30,7 @@ function StudentLogin({ setIsAuthenticated }) {
 
     try {
       setLoading(true);
-      const url = "http://localhost:6060/auth/Userlogin"; // ✅ Fixed URL
+      const url = "http://localhost:6060/auth/Userlogin";
       const response = await fetch(url, {
         method: "POST",
         headers: {
@@ -46,7 +46,7 @@ function StudentLogin({ setIsAuthenticated }) {
         handleSuccess(message);
         localStorage.setItem("token", jwtToken);
         localStorage.setItem("userEmail", email);
-        localStorage.setItem("role", "Students");
+        localStorage.setItem("role", "Student/Users");
         setIsAuthenticated(true);
         setTimeout(() => navigate("/studentPage"), 1000);
       } else {

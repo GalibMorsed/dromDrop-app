@@ -29,7 +29,7 @@ function RefreshHandler({ setIsAuthenticated }) {
           navigate("/adminPage", { replace: true });
         } else if (role === "Staff/Faculty") {
           navigate("/staffPage", { replace: true });
-        } else if (role === "Students") {
+        } else if (role === "Student/Users") {
           navigate("/studentPage", { replace: true });
         }
       }

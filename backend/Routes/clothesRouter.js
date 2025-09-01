@@ -10,6 +10,7 @@ const upload = require("../Middlewares/upload");
 
 const {
   getDates,
+  getUserDates,
   addDate,
   deleteDate,
 } = require("../Controllers/timeController");
@@ -24,6 +25,7 @@ router.delete("/deleteCloth/:id", deleteCloth);
 
 // Staff Creates Pickup&Drop dates
 router.get("/getDates", getDates);
+router.get("/getUserDates", getUserDates);
 router.post("/addDate", addDate);
 router.delete("/deleteDate/:id", deleteDate);
 

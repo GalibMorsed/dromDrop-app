@@ -1,4 +1,4 @@
-.staff-navbar {
+.user-navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -9,12 +9,12 @@
   z-index: 998;
   transition: all 0.3s ease-in-out;
 
-  .staff-navbar-left {
+  .user-navbar-left {
     display: flex;
     align-items: center;
     gap: 0.6rem;
 
-    .staff-navbar__logo {
+    .user-navbar__logo {
       width: 42px;
       height: 42px;
       border-radius: 50%;
@@ -22,7 +22,7 @@
       animation: popIn 0.6s ease;
     }
 
-    .staff-navbar__title {
+    .user-navbar__title {
       font-size: 1.2rem;
       font-weight: 600;
       color: #fff;
@@ -30,7 +30,7 @@
     }
   }
 
-  .staff-navbar-center {
+  .user-navbar-center {
     display: flex;
     list-style: none;
     gap: 3rem;
@@ -76,7 +76,7 @@
       animation: slideDown 0.4s ease;
     }
 
-    .staff-cta-btn {
+    .user-cta-btn {
       padding: 0.7rem 1.6rem;
       background: linear-gradient(90deg, #b82a2a 0%, #8a1e1e 100%);
       color: #fff;
@@ -85,7 +85,7 @@
       border: none;
       border-radius: 6px;
       cursor: pointer;
-      transition: background 0.3s;
+      transition: transform 0.2s, background 0.3s;
 
       &:hover {
         background: linear-gradient(90deg, #8a371e 0%, #b8572a 100%);
@@ -93,12 +93,12 @@
     }
   }
 
-  .staff-navbar-right {
+  .user-navbar-right {
     display: flex;
     align-items: center;
     gap: 0.5rem;
 
-    .staff-cta-btn {
+    .user-cta-btn {
       padding: 0.7rem 1.6rem;
       background: linear-gradient(90deg, #b82a2a 0%, #8a1e1e 100%);
       color: #fff;
@@ -107,14 +107,14 @@
       border: none;
       border-radius: 6px;
       cursor: pointer;
-      transition: background 0.3s;
+      transition: transform 0.2s, background 0.3s;
 
       &:hover {
         background: linear-gradient(90deg, #8a371e 0%, #b8572a 100%);
       }
     }
 
-    .staff-hamburger {
+    .user-hamburger {
       flex-direction: column;
       justify-content: space-between;
       width: 24px;
@@ -142,32 +142,33 @@
     }
   }
 
-  .staff-mobile-only {
+  .user-mobile-only {
     display: none;
   }
 
-  @media (max-width: 800px) {
-    .staff-navbar-center {
+  @media (max-width: 765px) {
+    .user-navbar-center {
       display: none;
     }
 
-    .staff-navbar-center.active {
+    .user-navbar-center.active {
       display: flex;
     }
 
-    .staff-desktop-only {
+    .user-desktop-only {
       display: none;
     }
 
-    .staff-mobile-only {
+    .user-mobile-only {
       display: block;
     }
 
-    .staff-hamburger {
+    .user-hamburger {
       display: flex;
     }
   }
 
+  /* Animations */
   @keyframes fadeUp {
     from {
       opacity: 0;
