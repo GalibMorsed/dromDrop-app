@@ -1,6 +1,41 @@
 const PickupDrop = require("../Models/Timing");
+const Staff = require("../Models/Staff");
+const User = require("../Models/User");
 
-// Get dates for a staff (by userEmail)
+// Get pickup/drop dates for student
+const getUserDates = async (req, res) => {
+  try {
+    const { studentEmail } = req.query;
+
+    if (!studentEmail) {
+      return res.status(400).json({ message: "studentEmail is required" });
+    }
+
+    const student = await User.findOne({ email: studentEmail });
+    if (!student) {
+      return res.status(404).json({ message: "Student not found" });
+    }
+
+    const { instituteName } = student;
+
+    const staffList = await Staff.find({ instituteName }).select("email");
+    if (!staffList.length) {
+      return res
+        .status(404)
+        .json({ message: "No staff found for this institute" });
+    }
+
+    const staffEmails = staffList.map((s) => s.email);
+
+    const dates = await PickupDrop.find({ userEmail: { $in: staffEmails } });
+
+    res.json(dates);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+// Get dates for a staff
 const getDates = async (req, res) => {
   try {
     const { userEmail } = req.query;
@@ -48,4 +83,4 @@ const deleteDate = async (req, res) => {
   }
 };
 
-module.exports = { getDates, addDate, deleteDate };
+module.exports = { getDates, getUserDates, addDate, deleteDate };
