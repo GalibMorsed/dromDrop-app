@@ -187,13 +187,11 @@ const getClothesForUser = async (req, res) => {
       return res.status(400).json({ message: "userEmail is required" });
     }
 
-    // Find the user
     const user = await User.findOne({ email: userEmail });
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
 
-    // Find all staff from the same institution
     const staff = await Staff.find({ instituteName: user.instituteName });
     if (!staff || staff.length === 0) {
       return res
@@ -201,13 +199,10 @@ const getClothesForUser = async (req, res) => {
         .json({ message: "No staff found for this institution" });
     }
 
-    // Get staff emails
     const staffEmails = staff.map((s) => s.email);
 
-    // Fetch clothes created by staff from same institution
     const clothes = await Cloth.find({ staffEmail: { $in: staffEmails } });
 
-    // Convert images + separate laundry/extra
     const laundry = [];
     const extra = [];
 
@@ -215,7 +210,7 @@ const getClothesForUser = async (req, res) => {
       const clothData = {
         _id: cloth._id,
         clothName: cloth.clothName,
-        selectedOption: cloth.selectedOption, // "laundry" | "extra"
+        selectedOption: cloth.selectedOption,
         clothPrice: cloth.clothPrice || null,
         photo:
           cloth.photo && cloth.photo.data

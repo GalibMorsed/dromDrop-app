@@ -1,114 +1,321 @@
-.submit-clothes {
+.submit-clothes-container {
   width: 100%;
   min-height: 100vh;
-  padding: 2rem;
+  padding: 1.5rem;
   background: #f8fafc;
   font-family: "Segoe UI", sans-serif;
   display: flex;
   flex-direction: column;
   gap: 2rem;
 
-  .title {
+  .page-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 25px;
     font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    color: #1e293b;
+    position: relative;
+    padding-bottom: 12px;
+
+    img {
+      width: 42px;
+      height: 42px;
+      border-radius: 20%;
+      object-fit: cover;
+      animation: popIn 0.6s ease;
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      bottom: 0;
+      transform: translateX(-50%);
+      min-width: 260px;
+      height: 3px;
+      border-radius: 2px;
+      background: linear-gradient(90deg, #1e3a8a, #3b82f6, #06b6d4);
+      animation: expandLine 1s ease forwards;
+    }
+  }
+
+  .section-title {
+    font-size: 1.3rem;
     font-weight: 600;
-    text-align: center;
     margin-bottom: 1rem;
+    color: #334155;
+    animation: fadeIn 0.7s cubic-bezier(0.4, 0.2, 0.2, 1) forwards;
   }
 
-  section {
-    h3 {
-      font-size: 1.3rem;
-      margin-bottom: 1rem;
-      color: #333;
-    }
+  /* Table Styling */
+  .clothes-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1.5rem;
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 
-    .clothes-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-      gap: 1rem;
-    }
+    animation: fadeIn 0.9s cubic-bezier(0.4, 0.2, 0.2, 1) forwards;
+    animation: slideInRow 0.7s cubic-bezier(0.4, 0.2, 0.2, 1) forwards;
 
-    .cloth-card {
-      background: white;
-      border: 1px solid #ddd;
-      border-radius: 12px;
-      padding: 1rem;
+    th,
+    td {
+      border: 1px solid #e2e8f0;
+      padding: 0.75rem 1rem;
       text-align: center;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+      font-size: 0.95rem;
+      word-break: break-word;
+    }
 
-      img {
-        width: 100%;
-        height: 120px;
-        object-fit: cover;
-        border-radius: 8px;
-        margin-bottom: 0.5rem;
-      }
+    th {
+      background: #f1f5f9;
+      font-weight: 600;
+      color: #1e293b;
+    }
 
-      p {
-        font-weight: 500;
-        margin: 0.3rem 0;
-      }
+    tr:nth-child(even) {
+      background: #f9fafb;
+    }
 
-      .price {
-        font-size: 0.9rem;
-        color: #555;
-      }
+    .cloth-img {
+      width: 60px;
+      height: 60px;
+      object-fit: cover;
+      border-radius: 6px;
+    }
 
-      &:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-      }
-
-      &.selected {
-        border: 2px solid #007bff;
-        background: #eef6ff;
+    .quantity-input {
+      width: 70px;
+      padding: 0.4rem;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      text-align: center;
+      font-size: 0.9rem;
+      transition: box-shadow 0.3s;
+      &:focus {
+        box-shadow: 0 0 0 2px #3b82f6;
+        border-color: #3b82f6;
       }
     }
 
-    .custom-add {
-      display: flex;
-      gap: 0.5rem;
-      margin-bottom: 1rem;
-
-      input {
-        flex: 1;
-        padding: 0.6rem;
-        border: 1px solid #ccc;
-        border-radius: 8px;
-      }
-
-      button {
-        padding: 0.6rem 1rem;
-        border: none;
-        border-radius: 8px;
-        background: #007bff;
-        color: white;
-        cursor: pointer;
-        transition: 0.3s;
-
-        &:hover {
-          background: #0056b3;
-        }
-      }
+    /* Highlight total price row */
+    tbody tr:last-child {
+      font-weight: 600;
+      background: #e0f2fe;
+      color: #1e3a8a;
     }
   }
 
-  .submit-btn {
-    margin-top: auto;
-    align-self: center;
-    padding: 0.8rem 2rem;
-    border: none;
-    border-radius: 10px;
-    background: #28a745;
-    color: white;
-    font-size: 1.1rem;
+  /* Buttons */
+  .btn-outline {
+    background: #fff;
+    border: 1px solid #2563eb;
+    color: #2563eb;
+    padding: 0.4rem 1rem;
+    border-radius: 6px;
     cursor: pointer;
+    font-size: 0.9rem;
+    transition: 0.2s;
+
+    &:hover {
+      background: #eff6ff;
+      animation: scaleUp 0.2s forwards;
+    }
+  }
+
+  .btn-selected {
+    background: #2563eb;
+    color: white;
+    border: none;
+    padding: 0.4rem 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: 0.2s;
+
+    &:hover {
+      background: #1d4ed8;
+      animation: scaleUp 0.2s forwards;
+    }
+  }
+
+  .btn-primary {
+    background: #2563eb;
+    color: white;
+    border: none;
+    padding: 0.5rem 1.2rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.9rem;
     transition: 0.3s;
 
     &:hover {
-      background: #1e7e34;
+      background: #1d4ed8;
+      animation: scaleUp 0.2s forwards;
     }
+  }
+
+  .btn-submit {
+    background: #16a34a;
+    color: white;
+    border: none;
+    padding: 0.8rem 2rem;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+    margin: 2rem auto 0 auto;
+    display: block;
+
+    &:hover {
+      background: #15803d;
+      animation: scaleUp 0.2s forwards;
+    }
+  }
+
+  /* Custom Input Section */
+  .custom-add {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+
+    .custom-input {
+      flex: 1;
+      padding: 0.6rem;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      font-size: 0.9rem;
+    }
+  }
+
+  .custom-list {
+    list-style: disc;
+    margin-left: 1.5rem;
+    font-size: 0.95rem;
+    color: #374151;
+
+    li {
+      margin-bottom: 0.4rem;
+    }
+  }
+
+  /* Success message */
+  .success-msg {
+    text-align: center;
+    font-size: 1rem;
+    color: #16a34a;
+    font-weight: 600;
+    margin-top: 1rem;
+  }
+
+  /* Limit warning message */
+  .limit-msg {
+    color: #b91c1c;
+    font-weight: 600;
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+  }
+
+  /* Responsive Design */
+  @media (max-width: 900px) {
+    .clothes-table {
+      font-size: 0.85rem;
+
+      th,
+      td {
+        padding: 0.6rem;
+      }
+
+      .cloth-img {
+        width: 50px;
+        height: 50px;
+      }
+    }
+  }
+
+  @media (max-width: 650px) {
+    .clothes-table {
+      display: block;
+      overflow-x: auto;
+      white-space: nowrap;
+      border-radius: 8px;
+
+      th,
+      td {
+        min-width: 120px;
+      }
+    }
+
+    .quantity-input {
+      width: 55px;
+    }
+
+    .btn-outline,
+    .btn-selected,
+    .btn-primary {
+      font-size: 0.8rem;
+      padding: 0.35rem 0.8rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .page-title {
+      font-size: 1.5rem;
+    }
+
+    .section-title {
+      font-size: 1.1rem;
+    }
+
+    .btn-submit {
+      width: 100%;
+    }
+  }
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes expandLine {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes slideInRow {
+  from {
+    opacity: 0;
+    transform: translateX(-40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scaleUp {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.07);
   }
 }

@@ -17,7 +17,6 @@ const verifyAdmin = async (req, res, next) => {
       return res.status(404).json({ error: "Admin not found" });
     }
 
-    // Attach institution & email to request for next step
     req.institution = admin.institution;
     req.adminEmail = admin.email;
 

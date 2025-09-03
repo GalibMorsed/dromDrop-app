@@ -10,16 +10,31 @@
     border-bottom: 1px solid #ffffff;
     font-family: "Segoe UI", sans-serif;
 
-    .title {
+    .user2-title {
       font-size: 2rem;
       font-weight: 700;
       color: #1e293b;
       display: flex;
       align-items: center;
       justify-content: center;
+      gap: 12px;
       margin-bottom: 1em;
       position: relative;
       z-index: 1;
+
+      img {
+        width: 42px;
+        height: 42px;
+        border-radius: 20%;
+        object-fit: cover;
+        vertical-align: middle;
+        animation: popIn 0.6s ease;
+      }
+
+      .emoji {
+        font-size: 2.2rem;
+        display: inline-block;
+      }
 
       &::after {
         content: "";
@@ -35,7 +50,7 @@
         overflow: hidden;
         z-index: 2;
       }
-      /* Shimmer effect */
+
       &::before {
         content: "";
         position: absolute;
@@ -54,12 +69,6 @@
         opacity: 0.7;
         animation: shimmer 2.2s linear infinite;
         z-index: 3;
-      }
-
-      .emoji {
-        font-size: 2.2rem;
-        margin-right: 0.3em;
-        display: inline-block;
       }
     }
 
@@ -129,8 +138,11 @@
       .content {
         padding: 1.2rem 1rem;
       }
-      .title {
+      .user2-title {
         font-size: 1.3rem;
+        & {
+          border-width: 120px;
+        }
       }
       .desc {
         font-size: 1rem;

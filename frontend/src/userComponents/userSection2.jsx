@@ -7,14 +7,8 @@ export default function UserSection2() {
   return (
     <section className="u-sec2">
       <div className="user-section2">
-        <h2 className="title">
-          <span
-            role="img"
-            aria-label="laundry"
-            style={{ marginRight: "0.5em" }}
-          >
-            🧺
-          </span>
+        <h2 className="user2-title">
+          <img src="userSecImgs/clothLogo1.png" alt="logo" />
           Submit Weekly Cloth Drops
         </h2>
         <div className="content">
