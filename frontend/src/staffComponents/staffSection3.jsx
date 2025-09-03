@@ -13,7 +13,7 @@ export default function StaffSection3() {
   });
 
   const [loading, setLoading] = useState(false);
-  const [alert, setAlert] = useState({ type: "", message: "" }); // ✅ alert state
+  const [alert, setAlert] = useState({ type: "", message: "" });
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -21,7 +21,7 @@ export default function StaffSection3() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const staffEmail = localStorage.getItem("userEmail"); // staff email
+    const staffEmail = localStorage.getItem("userEmail");
 
     try {
       setLoading(true);
@@ -58,7 +58,6 @@ export default function StaffSection3() {
     } finally {
       setLoading(false);
 
-      // Auto-hide alert after 3 seconds
       setTimeout(() => setAlert({ type: "", message: "" }), 3000);
     }
   };

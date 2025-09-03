@@ -2,6 +2,7 @@ const Cloth = require("../Models/Clothes");
 const Reports = require("../Models/Reports");
 const Staff = require("../Models/Staff");
 const Admin = require("../Models/Admin");
+const User = require("../Models/User");
 
 // Save a cloth with image
 const saveCloth = async (req, res) => {
@@ -177,10 +178,67 @@ const getReportsByStaff = async (req, res) => {
   }
 };
 
+// Fetch clothes for user (with image conversion + category separation)
+const getClothesForUser = async (req, res) => {
+  try {
+    const { userEmail } = req.query;
+
+    if (!userEmail) {
+      return res.status(400).json({ message: "userEmail is required" });
+    }
+
+    const user = await User.findOne({ email: userEmail });
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const staff = await Staff.find({ instituteName: user.instituteName });
+    if (!staff || staff.length === 0) {
+      return res
+        .status(404)
+        .json({ message: "No staff found for this institution" });
+    }
+
+    const staffEmails = staff.map((s) => s.email);
+
+    const clothes = await Cloth.find({ staffEmail: { $in: staffEmails } });
+
+    const laundry = [];
+    const extra = [];
+
+    clothes.forEach((cloth) => {
+      const clothData = {
+        _id: cloth._id,
+        clothName: cloth.clothName,
+        selectedOption: cloth.selectedOption,
+        clothPrice: cloth.clothPrice || null,
+        photo:
+          cloth.photo && cloth.photo.data
+            ? `data:${
+                cloth.photo.contentType
+              };base64,${cloth.photo.data.toString("base64")}`
+            : null,
+      };
+
+      if (cloth.selectedOption === "laundry") {
+        laundry.push(clothData);
+      } else {
+        extra.push(clothData);
+      }
+    });
+
+    res.json({ laundry, extra });
+  } catch (err) {
+    console.error("Error fetching clothes:", err);
+    res.status(500).json({ message: "Server error", error: err.message });
+  }
+};
+
 module.exports = {
   saveCloth,
   getClothes,
   deleteCloth,
+  getClothesForUser,
   createReport,
   getReportsForAdmin,
   getReportsByStaff,

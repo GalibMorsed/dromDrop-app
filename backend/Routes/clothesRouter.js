@@ -5,6 +5,7 @@ const {
   createReport,
   getReportsForAdmin,
   getReportsByStaff,
+  getClothesForUser,
 } = require("../Controllers/clothesController");
 const upload = require("../Middlewares/upload");
 
@@ -22,6 +23,7 @@ const router = Router();
 router.post("/saveCloth", upload.single("file"), saveCloth);
 router.get("/getClothes", getClothes);
 router.delete("/deleteCloth/:id", deleteCloth);
+router.get("/getClothesForUser", getClothesForUser);
 
 // Staff Creates Pickup&Drop dates
 router.get("/getDates", getDates);
