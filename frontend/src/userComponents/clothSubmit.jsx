@@ -12,36 +12,52 @@ export default function SubmitClothes() {
   const userEmail = localStorage.getItem("userEmail");
 
   useEffect(() => {
-    fetch(
-      `http://localhost:6060/clothes/getClothesForUser?userEmail=${userEmail}`
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        setLaundryClothes(data.laundry || []);
-        setExtraClothes(data.extra || []);
-      })
-      .catch((err) => console.error("Error fetching clothes:", err));
+    const fetchClothes = async () => {
+      try {
+        const res = await fetch(
+          `http://localhost:6060/clothes/getClothesForUser?userEmail=${userEmail}`
+        );
+        const data = await res.json();
+
+        if (res.ok) {
+          setLaundryClothes(data.laundry || []);
+          setExtraClothes(data.extra || []);
+        } else {
+          console.error("Failed fetching clothes:", data.message);
+        }
+      } catch (err) {
+        console.error("Error fetching clothes:", err);
+      }
+    };
+
+    if (userEmail) fetchClothes();
   }, [userEmail]);
 
   const totalLaundrySelected = Object.entries(selectedItems)
-    .filter(([id, qty]) => laundryClothes.find((c) => c._id === id))
+    .filter(([id]) => laundryClothes.find((c) => c._id === id))
     .reduce((sum, [_, qty]) => sum + qty, 0);
 
   const handleQuantityChange = (cloth, value) => {
     const quantity = Math.max(0, isNaN(value) ? 0 : value);
+
     if (laundryClothes.find((c) => c._id === cloth._id)) {
       const prevQty = selectedItems[cloth._id] || 0;
       const newTotal = totalLaundrySelected - prevQty + quantity;
+
       if (newTotal > 10) {
         alert("⚠ You cannot select more than 10 laundry clothes.");
         return;
       }
     }
+
     setSelectedItems((prev) => ({ ...prev, [cloth._id]: quantity }));
   };
 
   const handleAddCustomCloth = () => {
     if (!customCloth.trim()) return;
+    alert(
+      "You are adding a custom cloth. You have to talk with the staff member to confirm if it's takeable or not."
+    );
     setCustomClothes([...customClothes, { clothName: customCloth }]);
     setCustomCloth("");
   };
@@ -95,7 +111,7 @@ export default function SubmitClothes() {
 
       const data = await res.json();
 
-      if (data.success) {
+      if (res.ok && data.success) {
         setSuccessMessage("✅ Clothes submitted successfully!");
         setSelectedItems({});
         setCustomClothes([]);
@@ -268,7 +284,7 @@ export default function SubmitClothes() {
                 <tr key={c._id}>
                   <td>{c.clothName}</td>
                   <td>{c.quantity}</td>
-                  <td>0 ₹</td>
+                  <td>₹{c.clothPrice || 0}</td>
                   <td>
                     <button
                       onClick={() => handleRemoveSelected(c)}
@@ -298,7 +314,7 @@ export default function SubmitClothes() {
                 <tr key={i}>
                   <td>{c.clothName}</td>
                   <td>Custom</td>
-                  <td>0 ₹</td>
+                  <td>₹0</td>
                   <td>
                     <button
                       onClick={() => handleRemoveSelected(c)}

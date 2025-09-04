@@ -319,3 +319,13 @@
     transform: scale(1.07);
   }
 }
+@keyframes popIn {
+  from {
+    opacity: 0;
+    transform: scale(0.5) rotate(-15deg);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) rotate(0);
+  }
+}

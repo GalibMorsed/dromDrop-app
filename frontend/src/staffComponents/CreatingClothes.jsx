@@ -20,7 +20,12 @@ export default function CreatingClothes() {
           `http://localhost:6060/clothes/getClothes?email=${staffEmail}`
         );
         const data = await res.json();
-        setClothes(data);
+
+        if (data && data.clothes) {
+          setClothes(data.clothes); // only use the clothes array
+        } else {
+          setClothes([]);
+        }
       } catch (err) {
         console.error("Error fetching clothes:", err);
         alert("⚠️ Failed to fetch clothes from server.");
@@ -53,8 +58,8 @@ export default function CreatingClothes() {
 
       const result = await res.json();
 
-      if (res.ok) {
-        setClothes([...clothes, result.cloth]);
+      if (res.ok && result.clothes) {
+        setClothes(result.clothes); // updated array from backend
         alert("✅ Cloth saved successfully!");
       } else {
         alert(`❌ Failed to save cloth: ${result.message || "Unknown error"}`);
@@ -77,12 +82,14 @@ export default function CreatingClothes() {
   const handleDelete = async (id) => {
     try {
       const res = await fetch(
-        `http://localhost:6060/clothes/deleteCloth/${id}`,
+        `http://localhost:6060/clothes/deleteCloth/${id}?email=${staffEmail}`,
         { method: "DELETE" }
       );
 
-      if (res.ok) {
-        setClothes(clothes.filter((cloth) => cloth._id !== id));
+      const result = await res.json();
+
+      if (res.ok && result.clothes) {
+        setClothes(result.clothes); // updated array from backend
         alert("🗑️ Cloth deleted successfully!");
       } else {
         alert("❌ Failed to delete cloth.");
@@ -93,6 +100,7 @@ export default function CreatingClothes() {
     }
   };
 
+  // ✅ Split clothes
   const laundryClothes = clothes.filter((c) => c.selectedOption === "laundry");
   const extraClothes = clothes.filter((c) => c.selectedOption === "extra");
 

@@ -1,12 +1,8 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const clothSchema = new Schema({
-  staffEmail: {
-    type: String,
-    required: true,
-    trim: true,
-  },
+// Sub-schema for each cloth item
+const ClothItemSchema = new Schema({
   selectedOption: {
     type: String,
     enum: ["laundry", "extra"],
@@ -23,9 +19,7 @@ const clothSchema = new Schema({
   },
   photo: {
     data: Buffer,
-    contentType: {
-      type: String,
-    },
+    contentType: { type: String },
   },
   createdAt: {
     type: Date,
@@ -33,5 +27,15 @@ const clothSchema = new Schema({
   },
 });
 
-const ClothModel = mongoose.model("Cloth", clothSchema);
+// Main schema (grouped by staffEmail)
+const ClothSchema = new Schema({
+  staffEmail: {
+    type: String,
+    required: true,
+    trim: true,
+  },
+  clothes: [ClothItemSchema],
+});
+
+const ClothModel = mongoose.model("Cloth", ClothSchema);
 module.exports = ClothModel;
