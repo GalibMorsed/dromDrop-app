@@ -1,0 +1,42 @@
+.user-footer {
+  width: 100%;
+  background: #1e293b;
+  padding: 0.5rem 1rem;
+  font-family: "Segoe UI", "Roboto", sans-serif;
+  position: relative;
+  bottom: 0;
+
+  .footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    gap: 6rem;
+    flex-wrap: wrap;
+  }
+
+  .footer-link {
+    color: white;
+    font-size: 0.8rem;
+    font-weight: 300;
+    text-decoration: none;
+    transition: all 0.3s ease;
+
+    &:hover {
+      color: #ffffff;
+      text-decoration: underline;
+    }
+  }
+}
+
+/* Responsiveness */
+@media (max-width: 768px) {
+  .user-footer {
+    padding: 0.5rem 1.5rem;
+
+    .footer-link {
+      font-size: 0.8rem;
+      gap: 2rem;
+    }
+  }
+}

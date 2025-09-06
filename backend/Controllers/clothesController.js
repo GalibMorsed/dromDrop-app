@@ -13,20 +13,46 @@ const saveCloth = async (req, res) => {
       return res.status(400).json({ message: "Missing required fields" });
     }
 
-    const newCloth = new Cloth({
-      staffEmail,
+    const clothData = {
       selectedOption,
       clothName,
       clothPrice,
       photo: req.file
         ? { data: req.file.buffer, contentType: req.file.mimetype }
         : null,
-    });
+    };
 
-    await newCloth.save();
-    res
-      .status(201)
-      .json({ message: "Cloth saved successfully", cloth: newCloth });
+    let staffClothes = await Cloth.findOne({ staffEmail });
+
+    if (!staffClothes) {
+      staffClothes = new Cloth({
+        staffEmail,
+        clothes: [clothData],
+      });
+    } else {
+      staffClothes.clothes.push(clothData);
+    }
+
+    await staffClothes.save();
+
+    // Format clothes array for frontend
+    const formatted = staffClothes.clothes.map((cloth) => ({
+      _id: cloth._id,
+      selectedOption: cloth.selectedOption,
+      clothName: cloth.clothName,
+      clothPrice: cloth.clothPrice,
+      photo: cloth.photo?.data
+        ? `data:${cloth.photo.contentType};base64,${cloth.photo.data.toString(
+            "base64"
+          )}`
+        : null,
+      createdAt: cloth.createdAt,
+    }));
+
+    res.status(201).json({
+      message: "Cloth saved successfully",
+      clothes: formatted,
+    });
   } catch (err) {
     console.error("Error saving cloth:", err);
     res.status(500).json({ message: "Server error" });
@@ -41,12 +67,15 @@ const getClothes = async (req, res) => {
       return res.status(400).json({ message: "Staff email required" });
     }
 
-    const clothes = await Cloth.find({ staffEmail: email });
+    const staffClothes = await Cloth.findOne({ staffEmail: email });
 
-    // Convert photo buffer → base64 string for frontend
-    const formatted = clothes.map((cloth) => ({
+    if (!staffClothes) {
+      return res.status(200).json({ clothes: [] });
+    }
+
+    // Convert photo buffer → base64
+    const formatted = staffClothes.clothes.map((cloth) => ({
       _id: cloth._id,
-      staffEmail: cloth.staffEmail,
       selectedOption: cloth.selectedOption,
       clothName: cloth.clothName,
       clothPrice: cloth.clothPrice,
@@ -58,7 +87,7 @@ const getClothes = async (req, res) => {
       createdAt: cloth.createdAt,
     }));
 
-    res.status(200).json(formatted);
+    res.status(200).json({ clothes: formatted });
   } catch (err) {
     console.error("Error fetching clothes:", err);
     res.status(500).json({ message: "Server error" });
@@ -68,14 +97,38 @@ const getClothes = async (req, res) => {
 // Delete cloth
 const deleteCloth = async (req, res) => {
   try {
-    const { id } = req.params;
-    const cloth = await Cloth.findByIdAndDelete(id);
+    const staffEmail = req.query.email;
+    const clothId = req.params.id;
 
-    if (!cloth) {
-      return res.status(404).json({ message: "Cloth not found" });
+    const staffClothes = await Cloth.findOne({ staffEmail });
+    if (!staffClothes) {
+      return res.status(404).json({ message: "Staff not found" });
     }
 
-    res.status(200).json({ message: "Cloth deleted successfully" });
+    staffClothes.clothes = staffClothes.clothes.filter(
+      (c) => c._id.toString() !== clothId
+    );
+
+    await staffClothes.save();
+
+    // Format clothes array for frontend
+    const formatted = staffClothes.clothes.map((cloth) => ({
+      _id: cloth._id,
+      selectedOption: cloth.selectedOption,
+      clothName: cloth.clothName,
+      clothPrice: cloth.clothPrice,
+      photo: cloth.photo?.data
+        ? `data:${cloth.photo.contentType};base64,${cloth.photo.data.toString(
+            "base64"
+          )}`
+        : null,
+      createdAt: cloth.createdAt,
+    }));
+
+    res.status(200).json({
+      message: "Cloth deleted successfully",
+      clothes: formatted,
+    });
   } catch (err) {
     console.error("Error deleting cloth:", err);
     res.status(500).json({ message: "Server error" });
@@ -178,7 +231,7 @@ const getReportsByStaff = async (req, res) => {
   }
 };
 
-// Fetch clothes for user (with image conversion + category separation)
+// Fetch clothes for user
 const getClothesForUser = async (req, res) => {
   try {
     const { userEmail } = req.query;
@@ -201,30 +254,32 @@ const getClothesForUser = async (req, res) => {
 
     const staffEmails = staff.map((s) => s.email);
 
-    const clothes = await Cloth.find({ staffEmail: { $in: staffEmails } });
+    const clothesDocs = await Cloth.find({ staffEmail: { $in: staffEmails } });
 
     const laundry = [];
     const extra = [];
 
-    clothes.forEach((cloth) => {
-      const clothData = {
-        _id: cloth._id,
-        clothName: cloth.clothName,
-        selectedOption: cloth.selectedOption,
-        clothPrice: cloth.clothPrice || null,
-        photo:
-          cloth.photo && cloth.photo.data
-            ? `data:${
-                cloth.photo.contentType
-              };base64,${cloth.photo.data.toString("base64")}`
-            : null,
-      };
+    clothesDocs.forEach((doc) => {
+      doc.clothes.forEach((cloth) => {
+        const clothData = {
+          _id: cloth._id,
+          clothName: cloth.clothName,
+          selectedOption: cloth.selectedOption,
+          clothPrice: cloth.clothPrice || null,
+          photo:
+            cloth.photo && cloth.photo.data
+              ? `data:${
+                  cloth.photo.contentType
+                };base64,${cloth.photo.data.toString("base64")}`
+              : null,
+        };
 
-      if (cloth.selectedOption === "laundry") {
-        laundry.push(clothData);
-      } else {
-        extra.push(clothData);
-      }
+        if (cloth.selectedOption === "laundry") {
+          laundry.push(clothData);
+        } else {
+          extra.push(clothData);
+        }
+      });
     });
 
     res.json({ laundry, extra });

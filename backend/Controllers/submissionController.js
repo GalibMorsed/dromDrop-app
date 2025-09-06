@@ -61,7 +61,7 @@ const submitClothes = async (req, res) => {
 const getSubmittedClothes = async (req, res) => {
   try {
     const { userEmail } = req.query;
-    const submission = await Submission.findOne({ userEmail }).sort({
+    const submission = await Submission.find({ userEmail }).sort({
       date: -1,
     });
     res.status(200).json(submission || {});

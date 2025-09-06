@@ -38,7 +38,7 @@
       height: 3px;
       border-radius: 2px;
       background: linear-gradient(90deg, #1e3a8a, #3b82f6, #06b6d4);
-      animation: expandLine 1s ease forwards;
+      animation: expandFullLine 1s ease forwards;
     }
   }
 
@@ -50,8 +50,8 @@
     animation: fadeIn 0.7s cubic-bezier(0.4, 0.2, 0.2, 1) forwards;
   }
 
-  /* Table Styling */
-  .clothes-table {
+  /* Laundry Table Styling */
+  .laundry-table {
     width: 100%;
     border-collapse: collapse;
     margin-bottom: 1.5rem;
@@ -59,10 +59,8 @@
     border-radius: 12px;
     overflow: hidden;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-
     animation: fadeIn 0.9s cubic-bezier(0.4, 0.2, 0.2, 1) forwards;
     animation: slideInRow 0.7s cubic-bezier(0.4, 0.2, 0.2, 1) forwards;
-
     th,
     td {
       border: 1px solid #e2e8f0;
@@ -71,24 +69,20 @@
       font-size: 0.95rem;
       word-break: break-word;
     }
-
     th {
       background: #f1f5f9;
       font-weight: 600;
       color: #1e293b;
     }
-
     tr:nth-child(even) {
       background: #f9fafb;
     }
-
     .cloth-img {
       width: 60px;
       height: 60px;
       object-fit: cover;
       border-radius: 6px;
     }
-
     .quantity-input {
       width: 70px;
       padding: 0.4rem;
@@ -102,8 +96,54 @@
         border-color: #3b82f6;
       }
     }
+  }
 
-    /* Highlight total price row */
+  /* Extra Table Styling */
+  .extra-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1.5rem;
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    animation: fadeIn 0.9s cubic-bezier(0.4, 0.2, 0.2, 1) forwards;
+    animation: slideInRow 0.7s cubic-bezier(0.4, 0.2, 0.2, 1) forwards;
+    th,
+    td {
+      border: 1px solid #e2e8f0;
+      padding: 0.75rem 1rem;
+      text-align: center;
+      font-size: 0.95rem;
+      word-break: break-word;
+    }
+    th {
+      background: #f1f5f9;
+      font-weight: 600;
+      color: #1e293b;
+    }
+    tr:nth-child(even) {
+      background: #f9fafb;
+    }
+    .cloth-img {
+      width: 60px;
+      height: 60px;
+      object-fit: cover;
+      border-radius: 6px;
+    }
+    .quantity-input {
+      width: 70px;
+      padding: 0.4rem;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      text-align: center;
+      font-size: 0.9rem;
+      transition: box-shadow 0.3s;
+      &:focus {
+        box-shadow: 0 0 0 2px #3b82f6;
+        border-color: #3b82f6;
+      }
+    }
     tbody tr:last-child {
       font-weight: 600;
       background: #e0f2fe;
@@ -224,14 +264,13 @@
 
   /* Responsive Design */
   @media (max-width: 900px) {
-    .clothes-table {
+    .laundry-table,
+    .extra-table {
       font-size: 0.85rem;
-
       th,
       td {
         padding: 0.6rem;
       }
-
       .cloth-img {
         width: 50px;
         height: 50px;
@@ -240,22 +279,19 @@
   }
 
   @media (max-width: 650px) {
-    .clothes-table {
-      display: block;
+    .laundry-table,
+    .extra-table {
       overflow-x: auto;
       white-space: nowrap;
       border-radius: 8px;
-
       th,
       td {
         min-width: 120px;
       }
     }
-
     .quantity-input {
       width: 55px;
     }
-
     .btn-outline,
     .btn-selected,
     .btn-primary {
@@ -268,13 +304,24 @@
     .page-title {
       font-size: 1.5rem;
     }
-
     .section-title {
       font-size: 1.1rem;
     }
-
     .btn-submit {
       width: 100%;
+    }
+    .laundry-table,
+    .extra-table {
+      th,
+      td {
+        min-width: 80px;
+        padding: 0.3rem 0.3rem;
+        font-size: 0.75rem;
+      }
+      .cloth-img {
+        width: 30px;
+        height: 30px;
+      }
     }
   }
 }
@@ -291,7 +338,7 @@
   }
 }
 
-@keyframes expandLine {
+@keyframes expandFullLine {
   from {
     width: 0;
   }
@@ -317,5 +364,15 @@
   }
   to {
     transform: scale(1.07);
+  }
+}
+@keyframes popIn {
+  from {
+    opacity: 0;
+    transform: scale(0.5) rotate(-15deg);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) rotate(0);
   }
 }
