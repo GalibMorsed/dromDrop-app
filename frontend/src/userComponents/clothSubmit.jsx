@@ -145,7 +145,7 @@ export default function SubmitClothes() {
         {laundryClothes.length === 0 ? (
           <p>No laundry clothes available.</p>
         ) : (
-          <table className="clothes-table">
+          <table className="laundry-table">
             <thead>
               <tr>
                 <th>Image</th>
@@ -198,7 +198,7 @@ export default function SubmitClothes() {
         {extraClothes.length === 0 ? (
           <p>No extra clothes available.</p>
         ) : (
-          <table className="clothes-table">
+          <table className="extra-table">
             <thead>
               <tr>
                 <th>Image</th>
@@ -270,7 +270,7 @@ export default function SubmitClothes() {
       {hasSelection && (
         <section>
           <h3 className="section-title">✅ Selected Clothes</h3>
-          <table className="clothes-table">
+          <table className="extra-table">
             <thead>
               <tr>
                 <th>Cloth Name</th>
