@@ -13,6 +13,7 @@ import StudentPage from "./sourcePages/studentPage.jsx";
 import AboutUs from "./homeComponents/aboutUs.jsx";
 import CreatingClothes from "./staffComponents/CreatingClothes.jsx";
 import ClothSubmit from "./userComponents/clothSubmit.jsx";
+import TrackPage from "./sourcePages/trackPage.jsx";
 // Private route wrapper
 const PrivateRoute = ({ element, isAuthenticated, allowedRole }) => {
   const userRole = localStorage.getItem("role");
@@ -140,6 +141,16 @@ function App() {
               isAuthenticated={isAuthenticated}
               allowedRole="Student/Users"
               element={<ClothSubmit />}
+            />
+          }
+        />
+        <Route
+          path="/trackPage"
+          element={
+            <PrivateRoute
+              isAuthenticated={isAuthenticated}
+              allowedRole="Student/Users"
+              element={<TrackPage />}
             />
           }
         />

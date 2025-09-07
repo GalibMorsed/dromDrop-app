@@ -32,7 +32,7 @@ export default function UserNav() {
       {/* Center Links */}
       <ul className={`user-navbar-center ${menuOpen ? "active" : ""}`}>
         <li>
-          <Link to="/studentPage" onClick={() => setMenuOpen(false)}>
+          <Link to="/trackPage" onClick={() => setMenuOpen(false)}>
             Track Charged Clothes
           </Link>
         </li>

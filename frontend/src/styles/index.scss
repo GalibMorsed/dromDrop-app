@@ -106,6 +106,11 @@ p {
 @import url(userCompStyling/userSection3.scss);
 @import url(userCompStyling/userFooter.scss);
 @import url(userCompStyling/clothSubmit.scss);
+//Track Cloth Page Components Styling
+@import url(userCompStyling/trackCompStyling/trackNav.scss);
+@import url(userCompStyling/trackCompStyling/trackSection1.scss);
+@import url(userCompStyling/trackCompStyling/trackSection2.scss);
+@import url(userCompStyling/trackCompStyling/trackSection3.scss);
 
 .btn {
   border: none;
