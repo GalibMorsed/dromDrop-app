@@ -12,7 +12,6 @@ export default function TrackSection1() {
           `http://localhost:6060/submission/submittedCloth?userEmail=${storedEmail}`
         );
         const submissions = await response.json();
-        // Calculate total amount and total clothes
         const totalAmount = Array.isArray(submissions)
           ? submissions.reduce(
               (sum, sub) => sum + (Number(sub.totalSubmissionPrice) || 0),
@@ -24,17 +23,23 @@ export default function TrackSection1() {
               (sum, sub) =>
                 sum +
                 (Array.isArray(sub.clothes)
-                  ? sub.clothes
-                      .filter(
-                        (c) => c.status === "Extra" || c.status === "Custom"
-                      )
-                      .reduce((cSum, c) => cSum + (Number(c.quantity) || 0), 0)
+                  ? sub.clothes.filter((c) => c.status === "Extra").length
+                  : 0),
+              0
+            )
+          : 0;
+        const customClothes = Array.isArray(submissions)
+          ? submissions.reduce(
+              (sum, sub) =>
+                sum +
+                (Array.isArray(sub.clothes)
+                  ? sub.clothes.filter((c) => c.status === "Custom").length
                   : 0),
               0
             )
           : 0;
         setTotalAmount(totalAmount);
-        setTotalClothes(totalClothes);
+        setTotalClothes(totalClothes + customClothes);
       } catch (error) {
         console.error("Error fetching track data:", error);
       }
@@ -43,7 +48,6 @@ export default function TrackSection1() {
     fetchData();
   }, []);
 
-  // Hide if totalAmount <= 500
   if (totalAmount <= 500) {
     return null;
   }
@@ -53,7 +57,7 @@ export default function TrackSection1() {
       <div className="alert-box">
         <h2 className="alert-title">⚠ Payment Alert</h2>
         <p className="alert-message">
-          Your current amount is <strong>₹{totalAmount}</strong> for{" "}
+          Your current amount is <strong>₹{totalAmount}</strong> for Total{" "}
           <strong>{totalClothes}</strong> clothes.
         </p>
         <p className="alert-warning">
