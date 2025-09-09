@@ -55,7 +55,7 @@ export default function StaffSection4() {
                   <strong>Total Laundry:</strong> {report.noStudents}
                 </p>
                 <p>
-                  <strong>Extra Items:</strong> {report.extraItems}
+                  <strong>Status :</strong> {report.status}
                 </p>
                 <div className="staffReports-footer">
                   <span className="staffReports-amount">
