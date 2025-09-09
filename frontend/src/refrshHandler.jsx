@@ -27,9 +27,9 @@ function RefreshHandler({ setIsAuthenticated }) {
       if (publicPaths.includes(location.pathname)) {
         if (role === "Administrator") {
           navigate("/adminPage", { replace: true });
-        } else if (role === "Faculty") {
+        } else if (role === "Staff/Faculty") {
           navigate("/staffPage", { replace: true });
-        } else if (role === "Students") {
+        } else if (role === "Student/Users") {
           navigate("/studentPage", { replace: true });
         }
       }

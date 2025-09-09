@@ -38,6 +38,39 @@ p {
   color: var(--text-color);
 }
 
+.alert {
+  margin-top: 20px;
+  padding: 0.8rem 1rem;
+  margin-bottom: 1rem;
+  border-radius: 6px;
+  font-weight: 500;
+  text-align: center;
+  animation: fadeIn 0.3s ease-in;
+
+  &.success {
+    background-color: #d1fae5;
+    color: #065f46;
+    border: 1px solid #10b981;
+  }
+
+  &.error {
+    background-color: #fee2e2;
+    color: #991b1b;
+    border: 1px solid #ef4444;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 //Auth Pages Styling
 @import url(authPages.scss);
 
@@ -57,6 +90,28 @@ p {
 @import url(adminCompStyling/adminSection2.scss);
 @import url(adminCompStyling/adminSection3.scss);
 @import url(adminCompStyling/adminSection4.scss);
+
+//Staff Page Components Styling
+@import url(staffCompStyling/staffNav.scss);
+@import url(staffCompStyling/staffSection1.scss);
+@import url(staffCompStyling/staffSection2.scss);
+@import url(staffCompStyling/staffSection3.scss);
+@import url(staffCompStyling/staffSection4.scss);
+@import url(staffCompStyling/createClothes.scss);
+
+//User Page Components Styling
+@import url(userCompStyling/userNav.scss);
+@import url(userCompStyling/userSection1.scss);
+@import url(userCompStyling/userSection2.scss);
+@import url(userCompStyling/userSection3.scss);
+@import url(userCompStyling/userFooter.scss);
+@import url(userCompStyling/clothSubmit.scss);
+@import url(userCompStyling/userSettings.scss);
+//Track Cloth Page Components Styling
+@import url(userCompStyling/trackCompStyling/trackNav.scss);
+@import url(userCompStyling/trackCompStyling/trackSection1.scss);
+@import url(userCompStyling/trackCompStyling/trackSection2.scss);
+@import url(userCompStyling/trackCompStyling/trackSection3.scss);
 
 .btn {
   border: none;

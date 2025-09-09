@@ -1,0 +1,213 @@
+.user-section3 {
+  width: 100%;
+  padding: 4rem 2rem;
+  background: #f4f9fc;
+  text-align: center;
+  box-shadow: inset 0 0 15px rgba(30, 58, 138, 0.05);
+  font-family: "Segoe UI", "Roboto", sans-serif;
+
+  .usec3-title {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    color: #1e293b;
+    display: block;
+    position: relative;
+    padding-bottom: 12px;
+    animation: usec3-title-fade-in 0.9s cubic-bezier(0.23, 1, 0.32, 1) 0.3s
+      forwards;
+
+    &::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      bottom: 0;
+      transform: translateX(-50%);
+      min-width: 260px;
+      height: 3px;
+      border-radius: 2px;
+      background: linear-gradient(90deg, #1e3a8a, #3b82f6, #06b6d4);
+      animation: expandLine 1s ease forwards;
+    }
+  }
+
+  .no-reports {
+    font-size: 1.05rem;
+    color: #6b7280;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: usec3-no-fade-in 0.9s ease 0.5s forwards;
+  }
+
+  .table-wrapper {
+    overflow-x: auto;
+    margin-top: 2rem;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: usec3-table-fade-in 1s cubic-bezier(0.23, 1, 0.32, 1) 0.7s
+      forwards;
+
+    .report-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.95rem;
+      background: #ffffff;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+
+      thead {
+        background: #c6dbec;
+        th {
+          padding: 1rem;
+          font-weight: 700;
+          color: #1e3a8a;
+          text-align: center;
+          &:first-child {
+            text-align: left;
+            padding-left: 30px;
+          }
+        }
+      }
+
+      tbody {
+        tr {
+          opacity: 0;
+          transform: translateY(10px);
+          animation: usec3-row-fade-in 0.6s ease forwards;
+          &:nth-child(1) {
+            animation-delay: 0.8s;
+          }
+          &:nth-child(2) {
+            animation-delay: 0.9s;
+          }
+          &:nth-child(3) {
+            animation-delay: 1s;
+          }
+          &:nth-child(4) {
+            animation-delay: 1.1s;
+          }
+          &:hover {
+            background: #eef7ff;
+            transition: background 0.3s;
+          }
+        }
+
+        td {
+          padding: 1rem;
+          border-bottom: 1px solid #d1d5db;
+          text-align: center;
+          color: #374151;
+          position: relative;
+          &:first-child {
+            text-align: left;
+            font-weight: 600;
+            color: #1f2937;
+          }
+
+          .read-more-btn {
+            margin-left: 8px;
+            padding: 2px 10px;
+            font-size: 0.85em;
+            background: linear-gradient(90deg, #3b82f6 60%, #06b6d4 100%);
+            color: #fff;
+            border: none;
+            border-radius: 14px;
+            cursor: pointer;
+            box-shadow: 0 2px 6px rgba(59, 130, 246, 0.08);
+            transition: background 0.2s, transform 0.2s;
+            outline: none;
+            font-weight: 500;
+            letter-spacing: 0.02em;
+            vertical-align: middle;
+            position: relative;
+          }
+          .read-more-btn:hover {
+            background: linear-gradient(90deg, #1e3a8a 60%, #06b6d4 100%);
+          }
+        }
+      }
+    }
+  }
+
+  @media (max-width: 765px) {
+    .usec3-title {
+      font-size: 1.3rem;
+    }
+    .no-reports {
+      font-size: 0.95rem;
+    }
+    .report-table {
+      font-size: 0.85rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    padding: 3rem 1rem;
+    .usec3-title {
+      font-size: 1.2rem;
+    }
+    .no-reports {
+      font-size: 0.9rem;
+    }
+    .report-table {
+      font-size: 0.8rem;
+    }
+  }
+
+  /* Animations */
+  @keyframes usec3-title-fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes usec3-no-fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes usec3-table-fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes usec3-row-fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+@keyframes expandLine {
+  from {
+    width: 0;
+    opacity: 0;
+  }
+  to {
+    width: 220px;
+    opacity: 1;
+  }
+}

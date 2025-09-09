@@ -53,9 +53,49 @@ const adminLoginValidation = (req, res, next) => {
   next();
 };
 
+// adding validation for staff authentication
+const staffSignupValidation = (req, res, next) => {
+  const schema = Joi.object({
+    email: Joi.string().email().trim().required(),
+    password: Joi.string().min(4).max(100).trim().required(),
+  });
+
+  const { error } = schema.validate(req.body, { abortEarly: true });
+
+  if (error) {
+    return res.status(400).json({
+      message: error.details[0].message,
+      success: false,
+    });
+  }
+
+  next();
+};
+
+const staffLoginValidation = (req, res, next) => {
+  const schema = Joi.object({
+    uniqueId: Joi.string().min(4).max(100).required(),
+    instituteName: Joi.string().min(3).max(100).required(),
+    email: Joi.string().email().required(),
+    password: Joi.string().min(4).max(100).required(),
+    role: Joi.string().valid("Staff/Faculty").required(),
+  });
+  const { error } = schema.validate(req.body, { abortEarly: true });
+
+  if (error) {
+    return res.status(400).json({
+      message: error.details[0].message,
+      success: false,
+    });
+  }
+  next();
+};
+
 module.exports = {
   signinValidation,
   loginValidation,
   adminSignupValidation,
   adminLoginValidation,
+  staffSignupValidation,
+  staffLoginValidation,
 };

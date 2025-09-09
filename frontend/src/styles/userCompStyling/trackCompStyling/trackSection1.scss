@@ -1,0 +1,120 @@
+.track-section1 {
+  width: 100%;
+  padding: 2.5rem 1.5rem;
+  background: linear-gradient(135deg, #fbf5f5, #f8e6e6);
+  border-bottom: 1px solid black;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+  display: flex;
+  justify-content: center;
+  animation: fadeSlideIn 0.8s ease-out;
+
+  .alert-box {
+    background: #fff3cd;
+    border: 1px solid #ffecb5;
+    border-left: 6px solid #f59e0b;
+    border-radius: 12px;
+    padding: 1.5rem;
+    max-width: 800px;
+    width: 100%;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    text-align: center;
+    color: #663c00;
+
+    .alert-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .alert-message {
+      font-size: 1.1rem;
+      margin: 0.5rem 0;
+    }
+
+    .alert-warning {
+      font-size: 1rem;
+      margin-top: 0.8rem;
+      font-weight: 500;
+      color: #8a4b08;
+    }
+
+    .pay-btn {
+      margin-top: 1.2rem;
+      padding: 0.7rem 2.2rem;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #fff;
+      background: linear-gradient(90deg, #f59e0b 0%, #fbbf24 100%);
+      border: none;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(245, 158, 11, 0.15);
+      cursor: pointer;
+      transition: transform 0.18s cubic-bezier(0.23, 1, 0.32, 1),
+        box-shadow 0.18s, background 0.18s;
+      outline: none;
+      position: relative;
+      z-index: 1;
+    }
+
+    .pay-btn:hover,
+    .pay-btn:focus {
+      background: linear-gradient(90deg, #fbbf24 0%, #f59e0b 100%);
+      transform: scale(1.07) translateY(-2px);
+      box-shadow: 0 4px 16px rgba(245, 158, 11, 0.22);
+    }
+
+    .pay-btn:active {
+      transform: scale(0.97);
+      box-shadow: 0 1px 4px rgba(245, 158, 11, 0.12);
+    }
+  }
+
+  // ✅ Responsive
+  @media (max-width: 768px) {
+    .alert-box {
+      padding: 1rem;
+      font-size: 0.95rem;
+    }
+
+    .alert-title {
+      font-size: 1.2rem;
+    }
+
+    .pay-btn {
+      font-size: 1rem;
+      padding: 0.6rem 1.5rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .alert-box {
+      padding: 0.8rem;
+      border-left-width: 4px;
+    }
+
+    .alert-title {
+      font-size: 1.1rem;
+    }
+
+    .alert-message,
+    .alert-warning {
+      font-size: 0.9rem;
+    }
+
+    .pay-btn {
+      font-size: 0.95rem;
+      padding: 0.5rem 1.1rem;
+    }
+  }
+}
+
+@keyframes fadeSlideIn {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

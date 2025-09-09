@@ -1,0 +1,125 @@
+.staff-create {
+  width: 100%;
+  background: linear-gradient(135deg, #f9fafc, #e6ecf8);
+  border-bottom: 1px solid black;
+  display: flex;
+  justify-content: center;
+  animation: fadeInUp 0.8s ease forwards;
+
+  .staff-create-card {
+    max-width: 1100px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 2.5rem 3rem;
+    border-radius: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .staff-create-text {
+    flex: 2;
+
+    h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #1e40af;
+      margin-bottom: 0.8rem;
+      animation: fadeIn 0.8s ease forwards;
+    }
+
+    p {
+      font-size: 1rem;
+      color: #64748b;
+      line-height: 1.6;
+      margin-bottom: 0.5rem;
+    }
+  }
+
+  .staff-create-action {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .staff-create-btn {
+      display: inline-block;
+      padding: 0.9rem 2.2rem;
+      font-size: 1rem;
+      font-weight: 600;
+      color: #ffffff;
+      background: linear-gradient(90deg, #2a3db8 0%, #1b3de4 100%);
+      border-radius: 0.6rem;
+      text-decoration: none;
+      transition: all 0.3s ease;
+
+      &:hover {
+        background: linear-gradient(90deg, #1b3de4 0%, #2a3db8 100%);
+      }
+    }
+  }
+
+  // 📱 Responsive
+  @media (max-width: 768px) {
+    .staff-create-card {
+      flex-direction: column;
+      text-align: center;
+      padding: 1.5rem;
+
+      .staff-create-text {
+        h2 {
+          font-size: 1.6rem;
+        }
+
+        p {
+          font-size: 0.95rem;
+        }
+      }
+
+      .staff-create-action .staff-create-btn {
+        width: 100%;
+      }
+    }
+  }
+
+  @media (max-width: 480px) {
+    .staff-create-card {
+      padding: 1.5rem;
+
+      .staff-create-text {
+        h2 {
+          font-size: 1.4rem;
+        }
+
+        p {
+          font-size: 0.9rem;
+        }
+      }
+    }
+  }
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

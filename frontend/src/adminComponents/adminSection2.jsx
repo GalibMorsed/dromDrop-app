@@ -12,7 +12,6 @@ export default function AdminSection2() {
   const email = localStorage.getItem("userEmail");
   const role = localStorage.getItem("role");
 
-  // Fetch unique ID and created timestamp if exists
   useEffect(() => {
     const fetchUniqueId = async () => {
       try {
@@ -24,7 +23,7 @@ export default function AdminSection2() {
 
         if (res.data?.uniqueId) {
           setUniqueId(res.data.uniqueId);
-          setCreatedAt(res.data.createdAt || null); // Make sure backend sends this!
+          setCreatedAt(res.data.createdAt || null);
           setIsCreated(true);
           setShowWarning(false);
         } else {
@@ -43,7 +42,6 @@ export default function AdminSection2() {
     }
   }, [email]);
 
-  // Create new unique ID
   const handleSubmit = async () => {
     if (!email || !role) {
       console.error("Missing email or role in localStorage");
@@ -65,7 +63,7 @@ export default function AdminSection2() {
 
       if (res.data?.uniqueId) {
         setUniqueId(res.data.uniqueId);
-        setCreatedAt(new Date().toISOString()); // or get from response if backend sends created timestamp
+        setCreatedAt(new Date().toISOString());
         setIsCreated(true);
         setShowWarning(false);
       }

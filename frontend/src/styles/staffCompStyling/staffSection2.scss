@@ -1,0 +1,174 @@
+.staff-set {
+  width: 100%;
+  padding: 2rem 1.5rem;
+  background: #f8fafc;
+  border-bottom: 1px solid black;
+  font-family: "Segoe UI", sans-serif;
+
+  .section-title {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #1e293b;
+    margin-bottom: 2rem;
+    text-align: center;
+    animation: fadeIn 0.8s ease forwards;
+  }
+
+  .pick-drop-section {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+    background: #ffffff;
+    border-radius: 1rem;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    animation: fadeSlideIn 0.7s ease-out;
+
+    .date-picker {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+      justify-content: center;
+
+      select,
+      input {
+        padding: 0.65rem 1rem;
+        border: 1px solid #d1d5db;
+        border-radius: 1.2rem;
+        font-size: 1rem;
+        outline: none;
+        flex: 1;
+        min-width: 120px;
+        transition: all 0.2s ease;
+
+        &:focus {
+          border-color: #2563eb;
+          box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+          transform: scale(1.03);
+        }
+      }
+
+      .set-btn {
+        padding: 0.6rem 1.5rem;
+        background-color: #1b3de4;
+        color: white;
+        border: none;
+        border-radius: 0.6rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+
+        &:hover {
+          background-color: #2a3db8;
+        }
+      }
+    }
+
+    .dates-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+
+      p {
+        font-size: 0.95rem;
+        font-style: italic;
+        color: #64748b;
+        text-align: center;
+        animation: fadeIn 0.6s ease forwards;
+      }
+
+      .date-item {
+        display: flex;
+        justify-content: space-between;
+        padding: 0.6rem 1rem;
+        border: 1px solid #e5e7eb;
+        border-radius: 0.6rem;
+        background-color: #f9fafb;
+        font-size: 1rem;
+        align-items: center;
+        opacity: 0;
+        animation: fadeInUp 0.6s ease forwards;
+
+        span {
+          font-weight: 600;
+          font-size: 1rem;
+          color: #2528eb;
+        }
+
+        .dlt-btn {
+          padding: 0.3rem 0.6rem;
+          background-color: #ef4444;
+          color: white;
+          border: none;
+          border-radius: 0.6rem;
+          cursor: pointer;
+          font-size: 0.9rem;
+          transition: all 0.2s ease;
+
+          &:hover {
+            background-color: #b91c1c;
+            transform: scale(1.05);
+          }
+        }
+      }
+    }
+
+    @media (max-width: 768px) {
+      padding: 1.5rem;
+
+      .date-picker {
+        flex-direction: column;
+        gap: 0.8rem;
+      }
+      .date-picker {
+        .set-btn {
+          align-items: center;
+          width: 30%;
+        }
+      }
+    }
+
+    @media (max-width: 480px) {
+      padding: 1rem;
+      .date-picker select,
+      .date-picker input {
+        font-size: 0.95rem;
+      }
+    }
+  }
+}
+
+/* Animations */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeSlideIn {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

@@ -11,11 +11,16 @@ import AdminPage from "./sourcePages/adminPage.jsx";
 import StaffPage from "./sourcePages/staffPage.jsx";
 import StudentPage from "./sourcePages/studentPage.jsx";
 import AboutUs from "./homeComponents/aboutUs.jsx";
-
+import CreatingClothes from "./staffComponents/CreatingClothes.jsx";
+import ClothSubmit from "./userComponents/clothSubmit.jsx";
+import TrackPage from "./sourcePages/trackPage.jsx";
+import UserSetting from "./userComponents/userSetting.jsx";
+import DailyReport from "./staffComponents/dailyReport.jsx";
 // Private route wrapper
 const PrivateRoute = ({ element, isAuthenticated, allowedRole }) => {
   const userRole = localStorage.getItem("role");
-  return isAuthenticated && userRole === allowedRole ? (
+  const roles = Array.isArray(allowedRole) ? allowedRole : [allowedRole];
+  return isAuthenticated && roles.includes(userRole) ? (
     element
   ) : (
     <Navigate to="/home" />
@@ -107,7 +112,7 @@ function App() {
           element={
             <PrivateRoute
               isAuthenticated={isAuthenticated}
-              allowedRole="Faculty"
+              allowedRole="Staff/Faculty"
               element={<StaffPage />}
             />
           }
@@ -117,8 +122,58 @@ function App() {
           element={
             <PrivateRoute
               isAuthenticated={isAuthenticated}
-              allowedRole="Students"
+              allowedRole="Student/Users"
               element={<StudentPage />}
+            />
+          }
+        />
+        <Route
+          path="/creatingClothes"
+          element={
+            <PrivateRoute
+              isAuthenticated={isAuthenticated}
+              allowedRole="Staff/Faculty"
+              element={<CreatingClothes />}
+            />
+          }
+        />
+        <Route
+          path="/clothSubmit"
+          element={
+            <PrivateRoute
+              isAuthenticated={isAuthenticated}
+              allowedRole="Student/Users"
+              element={<ClothSubmit />}
+            />
+          }
+        />
+        <Route
+          path="/trackPage"
+          element={
+            <PrivateRoute
+              isAuthenticated={isAuthenticated}
+              allowedRole="Student/Users"
+              element={<TrackPage />}
+            />
+          }
+        />
+        <Route
+          path="/userSetting"
+          element={
+            <PrivateRoute
+              isAuthenticated={isAuthenticated}
+              allowedRole={["Student/Users", "Administrator", "Staff/Faculty"]}
+              element={<UserSetting />}
+            />
+          }
+        />
+        <Route
+          path="/dailyReport"
+          element={
+            <PrivateRoute
+              isAuthenticated={isAuthenticated}
+              allowedRole="Staff/Faculty"
+              element={<DailyReport />}
             />
           }
         />

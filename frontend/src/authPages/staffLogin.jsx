@@ -5,83 +5,154 @@ import { handleError, handleSuccess } from "../utils";
 
 function StaffLogin() {
   const [loginInfo, setLoginInfo] = useState({
+    uniqueId: "",
     email: "",
     password: "",
+    role: "Staff/Faculty",
+    instituteName: "",
   });
+
+  const [verifying, setVerifying] = useState(false);
+  const [isVerified, setIsVerified] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setLoginInfo((prevState) => ({
-      ...prevState,
+    setLoginInfo((prev) => ({
+      ...prev,
       [name]: value,
     }));
   };
 
+  const verifyUniqueId = async () => {
+    if (!loginInfo.uniqueId.trim()) {
+      return handleError("Please enter a Unique ID to verify.");
+    }
+    try {
+      setVerifying(true);
+      const res = await fetch("http://localhost:6060/uniqueId/verifyUniqueId", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ uniqueId: loginInfo.uniqueId }),
+      });
+
+      const data = await res.json();
+
+      if (data.success) {
+        handleSuccess("Unique ID verified successfully!");
+        setLoginInfo((prev) => ({
+          ...prev,
+          instituteName: data.instituteName || data.institutionName || "",
+        }));
+        setIsVerified(true);
+      } else {
+        handleError(data.message || "Invalid Unique ID");
+        setIsVerified(false);
+      }
+    } catch (err) {
+      handleError(err.message);
+    } finally {
+      setVerifying(false);
+    }
+  };
+
   const handleLogin = async (e) => {
     e.preventDefault();
-    const { email, password } = loginInfo;
 
-    if (!email || !password) {
+    const { uniqueId, email, password, role, instituteName } = loginInfo;
+
+    if (!isVerified) {
+      return handleError("Please verify your Unique ID before logging in.");
+    }
+
+    if (!email.trim() || !password.trim()) {
       return handleError("Email and password are required");
     }
 
     try {
-      const url = "/";
-      const response = await fetch(url, {
+      setLoading(true);
+      const response = await fetch("http://localhost:6060/auth/Stafflogin", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(loginInfo),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          uniqueId,
+          email,
+          password,
+          role,
+          instituteName,
+        }),
       });
 
       const result = await response.json();
-      const { success, message, jwtToken, name, error } = result;
-
-      if (success) {
-        handleSuccess(message);
-        localStorage.setItem("token", jwtToken);
-        localStorage.setItem("loggedInUser", name);
+      if (result.success) {
+        handleSuccess(result.message || "Login successful!");
+        localStorage.setItem("token", result.jwtToken);
         localStorage.setItem("userEmail", email);
-        setTimeout(() => navigate("/stafftPage"), 1000);
+        localStorage.setItem("role", role);
+        setTimeout(() => navigate("/staffPage"), 1500);
       } else {
-        handleError(error?.details?.[0]?.message || message);
+        handleError(result.error?.details?.[0]?.message || result.message);
       }
-
-      console.log(result);
     } catch (err) {
       handleError(err.message);
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <div className="wholeConatiner">
-      <h1 className="logo">DromDrop</h1>
+      <h1 className="logo">DormDrop</h1>
       <div className="auth-container">
         <h1>Staff Login</h1>
         <form onSubmit={handleLogin}>
+          {/* Unique ID */}
+          <div className="uniqueId-group">
+            <label htmlFor="uniqueId">Unique ID</label>
+            <div className="input-with-btn">
+              <input
+                onChange={handleChange}
+                type="text"
+                name="uniqueId"
+                placeholder="Enter the given unique ID..."
+                value={loginInfo.uniqueId}
+                disabled={isVerified}
+              />
+              <button
+                type="button"
+                className="verify-btn"
+                onClick={verifyUniqueId}
+                disabled={verifying || isVerified}
+              >
+                {verifying
+                  ? "Verifying..."
+                  : isVerified
+                  ? "Verified ✅"
+                  : "Verify"}
+              </button>
+            </div>
+            {isVerified && loginInfo.instituteName && (
+              <p className="institution-info">
+                Institution: <strong>{loginInfo.instituteName}</strong>
+              </p>
+            )}
+          </div>
+
+          {/* Email */}
           <div>
-            <label htmlFor="uniqueId">Unique Id</label>
+            <label htmlFor="email">Email</label>
             <input
               onChange={handleChange}
-              type="uniqueId"
-              name="uniqueId"
-              placeholder="Enter your given unique id..."
+              type="email"
+              name="email"
+              placeholder="Enter your email..."
               value={loginInfo.email}
             />
           </div>
-          <div>
-            <label htmlFor="staffId">Staff Id</label>
-            <input
-              onChange={handleChange}
-              type="staffId"
-              name="staffId"
-              placeholder="Enter your given staff id..."
-              value={loginInfo.email}
-            />
-          </div>
+
+          {/* Password */}
           <div>
             <label htmlFor="password">Password</label>
             <input
@@ -92,6 +163,8 @@ function StaffLogin() {
               value={loginInfo.password}
             />
           </div>
+
+          {/* Role */}
           <div>
             <label htmlFor="role">Position</label>
             <input
@@ -103,13 +176,15 @@ function StaffLogin() {
               className="readonly-field"
             />
           </div>
-          <button className="auth-btn btn" type="submit">
-            Login
+
+          {/* Submit */}
+          <button className="auth-btn btn" type="submit" disabled={loading}>
+            {loading ? "Logging in..." : "Login"}
           </button>
+
           <span>
-            <Link to="/">Forgot Password?</Link>
+            Forgot password? <Link to="/forgotPassword">Click here</Link>
           </span>
-          <span>Use your institution given id's and password to Login</span>
         </form>
       </div>
       <ToastContainer />
