@@ -32,13 +32,13 @@ export default function StaffNav() {
       {/* Center Links */}
       <ul className={`staff-navbar-center ${menuOpen ? "active" : ""}`}>
         <li>
-          <Link to="/staffPage" onClick={() => setMenuOpen(false)}>
+          <Link to="/dailyReport" onClick={() => setMenuOpen(false)}>
             Daily Reports
           </Link>
         </li>
 
         <li>
-          <Link to="/staffPage" onClick={() => setMenuOpen(false)}>
+          <Link to="/userSetting" onClick={() => setMenuOpen(false)}>
             Account Settings
           </Link>
         </li>

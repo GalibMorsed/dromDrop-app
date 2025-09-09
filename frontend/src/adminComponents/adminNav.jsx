@@ -37,7 +37,7 @@ export default function AdminNav() {
         </li>
 
         <li>
-          <Link to="/adminPage" onClick={() => setMenuOpen(false)}>
+          <Link to="/userSetting" onClick={() => setMenuOpen(false)}>
             Account Settings
           </Link>
         </li>
