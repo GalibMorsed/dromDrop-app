@@ -38,7 +38,7 @@ export default function UserNav() {
         </li>
 
         <li>
-          <Link to="/studentPage" onClick={() => setMenuOpen(false)}>
+          <Link to="/userSetting" onClick={() => setMenuOpen(false)}>
             Account Settings
           </Link>
         </li>

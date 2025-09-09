@@ -63,7 +63,7 @@ export default function TrackSection3() {
         )}
       </div>
       <p className="integration-note">
-        ⚠ Payment integration will be updated soon in the website.
+        ⚠ Payment integration will be available soon on the website.
       </p>
     </section>
   );

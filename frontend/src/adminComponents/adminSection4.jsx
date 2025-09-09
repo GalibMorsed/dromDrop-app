@@ -95,7 +95,16 @@ export default function AdminSection4() {
                     <strong>Total Amount:</strong> ₹{report.totalAmount}
                   </span>
                   {/* Optional PAY button if needed */}
-                  <button className="pay-btn">PAY</button>
+                  <button
+                    className="pay-btn"
+                    onClick={() => {
+                      window.alert(
+                        "Payment functionality will be available soon."
+                      );
+                    }}
+                  >
+                    PAY
+                  </button>
                 </div>
               </div>
             ))}

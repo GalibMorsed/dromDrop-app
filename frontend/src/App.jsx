@@ -14,10 +14,13 @@ import AboutUs from "./homeComponents/aboutUs.jsx";
 import CreatingClothes from "./staffComponents/CreatingClothes.jsx";
 import ClothSubmit from "./userComponents/clothSubmit.jsx";
 import TrackPage from "./sourcePages/trackPage.jsx";
+import UserSetting from "./userComponents/userSetting.jsx";
+import DailyReport from "./staffComponents/dailyReport.jsx";
 // Private route wrapper
 const PrivateRoute = ({ element, isAuthenticated, allowedRole }) => {
   const userRole = localStorage.getItem("role");
-  return isAuthenticated && userRole === allowedRole ? (
+  const roles = Array.isArray(allowedRole) ? allowedRole : [allowedRole];
+  return isAuthenticated && roles.includes(userRole) ? (
     element
   ) : (
     <Navigate to="/home" />
@@ -151,6 +154,26 @@ function App() {
               isAuthenticated={isAuthenticated}
               allowedRole="Student/Users"
               element={<TrackPage />}
+            />
+          }
+        />
+        <Route
+          path="/userSetting"
+          element={
+            <PrivateRoute
+              isAuthenticated={isAuthenticated}
+              allowedRole={["Student/Users", "Administrator", "Staff/Faculty"]}
+              element={<UserSetting />}
+            />
+          }
+        />
+        <Route
+          path="/dailyReport"
+          element={
+            <PrivateRoute
+              isAuthenticated={isAuthenticated}
+              allowedRole="Staff/Faculty"
+              element={<DailyReport />}
             />
           }
         />
