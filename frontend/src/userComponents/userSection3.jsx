@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 
 export default function UserSection3() {
   const [dropReports, setDropReports] = useState([]);
-  const [expandedRows, setExpandedRows] = useState([]); // Track expanded rows by index
+  const [expandedRows, setExpandedRows] = useState([]);
   const userEmail = localStorage.getItem("userEmail");
 
   useEffect(() => {
@@ -35,7 +35,7 @@ export default function UserSection3() {
           (a, b) => new Date(b.dropDate) - new Date(a.dropDate)
         );
         setDropReports(sortedReports);
-        setExpandedRows(Array(sortedReports.length).fill(false)); // Reset expanded state
+        setExpandedRows(Array(sortedReports.length).fill(false));
       })
       .catch((err) => console.error("Error fetching drop reports:", err));
   }, [userEmail]);

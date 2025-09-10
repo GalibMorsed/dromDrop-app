@@ -1,0 +1,222 @@
+.sec-daily-report {
+  width: 100%;
+  min-height: 100vh;
+
+  /* ✅ Navbar */
+  .daily-report-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(90deg, #6ca3fc 0%, #a1b8f9 100%);
+    padding: 1.2rem 2rem;
+    position: relative;
+    top: 0;
+    z-index: 998;
+    transition: all 0.3s ease-in-out;
+
+    .report-nav-left {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+
+      .home-icon {
+        font-size: 1.5rem;
+        color: #000;
+        cursor: pointer;
+        transition: transform 0.2s ease-in-out;
+
+        &:hover {
+          transform: scale(1.1);
+        }
+      }
+    }
+
+    .report-nav-center {
+      text-align: center;
+      font-weight: 600;
+      word-break: break-word;
+    }
+
+    .report-nav-right {
+      font-weight: 600;
+      color: #ea4c4c;
+    }
+
+    // ✅ Responsive
+    @media (max-width: 768px) {
+      font-size: 0.9rem;
+      padding: 0.8rem 1rem;
+
+      .report-nav-left .home-icon {
+        font-size: 1.4rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      flex-direction: column;
+      gap: 0.5rem;
+      text-align: center;
+
+      .report-nav-left {
+        align-self: flex-start;
+        width: 100%;
+        justify-content: flex-start;
+      }
+    }
+  }
+
+  /* ✅ Report Section */
+  .daily-report {
+    width: 100%;
+    min-height: 100vh;
+    padding: 2rem 1.5rem;
+    font-family: "Segoe UI", "Roboto", sans-serif;
+    background: #eef7ff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .title {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #1e3a8a;
+      text-align: center;
+      margin-bottom: 2rem;
+      position: relative;
+      animation: fadeInDown 0.6s ease-out;
+
+      &::after {
+        content: "";
+        position: absolute;
+        bottom: -8px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100%;
+        height: 3px;
+        background: #1e3a8a;
+        border-radius: 2px;
+      }
+    }
+
+    .report-list {
+      width: 100%;
+      max-width: 950px;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .report-card {
+      background: #fff;
+      border: 1px solid #dde6f0;
+      border-radius: 12px;
+      padding: 1rem 1.2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      animation: fadeInUp 0.5s ease-out forwards;
+
+      &:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 20px rgba(30, 58, 138, 0.1);
+      }
+
+      .report-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 1rem;
+      }
+
+      p {
+        font-size: 1rem;
+        color: #111827;
+        margin: 0.2rem 0;
+      }
+
+      .complete-btn {
+        margin-top: 0.8rem;
+        align-self: flex-end;
+        background: #22c55e;
+        border: 2px solid #16a34a;
+        color: #fff;
+        font-size: 0.95rem;
+        font-weight: 600;
+        padding: 0.6rem 1.2rem;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: all 0.2s ease-in-out;
+
+        &:hover {
+          background: #16a34a;
+          transform: translateY(-2px);
+          box-shadow: 0 4px 8px rgba(34, 197, 94, 0.3);
+        }
+      }
+    }
+
+    .no-reports {
+      font-size: 1rem;
+      color: #6b7280;
+      margin-top: 1rem;
+      animation: fadeInUp 0.5s ease-out;
+    }
+
+    // ✅ Responsive
+    @media (max-width: 768px) {
+      .title {
+        font-size: 1.5rem;
+      }
+
+      .report-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.3rem;
+      }
+
+      .complete-btn {
+        width: 100%;
+        text-align: center;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .title {
+        font-size: 1.3rem;
+      }
+
+      .report-card {
+        padding: 0.8rem;
+      }
+
+      p {
+        font-size: 0.9rem;
+      }
+    }
+  }
+}
+
+/* Animations */
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

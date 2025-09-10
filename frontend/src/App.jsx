@@ -16,6 +16,7 @@ import ClothSubmit from "./userComponents/clothSubmit.jsx";
 import TrackPage from "./sourcePages/trackPage.jsx";
 import UserSetting from "./userComponents/userSetting.jsx";
 import DailyReport from "./staffComponents/dailyReport.jsx";
+import ExtraClothPage from "./sourcePages/extraClothPage.jsx";
 // Private route wrapper
 const PrivateRoute = ({ element, isAuthenticated, allowedRole }) => {
   const userRole = localStorage.getItem("role");
@@ -174,6 +175,16 @@ function App() {
               isAuthenticated={isAuthenticated}
               allowedRole="Staff/Faculty"
               element={<DailyReport />}
+            />
+          }
+        />
+        <Route
+          path="/extraClothPage"
+          element={
+            <PrivateRoute
+              isAuthenticated={isAuthenticated}
+              allowedRole="Staff/Faculty"
+              element={<ExtraClothPage />}
             />
           }
         />

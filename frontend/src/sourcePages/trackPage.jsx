@@ -14,3 +14,5 @@ export default function TrackPage() {
     </div>
   );
 }
+
+// This is the page for tracking cloth, which includes the navigation bar and three sections.

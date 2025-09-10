@@ -16,3 +16,5 @@ export default function StudentPage() {
     </div>
   );
 }
+
+// This is the student page component that includes navigation, sections, and footer for students.
