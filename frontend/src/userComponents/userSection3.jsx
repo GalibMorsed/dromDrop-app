@@ -84,10 +84,19 @@ export default function UserSection3() {
                         : report.allClothes.split(", ")[0]}
                       {report.allClothes.split(", ").length > 1 && (
                         <button
-                          className="read-more-btn"
+                          style={{
+                            background: "none",
+                            border: "none",
+                            color: "#0e5292ff",
+                            cursor: "pointer",
+                            padding: "0",
+                            marginLeft: "5px",
+                            fontWeight: "bold",
+                            textDecoration: "underline",
+                          }}
                           onClick={() => handleToggleRow(idx)}
                         >
-                          {showAllClothes ? "ReadLess" : "ReadMore"}
+                          {showAllClothes ? "Read Less" : "Read More"}
                         </button>
                       )}
                     </td>

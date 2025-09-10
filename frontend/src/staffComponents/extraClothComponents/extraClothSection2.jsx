@@ -40,7 +40,8 @@ export default function ExtraClothSection2({ submissions, setAllSubmissions }) {
                   <strong>Student Email:</strong> {s.userEmail}
                 </p>
                 <p>
-                  <strong>Date:</strong> {new Date(s.date).toLocaleDateString()}
+                  <strong>Submitted Date:</strong>{" "}
+                  {new Date(s.date).toLocaleDateString()}
                 </p>
               </div>
 
