@@ -1,40 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { FaHome } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
-export default function TrackNav() {
-  const [email, setEmail] = useState("");
-  const [totalAmount, setTotalAmount] = useState(0);
-
-  useEffect(() => {
-    const storedEmail = localStorage.getItem("userEmail");
-    if (storedEmail) {
-      setEmail(storedEmail);
-    }
-
-    const fetchAmount = async () => {
-      try {
-        const response = await fetch(
-          `http://localhost:6060/submission/submittedCloth?userEmail=${storedEmail}`
-        );
-        const submissions = await response.json();
-        // submissions is an array, each with totalSubmissionPrice
-        const total = Array.isArray(submissions)
-          ? submissions.reduce(
-              (sum, submission) =>
-                sum + (Number(submission.totalSubmissionPrice) || 0),
-              0
-            )
-          : 0;
-        setTotalAmount(total);
-      } catch (error) {
-        console.error("Error fetching amount:", error);
-      }
-    };
-
-    fetchAmount();
-  }, []);
-
+export default function TrackNav({ email, totalAmount }) {
   return (
     <nav className="track-nav">
       {/* Left - Home */}

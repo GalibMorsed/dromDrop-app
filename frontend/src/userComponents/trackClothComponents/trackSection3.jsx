@@ -1,35 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 
-export default function TrackSection3() {
-  const [payments, setPayments] = useState([]);
-
-  useEffect(() => {
-    const dummyPayments = [
-      {
-        id: 1,
-        date: "2025-08-21",
-        amount: 750,
-        method: "UPI",
-        status: "Success",
-      },
-      {
-        id: 2,
-        date: "2025-07-10",
-        amount: 1200,
-        method: "Card",
-        status: "Success",
-      },
-      {
-        id: 3,
-        date: "2025-06-02",
-        amount: 500,
-        method: "Cash",
-        status: "Pending",
-      },
-    ];
-    setPayments(dummyPayments);
-  }, []);
-
+export default function TrackSection3({ payments = [] }) {
   return (
     <section className="track-section3">
       <h2 className="section-title">💳 Payment History</h2>

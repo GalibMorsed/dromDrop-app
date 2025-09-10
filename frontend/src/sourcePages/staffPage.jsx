@@ -16,3 +16,5 @@ export default function StaffPage() {
     </div>
   );
 }
+
+// The StaffPage component imports and uses various staff-related components to build the staff page layout, similar to how HomePage and AdminPage are structured.

@@ -18,3 +18,9 @@ export default function HomePage() {
     </div>
   );
 }
+
+// This is the home page component that assembles various sections of the homepage.
+// It includes five main sections and a footer, each imported from their respective files.
+// The sections are organized in a vertical layout within a single div container.
+// Each section is assigned a unique ID for potential navigation or styling purposes.
+// The component is exported as the default export for use in other parts of the application.

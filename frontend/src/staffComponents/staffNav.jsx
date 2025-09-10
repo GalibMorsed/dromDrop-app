@@ -43,7 +43,7 @@ export default function StaffNav() {
           </Link>
         </li>
         <li>
-          <Link to="/staffPage" onClick={() => setMenuOpen(false)}>
+          <Link to="/extraClothPage" onClick={() => setMenuOpen(false)}>
             Extra Clothes
           </Link>
         </li>

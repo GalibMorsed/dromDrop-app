@@ -16,3 +16,6 @@ export default function AdminPage() {
     </div>
   );
 }
+
+// Admin page that includes navigation and four sections for admin functionalities.
+// Each section is represented by a separate component for better organization and maintainability.

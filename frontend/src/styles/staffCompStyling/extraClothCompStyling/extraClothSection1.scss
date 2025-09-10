@@ -1,0 +1,52 @@
+.extra-section1 {
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background: #fffef5;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+
+  .title {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #92400e;
+    margin-bottom: 1rem;
+    border-bottom: 2px solid #92400e;
+    padding-bottom: 0.4rem;
+    text-align: center;
+  }
+
+  .table-container {
+    width: 100%;
+    overflow-x: auto;
+  }
+
+  .report-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+
+    th,
+    td {
+      border: 1px solid #e5e7eb;
+      padding: 0.75rem;
+      text-align: center;
+      font-size: 0.95rem;
+    }
+
+    th {
+      background: #fef3c7;
+      font-weight: 600;
+    }
+
+    tr:nth-child(even) {
+      background: #f9fafb;
+    }
+  }
+
+  .no-data {
+    font-size: 1rem;
+    color: #6b7280;
+    text-align: center;
+    margin-top: 1rem;
+  }
+}

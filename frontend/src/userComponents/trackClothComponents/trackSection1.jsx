@@ -1,53 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 
-export default function TrackSection1() {
-  const [totalAmount, setTotalAmount] = useState(0);
-  const [totalClothes, setTotalClothes] = useState(0);
-
-  useEffect(() => {
-    const storedEmail = localStorage.getItem("userEmail");
-    const fetchData = async () => {
-      try {
-        const response = await fetch(
-          `http://localhost:6060/submission/submittedCloth?userEmail=${storedEmail}`
-        );
-        const submissions = await response.json();
-        const totalAmount = Array.isArray(submissions)
-          ? submissions.reduce(
-              (sum, sub) => sum + (Number(sub.totalSubmissionPrice) || 0),
-              0
-            )
-          : 0;
-        const totalClothes = Array.isArray(submissions)
-          ? submissions.reduce(
-              (sum, sub) =>
-                sum +
-                (Array.isArray(sub.clothes)
-                  ? sub.clothes.filter((c) => c.status === "Extra").length
-                  : 0),
-              0
-            )
-          : 0;
-        const customClothes = Array.isArray(submissions)
-          ? submissions.reduce(
-              (sum, sub) =>
-                sum +
-                (Array.isArray(sub.clothes)
-                  ? sub.clothes.filter((c) => c.status === "Custom").length
-                  : 0),
-              0
-            )
-          : 0;
-        setTotalAmount(totalAmount);
-        setTotalClothes(totalClothes + customClothes);
-      } catch (error) {
-        console.error("Error fetching track data:", error);
-      }
-    };
-
-    fetchData();
-  }, []);
-
+export default function TrackSection1({ totalAmount, totalClothes }) {
   if (totalAmount <= 500) {
     return null;
   }
