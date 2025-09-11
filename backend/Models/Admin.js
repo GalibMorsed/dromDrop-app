@@ -21,6 +21,10 @@ const UserSchema = new Schema({
     required: true,
     enum: ["Administrator"],
   },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
 const AdminModel = mongoose.model("logAdmins", UserSchema);

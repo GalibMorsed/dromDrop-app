@@ -1,0 +1,61 @@
+.editstaff-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(90deg, #6ca3fc 0%, #a1b8f9 100%);
+  padding: 1.2rem 2rem;
+  position: relative;
+  top: 0;
+  z-index: 998;
+  transition: all 0.3s ease-in-out;
+
+  .nav-left {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    .home-icon {
+      font-size: 1.5rem;
+      color: #000;
+      cursor: pointer;
+      transition: transform 0.2s ease-in-out;
+
+      &:hover {
+        transform: scale(1.1);
+      }
+    }
+  }
+
+  .nav-center {
+    text-align: center;
+    font-weight: 600;
+    word-break: break-word;
+  }
+
+  .nav-right {
+    font-weight: 600;
+    color: #b91c1c;
+  }
+
+  // ✅ Responsive
+  @media (max-width: 768px) {
+    font-size: 0.9rem;
+    padding: 0.8rem 1rem;
+
+    .nav-left .home-icon {
+      font-size: 1.4rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    flex-direction: column;
+    gap: 0.5rem;
+    text-align: center;
+
+    .nav-left {
+      align-self: flex-start;
+      width: 100%;
+      justify-content: flex-start;
+    }
+  }
+}

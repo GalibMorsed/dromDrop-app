@@ -91,6 +91,21 @@ const staffLoginValidation = (req, res, next) => {
   next();
 };
 
+const resetStaffPasswordValidation = (req, res, next) => {
+  const schema = Joi.object({
+    newPassword: Joi.string().min(4).max(100).required(),
+  });
+
+  const { error } = schema.validate(req.body);
+  if (error) {
+    return res.status(400).json({
+      message: error.details[0].message,
+      success: false,
+    });
+  }
+  next();
+};
+
 module.exports = {
   signinValidation,
   loginValidation,
@@ -98,4 +113,5 @@ module.exports = {
   adminLoginValidation,
   staffSignupValidation,
   staffLoginValidation,
+  resetStaffPasswordValidation,
 };

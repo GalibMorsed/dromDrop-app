@@ -1,0 +1,119 @@
+.editstaff-section2 {
+  padding: 2rem;
+  background: #f8faff;
+  font-family: "Segoe UI", sans-serif;
+}
+
+.editstaff-section2 .section-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  text-align: center;
+  color: #1e3a8a;
+  position: relative;
+  padding-bottom: 0.75rem;
+  animation: fadeInDown 0.6s ease-out;
+
+  &::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background: linear-gradient(90deg, #3b82f6, #60a5fa);
+    border-radius: 2px;
+    animation: expandLine 0.8s 0.3s ease-out forwards;
+  }
+}
+
+.activity-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.activity-card {
+  background: #ffffff;
+  padding: 1.2rem 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  animation: fadeInUp 0.5s ease-out forwards;
+  opacity: 0;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  }
+
+  p {
+    margin: 0.5rem 0;
+    font-size: 1rem;
+    color: #374151;
+    line-height: 1.6;
+
+    strong {
+      font-weight: 600;
+      color: #111827;
+    }
+  }
+}
+
+.no-data {
+  text-align: center;
+  color: #6b7280;
+  margin-top: 2rem;
+  font-size: 1.1rem;
+  animation: fadeIn 1s ease-out;
+}
+
+// Animations
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes expandLine {
+  from {
+    width: 0;
+  }
+  to {
+    width: 80px;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (max-width: 768px) {
+  .activity-card {
+    padding: 1rem;
+  }
+}

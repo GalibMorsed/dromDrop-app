@@ -5,6 +5,10 @@ const {
   adminSignup,
   staffSignup,
   staffLogin,
+  getCreatedStaffs,
+  getActivities,
+  deleteStaff,
+  resetStaffPassword,
 } = require("../Controllers/authController");
 const { getAdminDashboardInfo } = require("../Controllers/adminController");
 const {
@@ -14,6 +18,7 @@ const {
   adminLoginValidation,
   staffSignupValidation,
   staffLoginValidation,
+  resetStaffPasswordValidation,
 } = require("../Middlewares/authValidation");
 
 const { Router } = require("express");
@@ -27,4 +32,13 @@ router.get("/AdminDashboard", getAdminDashboardInfo);
 router.post("/Staffsignup", staffSignupValidation, staffSignup);
 router.post("/Stafflogin", staffLoginValidation, staffLogin);
 
+// Routers for Edit Staffs details
+router.get("/getCreatedStaffs", getCreatedStaffs);
+router.get("/getActivities", getActivities);
+router.delete("/deleteStaff/:id", deleteStaff);
+router.patch(
+  "/resetStaffPassword/:id",
+  resetStaffPasswordValidation,
+  resetStaffPassword
+);
 module.exports = router;

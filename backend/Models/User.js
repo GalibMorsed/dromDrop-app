@@ -24,6 +24,13 @@ const UserSchema = new Schema({
     required: true,
     enum: ["Student/User"],
   },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
+  lastActive: {
+    type: Date,
+  },
 });
 
 const UserModel = mongoose.model("logUsers", UserSchema);

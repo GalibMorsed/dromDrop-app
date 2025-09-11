@@ -49,6 +49,9 @@ const login = async (req, res) => {
     if (!isPassEqual) {
       return res.status(403).json({ message: errorMsg, success: false });
     }
+    user.lastActive = new Date();
+    await user.save();
+
     const jwtToken = jwt.sign(
       { email: user.email, _id: user._id },
       process.env.JWT_SECRET,
@@ -182,12 +185,15 @@ const staffLogin = async (req, res) => {
     if (!isPasswordMatch) {
       return res.status(403).json({ message: errorMsg, success: false });
     }
+
+    staff.lastActive = new Date();
     if (uniqueId || instituteName || role) {
       staff.uniqueId = uniqueId || staff.uniqueId;
       staff.instituteName = instituteName || staff.instituteName;
       staff.role = role || staff.role;
-      await staff.save();
     }
+    await staff.save();
+
     const jwtToken = jwt.sign(
       { email: staff.email, _id: staff._id, role: staff.role },
       process.env.JWT_SECRET,
@@ -209,6 +215,172 @@ const staffLogin = async (req, res) => {
   }
 };
 
+// Controller for fetching created staffs (admin → staff, same institution)
+const getCreatedStaffs = async (req, res) => {
+  try {
+    const { adminEmail } = req.query;
+
+    if (!adminEmail) {
+      return res.status(400).json({
+        message: "Admin email is required",
+        success: false,
+      });
+    }
+    const admin = await AdminModel.findOne({ email: adminEmail });
+    if (!admin) {
+      return res.status(404).json({
+        message: "Admin not found",
+        success: false,
+      });
+    }
+    const staffs = await StaffModel.find({
+      instituteName: admin.institution,
+    }).select("email uniqueId instituteName role createdAt");
+
+    return res.status(200).json({
+      message: "Staff fetched successfully",
+      success: true,
+      staffs,
+    });
+  } catch (err) {
+    console.error("Error in getCreatedStaffs:", err);
+    res.status(500).json({
+      message: "Server error",
+      success: false,
+    });
+  }
+};
+
+// Controller for fetching activities (admin → staff & users, same institution)
+const getActivities = async (req, res) => {
+  try {
+    const { adminEmail } = req.query;
+
+    if (!adminEmail) {
+      return res.status(400).json({
+        message: "Admin email is required",
+        success: false,
+      });
+    }
+    const admin = await AdminModel.findOne({ email: adminEmail });
+    if (!admin) {
+      return res.status(404).json({
+        message: "Admin not found",
+        success: false,
+      });
+    }
+
+    const institutionName = admin.institution;
+    const staffs = await StaffModel.find({
+      instituteName: institutionName,
+    }).select("email role lastActive instituteName");
+    const users = await UserModel.find({
+      instituteName: institutionName,
+    }).select("email role lastActive instituteName");
+
+    return res.status(200).json({
+      message: "Activities fetched successfully",
+      success: true,
+      staffs,
+      users,
+    });
+  } catch (err) {
+    console.error("Error in getActivities:", err);
+    res.status(500).json({
+      message: "Server error",
+      success: false,
+    });
+  }
+};
+
+// Controller to delete staff (admin → staff, only if same institution)
+const deleteStaff = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { adminEmail } = req.query;
+
+    if (!adminEmail) {
+      return res.status(400).json({
+        message: "Admin email is required",
+        success: false,
+      });
+    }
+    const admin = await AdminModel.findOne({ email: adminEmail });
+    if (!admin) {
+      return res
+        .status(404)
+        .json({ message: "Admin not found", success: false });
+    }
+    const staff = await StaffModel.findById(id);
+
+    if (!staff) {
+      return res.status(404).json({
+        message: "Staff not found",
+        success: false,
+      });
+    }
+    if (staff.instituteName !== admin.institution) {
+      return res.status(403).json({
+        message: "Staff not found or not in your institution",
+        success: false,
+      });
+    }
+
+    await StaffModel.findByIdAndDelete(id);
+
+    return res.status(200).json({
+      message: "Staff deleted successfully",
+      success: true,
+    });
+  } catch (err) {
+    console.error("Error in deleteStaff:", err);
+    res.status(500).json({ message: "Server error", success: false });
+  }
+};
+
+//  Controller to reset staff password (admin → staff)
+const resetStaffPassword = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { adminEmail } = req.query;
+    const { newPassword } = req.body;
+
+    if (!adminEmail) {
+      return res
+        .status(400)
+        .json({ message: "Admin email is required", success: false });
+    }
+    const admin = await AdminModel.findOne({ email: adminEmail });
+    if (!admin) {
+      return res
+        .status(404)
+        .json({ message: "Admin not found", success: false });
+    }
+    const staff = await StaffModel.findById(id);
+    if (!staff) {
+      return res
+        .status(404)
+        .json({ message: "Staff not found", success: false });
+    }
+    if (staff.instituteName !== admin.institution) {
+      return res.status(403).json({
+        message: "Staff not found or not in your institution",
+        success: false,
+      });
+    }
+
+    staff.password = await bcrypt.hash(newPassword, 10);
+    await staff.save();
+
+    return res
+      .status(200)
+      .json({ message: "Staff password reset successfully", success: true });
+  } catch (err) {
+    console.error("Error in resetStaffPassword:", err);
+    res.status(500).json({ message: "Server error", success: false });
+  }
+};
+
 module.exports = {
   signin,
   login,
@@ -216,4 +388,8 @@ module.exports = {
   adminLogin,
   staffSignup,
   staffLogin,
+  getCreatedStaffs,
+  getActivities,
+  deleteStaff,
+  resetStaffPassword,
 };
