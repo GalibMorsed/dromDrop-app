@@ -42,7 +42,7 @@ export default function AdminNav() {
           </Link>
         </li>
         <li>
-          <Link to="/adminPage" onClick={() => setMenuOpen(false)}>
+          <Link to="/aboutUniqueId" onClick={() => setMenuOpen(false)}>
             About Unique ID
           </Link>
         </li>

@@ -48,6 +48,17 @@
         transform: translateY(-3px) scale(1.01);
         box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
       }
+
+      .info-link {
+        color: #ff9800;
+        font-weight: 600;
+        text-decoration: underline;
+        transition: color 0.3s ease;
+
+        &:hover {
+          color: #e68900;
+        }
+      }
     }
   }
 }

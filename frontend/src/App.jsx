@@ -18,6 +18,7 @@ import UserSetting from "./userComponents/userSetting.jsx";
 import DailyReport from "./staffComponents/dailyReport.jsx";
 import ExtraClothPage from "./sourcePages/extraClothPage.jsx";
 import EditStaffPage from "./sourcePages/editStaffPage.jsx";
+import AboutUniqueId from "./adminComponents/aboutUniqueId.jsx";
 
 // Private route wrapper
 const PrivateRoute = ({ element, isAuthenticated, allowedRole }) => {
@@ -197,6 +198,16 @@ function App() {
               isAuthenticated={isAuthenticated}
               allowedRole="Administrator"
               element={<EditStaffPage />}
+            />
+          }
+        />
+        <Route
+          path="/aboutUniqueId"
+          element={
+            <PrivateRoute
+              isAuthenticated={isAuthenticated}
+              allowedRole="Administrator"
+              element={<AboutUniqueId />}
             />
           }
         />
