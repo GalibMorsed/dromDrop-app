@@ -17,6 +17,9 @@ import TrackPage from "./sourcePages/trackPage.jsx";
 import UserSetting from "./userComponents/userSetting.jsx";
 import DailyReport from "./staffComponents/dailyReport.jsx";
 import ExtraClothPage from "./sourcePages/extraClothPage.jsx";
+import EditStaffPage from "./sourcePages/editStaffPage.jsx";
+import AboutUniqueId from "./adminComponents/aboutUniqueId.jsx";
+
 // Private route wrapper
 const PrivateRoute = ({ element, isAuthenticated, allowedRole }) => {
   const userRole = localStorage.getItem("role");
@@ -185,6 +188,26 @@ function App() {
               isAuthenticated={isAuthenticated}
               allowedRole="Staff/Faculty"
               element={<ExtraClothPage />}
+            />
+          }
+        />
+        <Route
+          path="/editStaffPage"
+          element={
+            <PrivateRoute
+              isAuthenticated={isAuthenticated}
+              allowedRole="Administrator"
+              element={<EditStaffPage />}
+            />
+          }
+        />
+        <Route
+          path="/aboutUniqueId"
+          element={
+            <PrivateRoute
+              isAuthenticated={isAuthenticated}
+              allowedRole="Administrator"
+              element={<AboutUniqueId />}
             />
           }
         />

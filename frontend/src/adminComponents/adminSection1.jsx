@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 export default function AdminSection1() {
   const [adminData, setAdminData] = useState(null);
@@ -44,6 +45,12 @@ export default function AdminSection1() {
           registered under your organisation.
           <br />
           Keep an eye on new sign-ups and ensure data stays up to date!
+          <br />
+          For more details on the Staff creation system, please see the{" "}
+          <Link to="/editStaffPage" className="info-link">
+            Edit Staff
+          </Link>{" "}
+          page.
         </div>
       </div>
     </section>

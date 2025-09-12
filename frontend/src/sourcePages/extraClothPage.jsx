@@ -3,7 +3,9 @@ import ExtraClothNav from "../staffComponents/extraClothComponents/extraClothNav
 import ExtraClothSection1 from "../staffComponents/extraClothComponents/extraClothSection1";
 import ExtraClothSection2 from "../staffComponents/extraClothComponents/extraClothSection2";
 import ExtraClothSection3 from "../staffComponents/extraClothComponents/extraClothSection3";
-
+/*in this extraclothsubmission page i just want to show these submission
+ to those staffs only how have created this cloth details only soo can you code 
+ soo you have to update this ExtraClothPage code */
 export default function ExtraClothPage() {
   const [allSubmissions, setAllSubmissions] = useState([]);
   const staffEmail = localStorage.getItem("userEmail");

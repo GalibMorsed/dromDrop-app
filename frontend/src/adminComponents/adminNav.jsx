@@ -31,7 +31,7 @@ export default function AdminNav() {
       {/* Center Links */}
       <ul className={`admin-navbar-center ${menuOpen ? "active" : ""}`}>
         <li>
-          <Link to="/adminPage" onClick={() => setMenuOpen(false)}>
+          <Link to="/editStaffPage" onClick={() => setMenuOpen(false)}>
             Edit Staffs
           </Link>
         </li>
@@ -42,7 +42,7 @@ export default function AdminNav() {
           </Link>
         </li>
         <li>
-          <Link to="/adminPage" onClick={() => setMenuOpen(false)}>
+          <Link to="/aboutUniqueId" onClick={() => setMenuOpen(false)}>
             About Unique ID
           </Link>
         </li>
