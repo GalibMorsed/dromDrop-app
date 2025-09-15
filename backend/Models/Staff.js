@@ -21,6 +21,13 @@ const UserSchema = new Schema({
     type: String,
     enum: ["Staff/Faculty"],
   },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
+  lastActive: {
+    type: Date,
+  },
 });
 
 const StaffModel = mongoose.model("logStaff", UserSchema);

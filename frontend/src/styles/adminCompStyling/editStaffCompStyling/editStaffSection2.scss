@@ -1,0 +1,114 @@
+.editstaff-section2 {
+  padding: 2rem;
+  font-family: "Segoe UI", sans-serif;
+  background-color: #f8fafc;
+
+  .title-container {
+    text-align: left;
+    margin-bottom: 2rem;
+  }
+
+  .section-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #1a3d7c;
+    border-bottom: 3px solid #1a3d7c;
+    display: inline-block;
+    padding-bottom: 0.5rem;
+    animation: fadeInDown 0.6s ease-out;
+  }
+
+  .table-container {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    animation: fadeInUp 0.5s ease-out forwards;
+  }
+
+  .activity-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    min-width: 600px;
+
+    th,
+    td {
+      padding: 1rem 1.2rem;
+      text-align: left;
+      border-bottom: 1px solid #e2e8f0;
+      font-size: 0.95rem;
+      vertical-align: middle;
+      white-space: nowrap;
+    }
+
+    th {
+      background: #f1f5f9;
+      font-weight: 600;
+      color: #1e293b;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-size: 0.85rem;
+    }
+
+    tbody tr {
+      transition: background-color 0.2s ease;
+      &:hover {
+        background-color: #f8fafc;
+      }
+    }
+
+    td {
+      color: #334155;
+    }
+  }
+
+  .no-data {
+    text-align: center;
+    color: #64748b;
+    margin-top: 2rem;
+    font-size: 1.1rem;
+    padding: 2rem;
+    background: #fff;
+    border-radius: 12px;
+    border: 1px dashed #e2e8f0;
+  }
+
+  @media (max-width: 480px) {
+    padding: 1rem;
+    .section-title {
+      font-size: 1.2rem;
+    }
+    .activity-table {
+      th,
+      td {
+        padding: 0.8rem;
+        font-size: 0.9rem;
+      }
+    }
+  }
+}
+
+// Animations
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

@@ -1,61 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 
-export default function TrackSection2() {
-  const [clothesData, setClothesData] = useState([]);
-  const [totalPrice, setTotalPrice] = useState(0);
-
-  useEffect(() => {
-    const storedEmail = localStorage.getItem("userEmail");
-    const fetchClothes = async () => {
-      try {
-        const response = await fetch(
-          `http://localhost:6060/submission/submittedCloth?userEmail=${storedEmail}`
-        );
-        const submissions = await response.json();
-
-        let clothesMap = {
-          Extra: { type: "Extra", count: 0, names: [] },
-          Custom: { type: "Custom", count: 0, names: [] },
-        };
-        let totalPrice = 0;
-
-        if (Array.isArray(submissions)) {
-          submissions.forEach((sub) => {
-            totalPrice += Number(sub.totalSubmissionPrice) || 0;
-            if (Array.isArray(sub.clothes)) {
-              clothesMap["Extra"].count += sub.clothes.filter(
-                (c) => c.status === "Extra"
-              ).length;
-              clothesMap["Extra"].names.push(
-                ...sub.clothes
-                  .filter((c) => c.status === "Extra")
-                  .map((c) => c.clothName)
-              );
-              clothesMap["Custom"].count += sub.clothes.filter(
-                (c) => c.status === "Custom"
-              ).length;
-              clothesMap["Custom"].names.push(
-                ...sub.clothes
-                  .filter((c) => c.status === "Custom")
-                  .map((c) => c.clothName)
-              );
-            }
-          });
-        }
-
-        const clothesData = Object.values(clothesMap).filter(
-          (item) => item.count > 0
-        );
-        setClothesData(clothesData);
-        setTotalPrice(totalPrice);
-      } catch (error) {
-        console.error("Error fetching clothes data:", error);
-      }
-    };
-
-    fetchClothes();
-  }, []);
-
+export default function TrackSection2({ clothesData = [], totalPrice = 0 }) {
   return (
     <section className="track-section2">
       <h2 className="section-title">
