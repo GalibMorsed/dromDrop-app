@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import { FaTrash } from "react-icons/fa";
 
 export default function EditStaffSection1({ staffs, setStaffs }) {
+  const [editingStaff, setEditingStaff] = useState(null);
   const [newPasswords, setNewPasswords] = useState({});
 
   const handlePasswordChange = (staffId, password) => {
@@ -36,7 +38,8 @@ export default function EditStaffSection1({ staffs, setStaffs }) {
       const data = await res.json();
       if (res.ok) {
         alert("Password reset successfully!");
-        handlePasswordChange(staffId, "");
+        setNewPasswords((prev) => ({ ...prev, [staffId]: "" }));
+        setEditingStaff(null);
       } else {
         alert(data.message || "Error resetting password");
       }
@@ -80,50 +83,68 @@ export default function EditStaffSection1({ staffs, setStaffs }) {
 
   return (
     <section className="editstaff-section1">
-      <h2 className="section-title">Created Staff's</h2>
-      <div className="staff-grid">
+      <div className="title-container">
+        <h2 className="section-title">Staff Account Management</h2>
+      </div>
+      <div className="staff-list">
         {staffs.length > 0 ? (
           staffs.map((staff) => (
-            <div className="staff-card" key={staff._id}>
-              <p>
-                <strong>Staff Email:</strong> {staff.email}
-              </p>
-              <p>
-                <strong>Password:</strong> {staff.password || "Assigned"}
-              </p>
-              <p>
-                <strong>Institution:</strong> {staff.instituteName || "N/A"}
-              </p>
-              <p>
+            <div className="staff-row" key={staff._id}>
+              <div className="staff-info">
+                <p>
+                  <strong>Email:</strong> {staff.email}
+                </p>
+                <p>
+                  <strong>Password:</strong> {staff.password || "Assigned"}
+                </p>
+              </div>
+
+              <p className="created-date">
                 <strong>Created At:</strong>{" "}
                 {new Date(staff.createdAt).toLocaleDateString()}
               </p>
-              <div className="reset-password-form">
-                <p>
-                  <strong>Reset Staff Password:</strong>
-                </p>
-                <input
-                  type="password"
-                  placeholder="New Password"
-                  className="password-input"
-                  value={newPasswords[staff._id] || ""}
-                  onChange={(e) =>
-                    handlePasswordChange(staff._id, e.target.value)
-                  }
-                />
+              <div className="staff-actions">
+                {/* If this staff is in editing mode */}
+                {editingStaff === staff._id ? (
+                  <div className="reset-password-box">
+                    <input
+                      type="password"
+                      placeholder="New Password"
+                      value={newPasswords[staff._id] || ""}
+                      onChange={(e) =>
+                        handlePasswordChange(staff._id, e.target.value)
+                      }
+                      className="password-input"
+                    />
+                    <button
+                      className="confirm-btn"
+                      onClick={() => handleResetPassword(staff._id)}
+                    >
+                      Confirm
+                    </button>
+                    <button
+                      className="cancel-btn"
+                      onClick={() => setEditingStaff(null)}
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                ) : (
+                  <button
+                    className="edit-btn"
+                    onClick={() => setEditingStaff(staff._id)}
+                  >
+                    Edit
+                  </button>
+                )}
+
                 <button
-                  className="reset-btn"
-                  onClick={() => handleResetPassword(staff._id)}
+                  className="delete-btn"
+                  onClick={() => handleDelete(staff._id)}
                 >
-                  Reset Password
+                  <FaTrash />
                 </button>
               </div>
-              <button
-                className="delete-btn"
-                onClick={() => handleDelete(staff._id)}
-              >
-                Delete Access
-              </button>
             </div>
           ))
         ) : (

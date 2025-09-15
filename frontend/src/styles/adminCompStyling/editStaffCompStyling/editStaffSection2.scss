@@ -1,81 +1,96 @@
 .editstaff-section2 {
-  padding: 3rem 2rem;
-  background: linear-gradient(135deg, #f9fafc, #eef2f7);
+  padding: 2rem;
   font-family: "Segoe UI", sans-serif;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  background-color: #f8fafc;
+
+  .title-container {
+    text-align: left;
+    margin-bottom: 2rem;
+  }
 
   .section-title {
-    font-size: 2rem;
+    font-size: 1.8rem;
     font-weight: 700;
-    margin-bottom: 2rem;
-    text-align: center;
-    color: #1e293b;
-    position: relative;
-    padding-bottom: 0.75rem;
+    color: #1a3d7c;
+    border-bottom: 3px solid #1a3d7c;
+    display: inline-block;
+    padding-bottom: 0.5rem;
     animation: fadeInDown 0.6s ease-out;
-
-    &::after {
-      content: "";
-      position: absolute;
-      left: 50%;
-      bottom: 0;
-      transform: translateX(-50%);
-      width: 90px;
-      height: 3px;
-      background: linear-gradient(90deg, #3b82f6, #60a5fa);
-      border-radius: 2px;
-      animation: expandLine 0.8s 0.3s ease-out forwards;
-    }
   }
 
-  .activity-list {
-    display: flex;
-    flex-direction: column;
-    gap: 1.2rem;
+  .table-container {
     width: 100%;
-    max-width: 900px;
-    margin: 0 auto;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    animation: fadeInUp 0.5s ease-out forwards;
   }
 
-  .activity-card {
-    background: #ffffff;
-    padding: 1.4rem 1.6rem;
-    border-radius: 14px;
-    box-shadow: 0 4px 14px rgba(0, 64, 255, 0.188);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    animation: fadeInUp 0.5s ease-out forwards;
-    opacity: 0;
+  .activity-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    min-width: 600px;
 
-    &:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 10px 28px rgba(156, 208, 240, 0.315);
+    th,
+    td {
+      padding: 1rem 1.2rem;
+      text-align: left;
+      border-bottom: 1px solid #e2e8f0;
+      font-size: 0.95rem;
+      vertical-align: middle;
+      white-space: nowrap;
     }
 
-    p {
-      margin: 0.5rem 0;
-      font-size: 1rem;
-      color: #374151;
-      line-height: 1.6;
+    th {
+      background: #f1f5f9;
+      font-weight: 600;
+      color: #1e293b;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-size: 0.85rem;
+    }
 
-      strong {
-        font-weight: 600;
-        color: #111827;
+    tbody tr {
+      transition: background-color 0.2s ease;
+      &:hover {
+        background-color: #f8fafc;
       }
+    }
+
+    td {
+      color: #334155;
     }
   }
 
   .no-data {
     text-align: center;
-    color: #6b7280;
+    color: #64748b;
     margin-top: 2rem;
     font-size: 1.1rem;
-    animation: fadeIn 1s ease-out;
+    padding: 2rem;
+    background: #fff;
+    border-radius: 12px;
+    border: 1px dashed #e2e8f0;
+  }
+
+  @media (max-width: 480px) {
+    padding: 1rem;
+    .section-title {
+      font-size: 1.2rem;
+    }
+    .activity-table {
+      th,
+      td {
+        padding: 0.8rem;
+        font-size: 0.9rem;
+      }
+    }
   }
 }
 
-/* Animations */
+// Animations
 @keyframes fadeInDown {
   from {
     opacity: 0;
@@ -95,43 +110,5 @@
   to {
     opacity: 1;
     transform: translateY(0);
-  }
-}
-
-@keyframes expandLine {
-  from {
-    width: 0;
-  }
-  to {
-    width: 90px;
-  }
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-  .editstaff-section2 {
-    padding: 2rem 1.2rem;
-  }
-
-  .activity-card {
-    padding: 1rem 1.2rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .editstaff-section2 .section-title {
-    font-size: 1.6rem;
-  }
-  .activity-card p {
-    font-size: 0.9rem;
   }
 }

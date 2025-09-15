@@ -22,7 +22,7 @@ export default function UserFooter() {
         <Link to="/" className="footer-link" onClick={handleLogout}>
           Help
         </Link>
-        <Link to="/" className="footer-link" onClick={handleLogout}>
+        <Link to="/aboutUs" className="footer-link">
           Contact Info
         </Link>
       </div>

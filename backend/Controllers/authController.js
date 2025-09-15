@@ -273,10 +273,10 @@ const getActivities = async (req, res) => {
     const institutionName = admin.institution;
     const staffs = await StaffModel.find({
       instituteName: institutionName,
-    }).select("email role lastActive instituteName");
+    }).select("email role lastActive instituteName createdAt");
     const users = await UserModel.find({
       instituteName: institutionName,
-    }).select("email role lastActive instituteName");
+    }).select("email role lastActive instituteName createdAt");
 
     return res.status(200).json({
       message: "Activities fetched successfully",
