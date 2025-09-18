@@ -17,12 +17,12 @@ export default function HomeSection2() {
               garments.
             </p>
             <div className="button-group">
-              <button className="sec2-btn login-btn">
-                <Link to="/studentLogin">Login</Link>
-              </button>
-              <button className="sec2-btn signup-btn">
-                <Link to="/studentSignup">Sign Up</Link>
-              </button>
+              <Link to="/studentLogin">
+                <button className="sec2-btn login-btn">Login</button>
+              </Link>
+              <Link to="/studentSignup">
+                <button className="sec2-btn signup-btn">Sign Up</button>
+              </Link>
             </div>
           </div>
 
