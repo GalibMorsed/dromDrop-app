@@ -3,6 +3,9 @@ const jwt = require("jsonwebtoken");
 const UserModel = require("../Models/User");
 const AdminModel = require("../Models/Admin");
 const StaffModel = require("../Models/Staff");
+const Cloth = require("../Models/Clothes");
+const Reports = require("../Models/Reports");
+const Timing = require("../Models/Timing");
 
 // added controller for user authentication
 const signin = async (req, res) => {
@@ -326,10 +329,16 @@ const deleteStaff = async (req, res) => {
       });
     }
 
-    await StaffModel.findByIdAndDelete(id);
+    const staffEmail = staff.email;
+    await Promise.all([
+      StaffModel.findByIdAndDelete(id),
+      Cloth.deleteMany({ staffEmail }),
+      Timing.deleteMany({ userEmail: staffEmail }),
+      Reports.deleteMany({ staffEmail }),
+    ]);
 
     return res.status(200).json({
-      message: "Staff deleted successfully",
+      message: "Staff and all related data deleted successfully",
       success: true,
     });
   } catch (err) {

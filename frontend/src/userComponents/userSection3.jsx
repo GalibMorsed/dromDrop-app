@@ -96,7 +96,7 @@ export default function UserSection3() {
                           }}
                           onClick={() => handleToggleRow(idx)}
                         >
-                          {showAllClothes ? "Read Less" : "Read More"}
+                          {showAllClothes ? "See Less" : "See All"}
                         </button>
                       )}
                     </td>

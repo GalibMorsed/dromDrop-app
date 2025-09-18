@@ -25,12 +25,14 @@ export default function HomeSection3() {
               dashboard designed for campus efficiency.
             </p>
             <div className="button-group">
-              <button className="sec3-btn login-btn">
-                <Link to="/adminLogin">Admin Login</Link>
-              </button>
-              <button className="sec3-btn signup-btn">
-                <Link to="/adminSignup">Create Admin Account</Link>
-              </button>
+              <Link to="/adminLogin">
+                <button className="sec3-btn login-btn">Admin Login</button>
+              </Link>
+              <Link to="/adminSignup">
+                <button className="sec3-btn signup-btn">
+                  Create Admin Account
+                </button>
+              </Link>
             </div>
           </div>
         </div>
