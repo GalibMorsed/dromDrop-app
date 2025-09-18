@@ -16,9 +16,9 @@ export default function HomeSection4() {
               easy-to-use platform.
             </p>
             <div className="button-group">
-              <button className="sec4-btn login-btn">
-                <Link to="/staffLogin">Staff Login</Link>
-              </button>
+              <Link to="/staffLogin">
+                <button className="sec4-btn login-btn">Staff Login</button>
+              </Link>
             </div>
           </div>
 

@@ -51,7 +51,7 @@ export default function EditStaffSection1({ staffs, setStaffs }) {
 
   const handleDelete = async (id) => {
     const confirmAction = window.confirm(
-      "Are you sure you want to delete this staff access?"
+      "Are you sure you want to delete this staff member? This will also delete all related data (clothes, timings, reports) and cannot be undone."
     );
 
     if (confirmAction) {

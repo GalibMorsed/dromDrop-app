@@ -46,7 +46,7 @@ export default function AdminSection1() {
           <br />
           Keep an eye on new sign-ups and ensure data stays up to date!
           <br />
-          For more details on the Staff creation system, please see the{" "}
+          For more details about the Staff creation system, please Check the{" "}
           <Link to="/editStaffPage" className="info-link">
             Edit Staff
           </Link>{" "}
