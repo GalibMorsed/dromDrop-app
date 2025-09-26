@@ -100,7 +100,7 @@ function App() {
         {/* Static page */}
         <Route path="/aboutUs" element={<AboutUs />} />
 
-        {/* Private routes*/}
+        {/* Administrator private routes */}
         <Route
           path="/adminPage"
           element={
@@ -112,6 +112,28 @@ function App() {
           }
         />
         <Route
+          path="/editStaffPage"
+          element={
+            <PrivateRoute
+              isAuthenticated={isAuthenticated}
+              allowedRole="Administrator"
+              element={<EditStaffPage />}
+            />
+          }
+        />
+        <Route
+          path="/aboutUniqueId"
+          element={
+            <PrivateRoute
+              isAuthenticated={isAuthenticated}
+              allowedRole="Administrator"
+              element={<AboutUniqueId />}
+            />
+          }
+        />
+
+        {/* Staff private routes */}
+        <Route
           path="/staffPage"
           element={
             <PrivateRoute
@@ -122,52 +144,12 @@ function App() {
           }
         />
         <Route
-          path="/studentPage"
-          element={
-            <PrivateRoute
-              isAuthenticated={isAuthenticated}
-              allowedRole="Student/Users"
-              element={<StudentPage />}
-            />
-          }
-        />
-        <Route
           path="/creatingClothes"
           element={
             <PrivateRoute
               isAuthenticated={isAuthenticated}
               allowedRole="Staff/Faculty"
               element={<CreatingClothes />}
-            />
-          }
-        />
-        <Route
-          path="/clothSubmit"
-          element={
-            <PrivateRoute
-              isAuthenticated={isAuthenticated}
-              allowedRole="Student/Users"
-              element={<ClothSubmit />}
-            />
-          }
-        />
-        <Route
-          path="/trackPage"
-          element={
-            <PrivateRoute
-              isAuthenticated={isAuthenticated}
-              allowedRole="Student/Users"
-              element={<TrackPage />}
-            />
-          }
-        />
-        <Route
-          path="/userSetting"
-          element={
-            <PrivateRoute
-              isAuthenticated={isAuthenticated}
-              allowedRole={["Student/Users", "Administrator", "Staff/Faculty"]}
-              element={<UserSetting />}
             />
           }
         />
@@ -191,23 +173,47 @@ function App() {
             />
           }
         />
+
+        {/* Student/User private routes */}
         <Route
-          path="/editStaffPage"
+          path="/studentPage"
           element={
             <PrivateRoute
               isAuthenticated={isAuthenticated}
-              allowedRole="Administrator"
-              element={<EditStaffPage />}
+              allowedRole="Student/Users"
+              element={<StudentPage />}
             />
           }
         />
         <Route
-          path="/aboutUniqueId"
+          path="/clothSubmit"
           element={
             <PrivateRoute
               isAuthenticated={isAuthenticated}
-              allowedRole="Administrator"
-              element={<AboutUniqueId />}
+              allowedRole="Student/Users"
+              element={<ClothSubmit />}
+            />
+          }
+        />
+        <Route
+          path="/trackPage"
+          element={
+            <PrivateRoute
+              isAuthenticated={isAuthenticated}
+              allowedRole="Student/Users"
+              element={<TrackPage />}
+            />
+          }
+        />
+
+        {/* Shared private routes */}
+        <Route
+          path="/userSetting"
+          element={
+            <PrivateRoute
+              isAuthenticated={isAuthenticated}
+              allowedRole={["Student/Users", "Administrator", "Staff/Faculty"]}
+              element={<UserSetting />}
             />
           }
         />

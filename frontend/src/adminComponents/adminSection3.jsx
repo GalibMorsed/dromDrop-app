@@ -19,11 +19,11 @@ export default function AdminSection3() {
         }
       );
 
-      alert(response.data.message || "Staff account created successfully"); // ✅ success alert
+      alert(response.data.message || "Staff account created successfully");
       setEmail("");
       setPassword("");
     } catch (err) {
-      alert(err.response?.data?.message || "Error creating staff account"); // ❌ error alert
+      alert(err.response?.data?.message || "Error creating staff account");
     } finally {
       setLoading(false);
     }

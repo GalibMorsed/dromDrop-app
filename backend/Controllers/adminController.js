@@ -1,6 +1,6 @@
 const AdminModel = require("../Models/Admin");
 const User = require("../Models/User");
-const StaffModel = require("../Models/Staff"); // <-- Added Staff model
+const StaffModel = require("../Models/Staff");
 
 const getAdminDashboardInfo = async (req, res) => {
   try {
@@ -14,12 +14,10 @@ const getAdminDashboardInfo = async (req, res) => {
       return res.status(404).json({ message: "Admin not found" });
     }
 
-    // Count students for this admin's institution
     const studentCount = await User.countDocuments({
       instituteName: admin.institution,
     });
 
-    // Count staff for this admin's institution
     const staffCount = await StaffModel.countDocuments({
       instituteName: admin.institution,
     });

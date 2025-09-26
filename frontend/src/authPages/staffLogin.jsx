@@ -108,7 +108,6 @@ function StaffLogin() {
       <div className="auth-container">
         <h1>Staff Login</h1>
         <form onSubmit={handleLogin}>
-          {/* Unique ID */}
           <div className="uniqueId-group">
             <label htmlFor="uniqueId">Unique ID</label>
             <div className="input-with-btn">
@@ -140,7 +139,6 @@ function StaffLogin() {
             )}
           </div>
 
-          {/* Email */}
           <div>
             <label htmlFor="email">Email</label>
             <input
@@ -152,7 +150,6 @@ function StaffLogin() {
             />
           </div>
 
-          {/* Password */}
           <div>
             <label htmlFor="password">Password</label>
             <input
@@ -164,7 +161,6 @@ function StaffLogin() {
             />
           </div>
 
-          {/* Role */}
           <div>
             <label htmlFor="role">Position</label>
             <input
@@ -177,7 +173,6 @@ function StaffLogin() {
             />
           </div>
 
-          {/* Submit */}
           <button className="auth-btn btn" type="submit" disabled={loading}>
             {loading ? "Logging in..." : "Login"}
           </button>

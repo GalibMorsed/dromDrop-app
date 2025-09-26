@@ -6,7 +6,6 @@ export default function DailyReport() {
   const [submissions, setSubmissions] = useState([]);
   const staffEmail = localStorage.getItem("userEmail");
 
-  // Fetch submissions
   useEffect(() => {
     const fetchSubmissions = async () => {
       try {
@@ -23,7 +22,6 @@ export default function DailyReport() {
     fetchSubmissions();
   }, [staffEmail]);
 
-  // Handle complete laundry (delete submission)
   const handleCompleteLaundry = async (id) => {
     const confirmAction = window.confirm(
       "Please verify that the student has received their clothes and that all payments for extra or custom items have been settled before completing this action."

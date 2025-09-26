@@ -58,7 +58,6 @@ const addDate = async (req, res) => {
       return res.status(400).json({ message: "userEmail is required" });
     }
 
-    // Prevent duplicate Pickup/Drop for the same staff
     const existing = await PickupDrop.findOne({ type, userEmail });
     if (existing) {
       return res.status(400).json({ message: `${type} date already exists` });
