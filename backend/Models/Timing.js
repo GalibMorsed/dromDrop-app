@@ -11,7 +11,6 @@ const PickupDrop = new Schema({
   date: { type: String, required: true },
 });
 
-// Ensure only 1 Pickup & 1 Drop per staff
 PickupDrop.index({ userEmail: 1, type: 1 }, { unique: true });
 
 const TimingModel = mongoose.model("PickUP/Drop", PickupDrop);

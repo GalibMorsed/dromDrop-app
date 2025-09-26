@@ -35,7 +35,6 @@ const saveCloth = async (req, res) => {
 
     await staffClothes.save();
 
-    // Format clothes array for frontend
     const formatted = staffClothes.clothes.map((cloth) => ({
       _id: cloth._id,
       selectedOption: cloth.selectedOption,
@@ -73,7 +72,6 @@ const getClothes = async (req, res) => {
       return res.status(200).json({ clothes: [] });
     }
 
-    // Convert photo buffer → base64
     const formatted = staffClothes.clothes.map((cloth) => ({
       _id: cloth._id,
       selectedOption: cloth.selectedOption,
@@ -111,7 +109,6 @@ const deleteCloth = async (req, res) => {
 
     await staffClothes.save();
 
-    // Format clothes array for frontend
     const formatted = staffClothes.clothes.map((cloth) => ({
       _id: cloth._id,
       selectedOption: cloth.selectedOption,

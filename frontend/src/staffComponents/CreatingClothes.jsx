@@ -12,7 +12,6 @@ export default function CreatingClothes() {
 
   const staffEmail = localStorage.getItem("userEmail");
 
-  // ✅ Fetch clothes
   useEffect(() => {
     const fetchClothes = async () => {
       try {
@@ -22,7 +21,7 @@ export default function CreatingClothes() {
         const data = await res.json();
 
         if (data && data.clothes) {
-          setClothes(data.clothes); // only use the clothes array
+          setClothes(data.clothes);
         } else {
           setClothes([]);
         }
@@ -34,7 +33,6 @@ export default function CreatingClothes() {
     if (staffEmail) fetchClothes();
   }, [staffEmail]);
 
-  // ✅ Save cloth
   const handleSaveCloth = async (e) => {
     e.preventDefault();
 
@@ -59,7 +57,7 @@ export default function CreatingClothes() {
       const result = await res.json();
 
       if (res.ok && result.clothes) {
-        setClothes(result.clothes); // updated array from backend
+        setClothes(result.clothes);
         alert("✅ Cloth saved successfully!");
       } else {
         alert(`❌ Failed to save cloth: ${result.message || "Unknown error"}`);
@@ -69,7 +67,6 @@ export default function CreatingClothes() {
       alert("🚨 Server error while saving cloth.");
     }
 
-    // Reset form
     setClothName("");
     setClothPrice("");
     setClothPhoto(null);
@@ -78,7 +75,6 @@ export default function CreatingClothes() {
     setSelectedOption("");
   };
 
-  // ✅ Delete cloth
   const handleDelete = async (id) => {
     try {
       const res = await fetch(
@@ -89,7 +85,7 @@ export default function CreatingClothes() {
       const result = await res.json();
 
       if (res.ok && result.clothes) {
-        setClothes(result.clothes); // updated array from backend
+        setClothes(result.clothes);
         alert("🗑️ Cloth deleted successfully!");
       } else {
         alert("❌ Failed to delete cloth.");
@@ -100,14 +96,12 @@ export default function CreatingClothes() {
     }
   };
 
-  // ✅ Split clothes
   const laundryClothes = clothes.filter((c) => c.selectedOption === "laundry");
   const extraClothes = clothes.filter((c) => c.selectedOption === "extra");
 
   return (
     <div className="cloth-details">
       <div className="creatingClothes">
-        {/* Create Clothes */}
         <div className="creatingClothes__card creatingClothes__card--create">
           <h2 className="creatingClothes__title">Create Clothes Items</h2>
 
@@ -145,7 +139,6 @@ export default function CreatingClothes() {
             </div>
           )}
 
-          {/* Form */}
           {selectedOption && (
             <form className="creatingClothes__form" onSubmit={handleSaveCloth}>
               <input
@@ -194,7 +187,6 @@ export default function CreatingClothes() {
           Created Clothes History
         </h1>
         <div className="creatingClothes__listsWrapper">
-          {/* Laundry Clothes */}
           {laundryClothes.length > 0 && (
             <div className="creatingClothes__card creatingClothes__card--list">
               <h2 className="creatingClothes__title">Laundry Clothes</h2>
@@ -224,7 +216,6 @@ export default function CreatingClothes() {
             </div>
           )}
 
-          {/* Extra Clothes */}
           {extraClothes.length > 0 && (
             <div className="creatingClothes__card creatingClothes__card--list">
               <h2 className="creatingClothes__title">
