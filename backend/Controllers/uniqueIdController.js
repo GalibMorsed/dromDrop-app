@@ -8,7 +8,6 @@ const createUniqueId = async (req, res) => {
       return res.status(400).json({ error: "Unique ID is required" });
     }
 
-    // Check if this admin already has a Unique ID
     const existing = await UniqueId.findOne({ email: req.adminEmail });
     if (existing) {
       return res
@@ -16,7 +15,6 @@ const createUniqueId = async (req, res) => {
         .json({ error: "Unique ID already created for this admin" });
     }
 
-    // Create and save new unique ID record
     const newId = new UniqueId({
       uniqueId,
       adminEmail: req.adminEmail,

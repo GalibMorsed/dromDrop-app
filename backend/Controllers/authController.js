@@ -296,7 +296,7 @@ const getActivities = async (req, res) => {
   }
 };
 
-// Controller to delete staff (admin → staff, only if same institution)
+// Controller to delete staff (admin → staff)
 const deleteStaff = async (req, res) => {
   try {
     const { id } = req.params;

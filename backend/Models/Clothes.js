@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-// Sub-schema for each cloth item
 const ClothItemSchema = new Schema({
   selectedOption: {
     type: String,
@@ -27,7 +26,6 @@ const ClothItemSchema = new Schema({
   },
 });
 
-// Main schema (grouped by staffEmail)
 const ClothSchema = new Schema({
   staffEmail: {
     type: String,

@@ -30,7 +30,7 @@ export default function TrackPage() {
     };
 
     const fetchPayments = () => {
-      // Using dummy data as there is no payment API endpoint provided
+      // Using dummy data as there is no payment API endpoint provided, and will be implemented later.
       const dummyPayments = [
         {
           id: 1,

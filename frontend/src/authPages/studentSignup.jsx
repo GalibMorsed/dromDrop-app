@@ -9,7 +9,7 @@ function StudentSignup() {
     email: "",
     password: "",
     role: "Student/User",
-    instituteName: "", // used for backend
+    instituteName: "",
   });
 
   const [loading, setLoading] = useState(false);
@@ -25,7 +25,6 @@ function StudentSignup() {
     }));
   };
 
-  // ✅ Verify Unique ID
   const verifyUniqueId = async () => {
     if (!signupInfo.uniqueId.trim()) {
       return handleError("Please enter a Unique ID to verify.");
@@ -44,7 +43,6 @@ function StudentSignup() {
         handleSuccess("Unique ID verified successfully!");
         setSignupInfo((prev) => ({
           ...prev,
-          // Accept either instituteName or institutionName from backend
           instituteName: data.instituteName || data.institutionName || "",
         }));
         setIsVerified(true);
@@ -59,13 +57,11 @@ function StudentSignup() {
     }
   };
 
-  // ✅ Signup process
   const handleSignup = async (e) => {
     e.preventDefault();
 
     const { uniqueId, email, password, role, instituteName } = signupInfo;
 
-    // Force verification before signup
     if (!isVerified) {
       return handleError("Please verify your Unique ID before signing up.");
     }
@@ -81,7 +77,7 @@ function StudentSignup() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           uniqueId,
-          instituteName, // ✅ matches backend schema
+          instituteName,
           email,
           password,
           role,
@@ -108,7 +104,6 @@ function StudentSignup() {
       <div className="auth-container">
         <h1>Signup Here</h1>
         <form onSubmit={handleSignup}>
-          {/* Unique ID with Verify Button */}
           <div className="uniqueId-group">
             <label htmlFor="uniqueId">Unique ID</label>
             <div className="input-with-btn">
@@ -140,7 +135,6 @@ function StudentSignup() {
             )}
           </div>
 
-          {/* Email */}
           <div>
             <label htmlFor="email">Email</label>
             <input
@@ -152,7 +146,6 @@ function StudentSignup() {
             />
           </div>
 
-          {/* Password */}
           <div>
             <label htmlFor="password">Password</label>
             <input
@@ -164,7 +157,6 @@ function StudentSignup() {
             />
           </div>
 
-          {/* Role */}
           <div>
             <label htmlFor="role">Position</label>
             <input
@@ -177,7 +169,6 @@ function StudentSignup() {
             />
           </div>
 
-          {/* Submit */}
           <button className="auth-btn btn" type="submit" disabled={loading}>
             {loading ? "Signing up..." : "Signup"}
           </button>

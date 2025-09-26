@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-// Sub-schema for each cloth item
 const ClothItemSchema = new Schema({
   clothName: { type: String, required: true },
   quantity: { type: Number, default: 0 },
@@ -11,7 +10,6 @@ const ClothItemSchema = new Schema({
   selectedOption: { type: String, default: "Laundry" },
 });
 
-// Main schema for submissions
 const SubmittedClothesSchema = new Schema({
   userEmail: { type: String, required: true },
   clothes: [ClothItemSchema],

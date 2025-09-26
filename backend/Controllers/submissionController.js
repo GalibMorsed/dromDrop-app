@@ -38,7 +38,6 @@ const submitClothes = async (req, res) => {
       0
     );
 
-    // Always create a new Submission document for every submission
     const submission = new Submission({
       userEmail,
       clothes,
@@ -58,8 +57,7 @@ const submitClothes = async (req, res) => {
     res.status(500).json({ success: false, message: "Server Error" });
   }
 };
-
-// Fetch submitted clothes for a user
+// ✅ Fetch submissions for a user
 const getSubmittedClothes = async (req, res) => {
   try {
     const { userEmail } = req.query;
@@ -82,7 +80,6 @@ const getSubmissionsForStaff = async (req, res) => {
       return res.status(400).json({ message: "Staff email is required" });
     }
 
-    // Find staff
     const staff = await Staff.findOne({ email: staffEmail });
     if (!staff) {
       return res.status(404).json({ message: "Staff not found" });

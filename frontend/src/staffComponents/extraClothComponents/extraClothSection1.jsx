@@ -30,7 +30,6 @@ const ReadMoreCell = ({ text, maxLength = 60 }) => {
 };
 
 export default function ExtraClothSection1({ submissions, userTotals }) {
-  // Group submissions by user email to show one row per user
   const submissionsByUser = submissions.reduce((acc, submission) => {
     const { userEmail } = submission;
     if (!acc[userEmail]) {
@@ -57,7 +56,6 @@ export default function ExtraClothSection1({ submissions, userTotals }) {
             <tbody>
               {Object.entries(submissionsByUser).map(
                 ([userEmail, userSubmissions]) => {
-                  // Aggregate details from all submissions for the user
                   const allExtraClothes = userSubmissions.flatMap((s) =>
                     s.clothes.filter(
                       (c) => c.status === "Extra" || c.status === "Custom"
