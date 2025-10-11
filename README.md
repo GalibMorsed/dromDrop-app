@@ -7,108 +7,70 @@ This project was built with a focus on usability, automation, and accountability
 
 🧠 Project Concept and Objective
 Laundry management in hostels often becomes disorganized due to manual record keeping, limited item control, and miscommunication between students and laundry staff. DormDrop addresses these challenges through a centralized web application that handles:
-
 Weekly laundry submissions by students.
-
 Automatic calculation of item limits and extra charges.
-
 Staff-side verification, updates, and payment confirmations.
-
 Real-time status tracking and history for both students and staff.
-
 Admin-level control over all user accounts and laundry records.
-
 The main goal of DormDrop is to bring efficiency, transparency, and structure to hostel laundry operations — ensuring a smoother workflow for all users involved.
 
 ⚙️ Core Features
 👩‍🎓 Student Dashboard
 Register and log in securely using JWT-based authentication.
-
 Select items for laundry (shirts, pants, jackets, bedsheets, accessories, etc.).
-
 Built-in item limit per week (e.g., 5 shirts, 3 pants, etc.).
-
 Automatic detection of extra or unlisted items, with additional charge calculation.
-
 Submit laundry requests digitally with pickup and drop details.
-
 View submission history, payment status, and delivery updates in real-time.
 
 👨‍🔧 Staff Dashboard
 Access a list of all submitted student laundry requests.
-
 View detailed item lists with student information.
-
 Identify and record extra or non-listed items for billing adjustments.
-
 Update payment and washing status once items are verified.
-
 Remove extra items from the record once payment is confirmed.
-
 Manage weekly reports and completed laundry lists efficiently.
 
 🧑‍💼 Admin Dashboard
 Access complete control over the DormDrop system.
-
 Manage user roles (add, edit, or delete student and staff accounts).
-
 Monitor weekly laundry records and payment reports.
-
 Track platform usage statistics and performance.
-
 Handle system maintenance and backup data management.
 
 🏗️ Architecture and Workflow
 Students log in and select their laundry items.
-
 The system validates inputs based on item limits.
-
 If extra items are detected, they are marked for additional billing.
-
 Staff members access and review student submissions, verify item counts, and update payment and washing statuses.
-
 Once payment is confirmed, extra items are removed automatically from both sides (student and staff views).
-
 Admins monitor overall performance, handle disputes, and maintain user and data integrity across the system.
 
 🧩 System Modules
 Authentication Module:
 Handles user registration, login, and session security using JWT tokens.
-
 Laundry Management Module:
 Manages item selection, submission validation, and limit checking for students.
-
 Staff Management Module:
 Allows staff to view and update laundry records, verify payments, and process laundry returns.
-
 Admin Management Module:
 Provides complete system control, including user management, report generation, and data insights.
-
 Payment Tracking Module:
 Tracks extra charges, payment confirmations, and clears items after successful transactions.
 
 🌐 Future Enhancements
 Integration with UPI/online payment gateways for automatic billing.
-
 Notification system via email or SMS for laundry pickup and delivery.
-
 Analytics dashboard for admins to view laundry statistics and payment summaries.
-
 Mobile-responsive and PWA (Progressive Web App) version for on-the-go access.
-
 Integration of QR code scanning for quick laundry verification.
 
 🧪 Testing and Quality Assurance
 DormDrop has been tested for:
-
 Proper data validation (no duplicate submissions).
-
 Secure login and role-based access.
-
 Responsive UI across devices.
-
 Real-time updates between student and staff dashboards.
-
 Error handling for invalid item counts and payment inconsistencies.
 
 /_/
