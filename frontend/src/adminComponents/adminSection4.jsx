@@ -98,7 +98,7 @@ export default function AdminSection4() {
                     className="pay-btn"
                     onClick={() => {
                       window.alert(
-                        "Payment functionality will be available soon."
+                        "Payment functionality is currently under development. Upon implementation, successful payments will update the status to Completed. Thank you for your understanding."
                       );
                     }}
                   >

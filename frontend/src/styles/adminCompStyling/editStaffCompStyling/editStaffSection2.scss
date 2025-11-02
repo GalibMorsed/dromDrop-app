@@ -1,114 +1,175 @@
 .editstaff-section2 {
-  padding: 2rem;
-  font-family: "Segoe UI", sans-serif;
+  padding: 2rem 3rem;
+  font-family: "Poppins", "Segoe UI", sans-serif;
   background-color: #f8fafc;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
 
+  // Header
   .title-container {
     text-align: left;
-    margin-bottom: 2rem;
-  }
 
-  .section-title {
-    font-size: 1.8rem;
-    font-weight: 700;
-    color: #1a3d7c;
-    border-bottom: 3px solid #1a3d7c;
-    display: inline-block;
-    padding-bottom: 0.5rem;
-    animation: fadeInDown 0.6s ease-out;
-  }
-
-  .table-container {
-    width: 100%;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-    animation: fadeInUp 0.5s ease-out forwards;
-  }
-
-  .activity-table {
-    width: 100%;
-    border-collapse: collapse;
-    background: #fff;
-    min-width: 600px;
-
-    th,
-    td {
-      padding: 1rem 1.2rem;
-      text-align: left;
-      border-bottom: 1px solid #e2e8f0;
-      font-size: 0.95rem;
-      vertical-align: middle;
-      white-space: nowrap;
+    .section-title {
+      font-size: clamp(1.6rem, 2vw, 2rem);
+      font-weight: 700;
+      color: #1a3d7c;
+      border-left: 5px solid #1a3d7c;
+      padding-left: 0.8rem;
     }
+  }
 
-    th {
-      background: #f1f5f9;
+  // Section Layout
+  .data-sections {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  // Card Container
+  .data-card {
+    background-color: #ffffff;
+    border-radius: 10px;
+    border: 1px solid #e2e8f0;
+    padding: 1.5rem 1.8rem;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+
+    .data-title {
+      font-size: clamp(1.2rem, 1.5vw, 1.4rem);
       font-weight: 600;
-      color: #1e293b;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      font-size: 0.85rem;
+      color: #1e3a8a;
+      margin-bottom: 1rem;
+      border-bottom: 1px solid #e2e8f0;
+      padding-bottom: 0.5rem;
     }
 
-    tbody tr {
-      transition: background-color 0.2s ease;
-      &:hover {
-        background-color: #f8fafc;
+    // Table Wrapper
+    .table-container {
+      width: 100%;
+      overflow-x: auto;
+      border-radius: 8px;
+      background-color: #fff;
+      scrollbar-width: thin;
+      scrollbar-color: #cbd5e1 #f8fafc;
+
+      // Fix scrollbar visibility
+      &::-webkit-scrollbar {
+        height: 6px;
+      }
+
+      &::-webkit-scrollbar-track {
+        background: #f8fafc;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background-color: #cbd5e1;
+        border-radius: 4px;
+      }
+
+      &::-webkit-scrollbar-thumb:hover {
+        background-color: #94a3b8;
       }
     }
 
-    td {
-      color: #334155;
+    // Table
+    .activity-table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 650px;
+
+      th,
+      td {
+        padding: 0.9rem 1.2rem;
+        text-align: left;
+        border-bottom: 1px solid #e2e8f0;
+        font-size: 0.95rem;
+        color: #334155;
+        white-space: nowrap;
+      }
+
+      th {
+        background-color: #f1f5f9;
+        font-weight: 600;
+        color: #1e293b;
+        text-transform: uppercase;
+        letter-spacing: 0.4px;
+      }
+
+      tbody tr {
+        transition: background-color 0.15s ease;
+        &:hover {
+          background-color: #f9fafb;
+        }
+      }
+    }
+
+    // Empty Data
+    .no-data {
+      text-align: center;
+      color: #64748b;
+      margin-top: 1.5rem;
+      font-size: 1rem;
+      padding: 1.5rem;
+      background-color: #fff;
+      border-radius: 8px;
+      border: 1px dashed #cbd5e1;
     }
   }
 
-  .no-data {
-    text-align: center;
-    color: #64748b;
-    margin-top: 2rem;
-    font-size: 1.1rem;
-    padding: 2rem;
-    background: #fff;
-    border-radius: 12px;
-    border: 1px dashed #e2e8f0;
+  // Responsiveness
+  @media (max-width: 1024px) {
+    padding: 1.5rem 2rem;
+  }
+
+  @media (max-width: 768px) {
+    padding: 1.2rem 1.5rem;
+
+    .section-title {
+      font-size: 1.5rem;
+    }
+
+    .data-card {
+      padding: 1.2rem;
+
+      .activity-table {
+        th,
+        td {
+          padding: 0.8rem;
+          font-size: 0.9rem;
+        }
+      }
+    }
   }
 
   @media (max-width: 480px) {
     padding: 1rem;
+
     .section-title {
-      font-size: 1.2rem;
+      text-align: center;
+      border-left: none;
+      border-bottom: 3px solid #1a3d7c;
+      padding-bottom: 0.4rem;
+      font-size: 1.4rem;
     }
-    .activity-table {
-      th,
-      td {
-        padding: 0.8rem;
-        font-size: 0.9rem;
+
+    .data-card {
+      padding: 1rem;
+
+      .data-title {
+        text-align: center;
+        font-size: 1.1rem;
+      }
+
+      .activity-table {
+        min-width: 500px;
+
+        th,
+        td {
+          padding: 0.7rem;
+          font-size: 0.85rem;
+        }
       }
     }
-  }
-}
-
-// Animations
-@keyframes fadeInDown {
-  from {
-    opacity: 0;
-    transform: translateY(-20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
   }
 }

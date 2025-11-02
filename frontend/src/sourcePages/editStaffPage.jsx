@@ -45,10 +45,15 @@ export default function EditStaffPage() {
         );
         const data = await res.json();
         if (res.ok) {
-          const combinedActivities = [
-            ...(data.staffs || []),
-            ...(data.users || []),
-          ];
+          const staffActivities = (data.staffs || []).map((staff) => ({
+            ...staff,
+            role: "Staff",
+          }));
+          const userActivities = (data.users || []).map((user) => ({
+            ...user,
+            role: user.role || "Student/User",
+          }));
+          const combinedActivities = [...staffActivities, ...userActivities];
           setActivities(combinedActivities);
         } else {
           console.error("Error fetching activities:", data.message);
