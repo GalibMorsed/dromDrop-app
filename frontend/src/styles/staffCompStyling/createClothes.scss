@@ -1,28 +1,48 @@
-.cloth-details {
-  background-color: #f8fafc;
-  padding: 1.5rem;
-  font-family: "Segoe UI", sans-serif;
-  color: #2d3748;
+:root {
+  --font-primary: "Inter", "Segoe UI", system-ui, sans-serif;
+  --color-bg: #f8fafc;
+  --color-surface: #ffffff;
+  --color-text: #1e293b;
+  --color-text-secondary: #475569;
+  --color-primary: #3b82f6;
+  --color-primary-hover: #2563eb;
+  --color-success: #10b981;
+  --color-success-hover: #059669;
+  --color-danger: #ef4444;
+  --color-danger-hover: #dc2626;
+  --color-border: #e2e8f0;
+  --color-border-focus: #93c5fd;
+  --radius-md: 12px;
+  --radius-sm: 8px;
+  --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 10px 30px rgba(0, 0, 0, 0.08);
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
 
-  .creatingClothes__card {
-    margin-bottom: 1rem;
-    width: 100%;
-  }
+.cloth-details {
+  background-color: var(--color-bg);
+  min-height: 100vh;
+  padding: clamp(1rem, 4vw, 2rem);
+  font-family: var(--font-primary);
+  color: var(--color-text);
+  line-height: 1.6;
 
   .creatingClothes {
-    max-width: 1100px;
-    margin: 0.5rem auto;
-    padding: 0.5rem;
+    max-width: 1200px;
+    margin: 0 auto;
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    gap: clamp(2rem, 5vw, 3rem);
 
     &__card {
-      background: #ffffff;
-      border-radius: 12px;
-      padding: 1.8rem;
-      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
-      animation: fadeIn 0.6s ease-in-out;
+      background: var(--color-surface);
+      border-radius: var(--radius-md);
+      padding: clamp(1.5rem, 4vw, 2.5rem);
+      box-shadow: var(--shadow-md);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      animation: fadeIn 0.7s ease-out forwards;
+      opacity: 0;
 
       &--create {
         text-align: center;
@@ -30,115 +50,152 @@
     }
 
     &__title {
-      font-size: 1.5rem;
+      font-size: clamp(1.6rem, 3vw, 2rem);
       font-weight: 700;
-      margin-bottom: 1rem;
-      color: #1e3a8a;
+      margin-bottom: 1.5rem;
+      color: #1e40af;
       text-align: center;
+      background: linear-gradient(135deg, #3b82f6, #1e40af);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
 
     &__historyTitle {
-      font-size: 1.6rem;
+      font-size: clamp(1.5rem, 2.8vw, 1.8rem);
       font-weight: 600;
       color: #111827;
       text-align: center;
-      margin-top: 1rem;
+      margin: 1.5rem 0;
     }
 
     &__btnWrapper {
-      margin-top: 1rem;
+      margin-top: 1.5rem;
       text-align: center;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0.75rem;
     }
 
     &__btn {
-      padding: 0.65rem 1.3rem;
-      border-radius: 8px;
+      padding: 0.75rem 1.5rem;
       border: none;
-      cursor: pointer;
-      font-size: 0.95rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.98rem;
       font-weight: 600;
-      transition: all 0.3s ease;
-      margin: 0.3rem;
+      cursor: pointer;
+      transition: var(--transition);
+      min-width: 110px;
 
       &--primary {
-        background: #3b82f6;
-        color: #fff;
+        background: var(--color-primary);
+        color: white;
+        box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
 
         &:hover {
-          background: #2563eb;
+          background: var(--color-primary-hover);
+          transform: translateY(-2px);
+          box-shadow: 0 8px 20px rgba(59, 130, 246, 0.4);
         }
       }
 
       &--active {
         background: #1e40af;
-        color: #fff;
+        color: white;
+        transform: translateY(-1px);
       }
 
       &--save {
-        background: #10b981;
-        color: #fff;
-        margin-top: 0.8rem;
+        background: var(--color-success);
+        color: white;
 
         &:hover {
-          background: #059669;
+          background: var(--color-success-hover);
+          transform: translateY(-2px);
         }
       }
 
       &--delete {
-        background: #ef4444;
-        color: #fff;
-        font-size: 0.85rem;
-        padding: 0.4rem 0.8rem;
+        background: var(--color-danger);
+        color: white;
+        font-size: 0.9rem;
+        padding: 0.5rem 1rem;
 
         &:hover {
-          background: #dc2626;
+          background: var(--color-danger-hover);
         }
+      }
+
+      &:focus-visible {
+        outline: 3px solid var(--color-border-focus);
+        outline-offset: 3px;
       }
     }
 
     &__options {
       display: flex;
       justify-content: center;
-      gap: 1rem;
-      margin-top: 1rem;
       flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 1.5rem;
     }
 
     &__form {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      margin-top: 1.2rem;
+      display: grid;
+      gap: 1.2rem;
+      margin-top: 1.5rem;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
 
       input[type="text"],
       input[type="number"],
       input[type="file"] {
-        padding: 0.7rem;
-        border: 1px solid #cbd5e1;
-        border-radius: 8px;
+        padding: 0.85rem 1rem;
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-sm);
         font-size: 1rem;
-        transition: border 0.3s ease;
+        background: white;
+        transition: var(--transition);
 
         &:focus {
-          border-color: #3b82f6;
           outline: none;
-          box-shadow: 0 0 6px rgba(59, 130, 246, 0.4);
+          border-color: var(--color-primary);
+          box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.2);
+        }
+
+        &::file-selector-button {
+          background: var(--color-primary);
+          color: white;
+          border: none;
+          padding: 0.6rem 1rem;
+          border-radius: var(--radius-sm);
+          margin-right: 1rem;
+          cursor: pointer;
+          transition: var(--transition);
+
+          &:hover {
+            background: var(--color-primary-hover);
+          }
         }
       }
     }
 
     &__preview {
-      width: 90px;
-      margin-top: 10px;
-      border-radius: 6px;
-      border: 1px solid #d1d5db;
+      width: 120px;
+      height: 120px;
+      object-fit: cover;
+      border-radius: var(--radius-sm);
+      border: 2px solid var(--color-border);
+      margin: 1rem auto 0;
+      display: block;
+      box-shadow: var(--shadow-sm);
     }
 
     &__listsWrapper {
-      display: flex;
-      justify-content: space-between;
-      gap: 2rem;
-      flex-wrap: nowrap;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+      gap: clamp(1.5rem, 3vw, 2.5rem);
+      margin-top: 1rem;
     }
 
     &__list {
@@ -153,75 +210,122 @@
     &__item {
       display: flex;
       align-items: center;
-      gap: 1rem;
-      padding: 0.9rem;
-      border: 1px solid #e2e8f0;
-      border-radius: 10px;
-      background: #f9fafb;
-      transition: all 0.2s ease;
+      gap: 1.2rem;
+      padding: 1rem;
+      background: #ffffff;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      transition: var(--transition);
+      box-shadow: var(--shadow-sm);
 
       &:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.07);
-        background: #f1f5f9;
+        transform: translateY(-4px);
+        box-shadow: var(--shadow-md);
+        border-color: var(--color-primary);
       }
     }
 
     &__photo {
-      width: 70px;
-      height: 70px;
+      width: 80px;
+      height: 80px;
       object-fit: cover;
-      border-radius: 8px;
-      border: 1px solid #cbd5e1;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--color-border);
+      flex-shrink: 0;
+      transition: var(--transition);
+
+      .creatingClothes__item:hover & {
+        transform: scale(1.05);
+      }
     }
 
     &__info {
       flex: 1;
+      min-width: 0; // Allows text truncation
 
       .creatingClothes__name {
-        font-size: 1rem;
+        font-size: 1.1rem;
         font-weight: 600;
-        color: #1e293b;
+        color: var(--color-text);
+        margin: 0 0 0.4rem;
+        word-break: break-word;
       }
 
       .creatingClothes__price {
-        font-size: 0.9rem;
-        color: #475569;
+        font-size: 0.95rem;
+        color: var(--color-text-secondary);
+        font-weight: 500;
       }
     }
   }
 
-  /* Responsive */
+  /* Tablet adjustments */
   @media (max-width: 1024px) {
-    .creatingClothes__listsWrapper {
-      flex-direction: column;
+    .creatingClothes {
+      &__listsWrapper {
+        grid-template-columns: 1fr;
+      }
+
+      &__form {
+        grid-template-columns: 1fr;
+      }
     }
   }
 
-  @media (max-width: 768px) {
-    .creatingClothes__card {
-      padding: 1.2rem;
-    }
+  /* Mobile optimizations */
+  @media (max-width: 640px) {
+    .creatingClothes {
+      gap: 2rem;
 
-    .creatingClothes__title {
-      font-size: 1.3rem;
-    }
+      &__card {
+        padding: 1.5rem;
+      }
 
-    .creatingClothes__photo {
-      width: 60px;
-      height: 60px;
+      &__item {
+        flex-direction: column;
+        text-align: center;
+        gap: 1rem;
+        padding: 1.2rem;
+      }
+
+      &__photo {
+        width: 100px;
+        height: 100px;
+      }
+
+      &__btnWrapper {
+        flex-direction: column;
+        align-items: stretch;
+
+        .creatingClothes__btn {
+          width: 100%;
+          padding: 0.9rem;
+        }
+      }
+
+      &__preview {
+        width: 100px;
+        height: 100px;
+      }
     }
   }
 
+  /* Small phones */
   @media (max-width: 480px) {
-    .creatingClothes__form input {
-      font-size: 0.9rem;
-      padding: 0.6rem;
-    }
+    .creatingClothes {
+      &__title,
+      &__historyTitle {
+        font-size: 1.5rem;
+      }
 
-    .creatingClothes__btn {
-      padding: 0.55rem 1rem;
-      font-size: 0.9rem;
+      &__photo {
+        width: 90px;
+        height: 90px;
+      }
+
+      &__form input {
+        padding: 0.9rem;
+      }
     }
   }
 }
@@ -229,7 +333,7 @@
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(8px);
+    transform: translateY(20px);
   }
   to {
     opacity: 1;
