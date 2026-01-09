@@ -4,7 +4,7 @@
   "description": "Smart Hostel Laundry Management System",
   "main": "index.js",
   "scripts": {
-    "install": "npm install --prefix backend && npm install --prefix frontend",
+    "install": "npm install --prefix backend && npm install --prefix frontend && npm run build",
     "build": "npm run build --prefix frontend",
     "start": "npm start --prefix backend"
   },
@@ -12,7 +12,15 @@
     "backend",
     "frontend"
   ],
-  "keywords": ["laundry", "hostel", "management", "mern"],
+  "keywords": [
+    "laundry",
+    "hostel",
+    "management",
+    "mern"
+  ],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "wrangler": "^4.58.0"
+  }
 }
