@@ -28,7 +28,10 @@ app.use("/auth", authRouter);
 app.use("/uniqueId", uniqueIdRouter);
 app.use("/clothes", clothesRouter);
 app.use("/submission", submissionRouter);
-
+app.use(express.static(path.join(_dirname, "/frontend/build")));
+app.get("*", (_, res) => {
+  res.sendFile(path.resolve(_dirname, "frontend", "build", "index.html"));
+});
 app.listen(PORT, (error) => {
   if (error) {
     console.error("Server startup error:", error);
