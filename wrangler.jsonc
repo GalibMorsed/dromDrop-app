@@ -1,6 +1,7 @@
 {
   "name": "dromdrop-frontend",
   "compatibility_date": "2026-01-09",
+  "main": "worker.js",
   "assets": {
     "directory": "./frontend/dist"
   }
