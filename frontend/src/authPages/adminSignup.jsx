@@ -32,7 +32,7 @@ function AdminSignup() {
 
     try {
       setLoading(true);
-      const url = "http://localhost:6060/auth/adminSignup";
+      const url = "https://dromdrop.jiteshroy2207.workers.dev/auth/adminSignup";
       const response = await fetch(url, {
         method: "POST",
         headers: {

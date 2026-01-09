@@ -11,7 +11,7 @@ export default function StaffSection4() {
     const fetchReports = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:6060/clothes/staffReports/${staffEmail}`
+          `https://dromdrop.jiteshroy2207.workers.dev/clothes/staffReports/${staffEmail}`
         );
         if (res.data && res.data.length > 0) {
           setReports(res.data);

@@ -19,7 +19,7 @@ export default function EditStaffPage() {
     const fetchStaffs = async () => {
       try {
         const res = await fetch(
-          `http://localhost:6060/auth/getCreatedStaffs?adminEmail=${adminEmail}`,
+          `https://dromdrop.jiteshroy2207.workers.dev/auth/getCreatedStaffs?adminEmail=${adminEmail}`,
           {
             headers: { Authorization: `Bearer ${token}` },
           }
@@ -38,7 +38,7 @@ export default function EditStaffPage() {
     const fetchActivities = async () => {
       try {
         const res = await fetch(
-          `http://localhost:6060/auth/getActivities?adminEmail=${adminEmail}`,
+          `https://dromdrop.jiteshroy2207.workers.dev/auth/getActivities?adminEmail=${adminEmail}`,
           {
             headers: { Authorization: `Bearer ${token}` },
           }

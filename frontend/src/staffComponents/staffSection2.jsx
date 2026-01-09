@@ -10,7 +10,7 @@ export default function StaffSection2() {
   useEffect(() => {
     if (!userEmail) return;
 
-    fetch(`http://localhost:6060/clothes/getDates?userEmail=${userEmail}`)
+    fetch(`https://dromdrop.jiteshroy2207.workers.dev/clothes/getDates?userEmail=${userEmail}`)
       .then((res) => res.json())
       .then((data) => setDatesList(data))
       .catch((err) => console.error(err));
@@ -25,7 +25,7 @@ export default function StaffSection2() {
     }
 
     try {
-      const res = await fetch("http://localhost:6060/clothes/addDate", {
+      const res = await fetch("https://dromdrop.jiteshroy2207.workers.dev/clothes/addDate", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ type, date, userEmail }),
@@ -41,7 +41,7 @@ export default function StaffSection2() {
 
   const handleDelete = async (id) => {
     try {
-      await fetch(`http://localhost:6060/clothes/deleteDate/${id}`, {
+      await fetch(`https://dromdrop.jiteshroy2207.workers.dev/clothes/deleteDate/${id}`, {
         method: "DELETE",
       });
       setDatesList(datesList.filter((item) => item._id !== id));

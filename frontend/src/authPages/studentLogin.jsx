@@ -30,7 +30,7 @@ function StudentLogin({ setIsAuthenticated }) {
 
     try {
       setLoading(true);
-      const url = "http://localhost:6060/auth/Userlogin";
+      const url = "https://dromdrop.jiteshroy2207.workers.dev/auth/Userlogin";
       const response = await fetch(url, {
         method: "POST",
         headers: {

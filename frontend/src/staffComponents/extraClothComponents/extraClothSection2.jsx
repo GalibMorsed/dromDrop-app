@@ -10,7 +10,7 @@ export default function ExtraClothSection2({ submissions, setAllSubmissions }) {
 
     try {
       const res = await fetch(
-        `http://localhost:6060/submission/deleteSubmission/${id}`,
+        `https://dromdrop.jiteshroy2207.workers.dev/submission/deleteSubmission/${id}`,
         { method: "DELETE" }
       );
 

@@ -24,7 +24,7 @@ export default function EditStaffSection1({ staffs, setStaffs }) {
       const adminEmail = localStorage.getItem("userEmail");
 
       const res = await fetch(
-        `http://localhost:6060/auth/resetStaffPassword/${staffId}?adminEmail=${adminEmail}`,
+        `https://dromdrop.jiteshroy2207.workers.dev/auth/resetStaffPassword/${staffId}?adminEmail=${adminEmail}`,
         {
           method: "PATCH",
           headers: {
@@ -60,7 +60,7 @@ export default function EditStaffSection1({ staffs, setStaffs }) {
         const adminEmail = localStorage.getItem("userEmail");
 
         const res = await fetch(
-          `http://localhost:6060/auth/deleteStaff/${id}?adminEmail=${adminEmail}`,
+          `https://dromdrop.jiteshroy2207.workers.dev/auth/deleteStaff/${id}?adminEmail=${adminEmail}`,
           {
             method: "DELETE",
             headers: { Authorization: `Bearer ${token}` },

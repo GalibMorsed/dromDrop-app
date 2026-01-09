@@ -12,7 +12,7 @@ export default function AdminSection3() {
 
     try {
       const response = await axios.post(
-        "http://localhost:6060/auth/Staffsignup",
+        "https://dromdrop.jiteshroy2207.workers.dev/auth/Staffsignup",
         {
           email: email.trim(),
           password: password.trim(),

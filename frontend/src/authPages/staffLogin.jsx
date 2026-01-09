@@ -32,7 +32,7 @@ function StaffLogin() {
     }
     try {
       setVerifying(true);
-      const res = await fetch("http://localhost:6060/uniqueId/verifyUniqueId", {
+      const res = await fetch("https://dromdrop.jiteshroy2207.workers.dev/uniqueId/verifyUniqueId", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ uniqueId: loginInfo.uniqueId }),
@@ -73,7 +73,7 @@ function StaffLogin() {
 
     try {
       setLoading(true);
-      const response = await fetch("http://localhost:6060/auth/Stafflogin", {
+      const response = await fetch("https://dromdrop.jiteshroy2207.workers.dev/auth/Stafflogin", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

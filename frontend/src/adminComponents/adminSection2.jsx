@@ -16,7 +16,7 @@ export default function AdminSection2() {
     const fetchUniqueId = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:6060/uniqueId/getUniqueId?email=${encodeURIComponent(
+          `https://dromdrop.jiteshroy2207.workers.dev/uniqueId/getUniqueId?email=${encodeURIComponent(
             email
           )}`
         );
@@ -55,7 +55,7 @@ export default function AdminSection2() {
     setLoading(true);
     try {
       const res = await axios.post(
-        `http://localhost:6060/uniqueId/createUniqueId?email=${encodeURIComponent(
+        `https://dromdrop.jiteshroy2207.workers.dev/uniqueId/createUniqueId?email=${encodeURIComponent(
           email
         )}&role=${encodeURIComponent(role)}`,
         { uniqueId: inputUniqueId.trim() }

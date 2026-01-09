@@ -16,7 +16,7 @@ export default function UserSection1() {
         }
 
         const response = await fetch(
-          `http://localhost:6060/clothes/getUserDates?studentEmail=${studentEmail}`
+          `https://dromdrop.jiteshroy2207.workers.dev/clothes/getUserDates?studentEmail=${studentEmail}`
         );
 
         if (!response.ok) {

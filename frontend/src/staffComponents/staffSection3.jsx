@@ -25,7 +25,7 @@ export default function StaffSection3() {
 
     try {
       setLoading(true);
-      const res = await fetch("http://localhost:6060/clothes/createReport", {
+      const res = await fetch("https://dromdrop.jiteshroy2207.workers.dev/clothes/createReport", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ...formData, staffEmail }),

@@ -7,7 +7,7 @@ export default function UserSection3() {
 
   useEffect(() => {
     fetch(
-      `http://localhost:6060/submission/submittedCloth?userEmail=${userEmail}`
+      `https://dromdrop.jiteshroy2207.workers.dev/submission/submittedCloth?userEmail=${userEmail}`
     )
       .then((res) => res.json())
       .then((data) => {

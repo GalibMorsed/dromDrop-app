@@ -16,7 +16,7 @@ export default function CreatingClothes() {
     const fetchClothes = async () => {
       try {
         const res = await fetch(
-          `http://localhost:6060/clothes/getClothes?email=${staffEmail}`
+          `https://dromdrop.jiteshroy2207.workers.dev/clothes/getClothes?email=${staffEmail}`
         );
         const data = await res.json();
 
@@ -49,7 +49,7 @@ export default function CreatingClothes() {
     formData.append("file", clothPhoto);
 
     try {
-      const res = await fetch(`http://localhost:6060/clothes/saveCloth`, {
+      const res = await fetch(`https://dromdrop.jiteshroy2207.workers.dev/clothes/saveCloth`, {
         method: "POST",
         body: formData,
       });
@@ -78,7 +78,7 @@ export default function CreatingClothes() {
   const handleDelete = async (id) => {
     try {
       const res = await fetch(
-        `http://localhost:6060/clothes/deleteCloth/${id}?email=${staffEmail}`,
+        `https://dromdrop.jiteshroy2207.workers.dev/clothes/deleteCloth/${id}?email=${staffEmail}`,
         { method: "DELETE" }
       );
 

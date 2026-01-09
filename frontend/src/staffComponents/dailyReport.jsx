@@ -10,7 +10,7 @@ export default function DailyReport() {
     const fetchSubmissions = async () => {
       try {
         const res = await fetch(
-          `http://localhost:6060/submission/getSubmissionsForStaff?staffEmail=${staffEmail}`
+          `https://dromdrop.jiteshroy2207.workers.dev/submission/getSubmissionsForStaff?staffEmail=${staffEmail}`
         );
         const data = await res.json();
         setSubmissions(data);
@@ -31,7 +31,7 @@ export default function DailyReport() {
 
     try {
       const res = await fetch(
-        `http://localhost:6060/submission/deleteSubmission/${id}`,
+        `https://dromdrop.jiteshroy2207.workers.dev/submission/deleteSubmission/${id}`,
         { method: "DELETE" }
       );
 
