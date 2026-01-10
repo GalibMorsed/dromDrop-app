@@ -2,11 +2,10 @@ const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
 const cors = require("cors");
-const path = require("path");
 const authRouter = require("./Routes/authRouter");
 const uniqueIdRouter = require("./Routes/uniqueIdRouter");
 const clothesRouter = require("./Routes/clothesRouter");
-const submissionRouter = require("./Routes/submissionRouter.js");
+const submissionRouter = require("./Routes/submissionRouter");
 
 require("dotenv").config();
 require("./Models/db.js");
@@ -29,10 +28,6 @@ app.use("/auth", authRouter);
 app.use("/uniqueId", uniqueIdRouter);
 app.use("/clothes", clothesRouter);
 app.use("/submission", submissionRouter);
-app.use(express.static(path.join(__dirname, "/frontend/build")));
-app.get("*", (_, res) => {
-  res.sendFile(path.resolve(__dirname, "frontend", "build", "index.html"));
-});
 app.listen(PORT, (error) => {
   if (error) {
     console.error("Server startup error:", error);

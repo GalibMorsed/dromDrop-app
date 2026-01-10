@@ -2,16 +2,32 @@ export default {
   async fetch(request, env) {
     const url = new URL(request.url);
 
-    // Try to serve static assets first
-    const page = await env.ASSETS.fetch(request);
+    console.log('env.ASSETS:', env.ASSETS);
 
-    // If the asset exists, return it
-    if (page.status !== 404) {
-      return page;
+    if (!env.ASSETS) {
+      return new Response('Assets not configured', { status: 500 });
+    }
+
+    // Try to serve static assets first
+    try {
+      const page = await env.ASSETS.fetch(request);
+
+      // If the asset exists, return it
+      if (page.status !== 404) {
+        return page;
+      }
+    } catch (e) {
+      console.error('Error fetching asset:', e);
+      return new Response('Error fetching asset', { status: 500 });
     }
 
     // For SPA, serve index.html for any non-asset request
-    const indexRequest = new Request(`${url.origin}/index.html`, request);
-    return env.ASSETS.fetch(indexRequest);
+    try {
+      const indexRequest = new Request(`${url.origin}/index.html`);
+      return await env.ASSETS.fetch(indexRequest);
+    } catch (e) {
+      console.error('Error fetching index.html:', e);
+      return new Response('Error fetching index.html', { status: 500 });
+    }
   },
 };
