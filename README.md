@@ -1,5 +1,97 @@
 🧺 DormDrop – Smart Hostel Laundry Management System
 
+Getting Started – Application Workflow
+
+DromDrop follows a role-based access system with three main user types:
+Admin, Staff, and Students (Users).
+Each role has specific responsibilities and access permissions.
+
+1. Admin Setup (First-Time Configuration)
+
+The Admin is responsible for initializing the system.
+
+Admin can:
+
+Create Staff accounts
+
+Manage system settings
+
+Monitor platform activity
+
+Steps:
+
+Register or log in as an Admin.
+
+Navigate to the Admin Dashboard.
+
+Create Staff accounts for laundry staff members.
+
+⚠️ Staff and Students cannot use the system until the Admin has created the required staff accounts.
+
+2. Staff Access & Responsibilities
+
+Once the Admin creates Staff accounts, Staff members can log in.
+
+Staff can:
+
+View student laundry submissions
+
+Track extra clothing items
+
+Update payment status
+
+Mark laundry as processed
+
+Steps:
+
+Staff logs in using credentials created by Admin.
+
+Access the Staff Dashboard.
+
+Manage laundry requests and payment confirmations.
+
+3. Student (User) Access & Submissions
+
+Students can register and submit laundry requests only after Staff accounts exist.
+
+Students can:
+
+Select clothes for weekly laundry
+
+View item limits
+
+Submit extra items (if needed)
+
+Track submission status
+
+Steps:
+
+Student registers an account.
+
+Logs in to the User Dashboard.
+
+Selects clothing items for laundry.
+
+Submits the request for processing.
+
+If a student submits extra or non-listed items, additional charges will apply, which Staff can verify.
+
+4. Payment & Extra Item Handling
+
+Extra items are recorded by Staff
+
+Payment status is updated manually
+
+Once payment is confirmed, extra items are cleared
+
+Both Staff and Students see updated records
+
+5. System Flow Summary
+
+Admin → Creates Staff → Staff manages laundry → Students submit requests
+
+This structured flow ensures proper authorization, smooth operations, and accurate tracking.
+
 📘 Overview
 DormDrop is a full-stack MERN application designed to automate and streamline the laundry management process within hostels. The platform eliminates the manual, time-consuming tasks of laundry tracking by providing separate dashboards for students, staff, and administrators. With features like item selection limits, extra item billing, payment tracking, and status updates, DormDrop offers an efficient, transparent, and organized laundry service system that saves time and reduces confusion.
 
