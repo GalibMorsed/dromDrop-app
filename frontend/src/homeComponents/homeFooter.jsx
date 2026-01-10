@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { FaInstagram, FaLinkedin, FaGithubSquare } from "react-icons/fa";
 
 export default function HomeFooter() {
@@ -26,8 +27,12 @@ export default function HomeFooter() {
           <div className="footer-left">
             <h2>DormDrop</h2>
             <div className="footer-links">
-              <a href="/aboutUs">Privacy Policy</a>
-              <a href="/aboutUs">About Us</a>
+              <Link to="/aboutUs" className="footer-link">
+          Help
+        </Link>
+        <Link to="/aboutUs" className="footer-link">
+          Contact
+        </Link>
             </div>
           </div>
 
