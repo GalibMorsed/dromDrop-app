@@ -150,13 +150,6 @@ Provides complete system control, including user management, report generation, 
 Payment Tracking Module:
 Tracks extra charges, payment confirmations, and clears items after successful transactions.
 
-🌐 Future Enhancements
-Integration with UPI/online payment gateways for automatic billing.
-Notification system via email or SMS for laundry pickup and delivery.
-Analytics dashboard for admins to view laundry statistics and payment summaries.
-Mobile-responsive and PWA (Progressive Web App) version for on-the-go access.
-Integration of QR code scanning for quick laundry verification.
-
 🧪 Testing and Quality Assurance
 DormDrop has been tested for:
 Proper data validation (no duplicate submissions).
