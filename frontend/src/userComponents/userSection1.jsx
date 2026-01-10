@@ -16,7 +16,7 @@ export default function UserSection1() {
         }
 
         const response = await fetch(
-          `https://dromdrop.jiteshroy2207.workers.dev/clothes/getUserDates?studentEmail=${studentEmail}`
+          `https://dromdrop.onrender.com/clothes/getUserDates?studentEmail=${studentEmail}`
         );
 
         if (!response.ok) {

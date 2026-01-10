@@ -12,7 +12,7 @@ export default function AdminSection3() {
 
     try {
       const response = await axios.post(
-        "https://dromdrop.jiteshroy2207.workers.dev/auth/Staffsignup",
+        "https://dromdrop.onrender.com/auth/Staffsignup",
         {
           email: email.trim(),
           password: password.trim(),

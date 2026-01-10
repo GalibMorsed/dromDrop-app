@@ -11,7 +11,7 @@ export default function AdminSection4() {
       try {
         setLoading(true);
         const res = await fetch(
-          `https://dromdrop.jiteshroy2207.workers.dev/clothes/adminReports?email=${adminEmail}`
+          `https://dromdrop.onrender.com/clothes/adminReports?email=${adminEmail}`
         );
         const data = await res.json();
 

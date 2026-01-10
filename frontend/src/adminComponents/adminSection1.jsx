@@ -8,7 +8,7 @@ export default function AdminSection1() {
     const storedEmail = localStorage.getItem("userEmail");
 
     if (storedEmail) {
-      fetch(`https://dromdrop.jiteshroy2207.workers.dev/auth/AdminDashboard?email=${storedEmail}`)
+      fetch(`https://dromdrop.onrender.com/auth/AdminDashboard?email=${storedEmail}`)
         .then((res) => res.json())
         .then((data) => setAdminData(data))
         .catch((err) => console.error("Error fetching admin data:", err));

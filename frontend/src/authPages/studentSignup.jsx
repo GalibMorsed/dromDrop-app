@@ -31,7 +31,7 @@ function StudentSignup() {
     }
     try {
       setVerifying(true);
-      const res = await fetch("https://dromdrop.jiteshroy2207.workers.dev/uniqueId/verifyUniqueId", {
+      const res = await fetch("https://dromdrop.onrender.com/uniqueId/verifyUniqueId", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ uniqueId: signupInfo.uniqueId }),
@@ -72,7 +72,7 @@ function StudentSignup() {
 
     try {
       setLoading(true);
-      const response = await fetch("https://dromdrop.jiteshroy2207.workers.dev/auth/Usersignin", {
+      const response = await fetch("https://dromdrop.onrender.com/auth/Usersignin", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

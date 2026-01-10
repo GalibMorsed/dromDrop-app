@@ -7,7 +7,7 @@ export default function UserSection3() {
 
   useEffect(() => {
     fetch(
-      `https://dromdrop.jiteshroy2207.workers.dev/submission/submittedCloth?userEmail=${userEmail}`
+      `https://dromdrop.onrender.com/submission/submittedCloth?userEmail=${userEmail}`
     )
       .then((res) => res.json())
       .then((data) => {

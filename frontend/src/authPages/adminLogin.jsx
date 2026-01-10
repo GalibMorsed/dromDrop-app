@@ -30,7 +30,7 @@ function AdminLogin({ setIsAuthenticated }) {
 
     try {
       setLoading(true);
-      const url = "https://dromdrop.jiteshroy2207.workers.dev/auth/adminLogin";
+      const url = "https://dromdrop.onrender.com/auth/adminLogin";
       const response = await fetch(url, {
         method: "POST",
         headers: {

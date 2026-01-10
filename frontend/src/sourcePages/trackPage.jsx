@@ -19,7 +19,7 @@ export default function TrackPage() {
       if (!storedEmail) return;
       try {
         const response = await fetch(
-          `https://dromdrop.jiteshroy2207.workers.dev/submission/submittedCloth?userEmail=${storedEmail}`
+          `https://dromdrop.onrender.com/submission/submittedCloth?userEmail=${storedEmail}`
         );
         const data = await response.json();
         setSubmissions(Array.isArray(data) ? data : []);

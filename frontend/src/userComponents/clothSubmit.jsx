@@ -15,7 +15,7 @@ export default function SubmitClothes() {
     const fetchClothes = async () => {
       try {
         const res = await fetch(
-          `https://dromdrop.jiteshroy2207.workers.dev/clothes/getClothesForUser?userEmail=${userEmail}`
+          `https://dromdrop.onrender.com/clothes/getClothesForUser?userEmail=${userEmail}`
         );
         const data = await res.json();
 
@@ -103,7 +103,7 @@ export default function SubmitClothes() {
     };
 
     try {
-      const res = await fetch("https://dromdrop.jiteshroy2207.workers.dev/submission/submitCloth", {
+      const res = await fetch("https://dromdrop.onrender.com/submission/submitCloth", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),

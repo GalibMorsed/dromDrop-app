@@ -10,7 +10,7 @@ export default function ExtraClothSection2({ submissions, setAllSubmissions }) {
 
     try {
       const res = await fetch(
-        `https://dromdrop.jiteshroy2207.workers.dev/submission/deleteSubmission/${id}`,
+        `https://dromdrop.onrender.com/submission/deleteSubmission/${id}`,
         { method: "DELETE" }
       );
 

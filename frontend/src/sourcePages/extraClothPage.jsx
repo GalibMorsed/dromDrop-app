@@ -14,7 +14,7 @@ export default function ExtraClothPage() {
     const fetchSubmissions = async () => {
       try {
         const res = await fetch(
-          `https://dromdrop.jiteshroy2207.workers.dev/submission/getSubmissionsForStaff?staffEmail=${staffEmail}`
+          `https://dromdrop.onrender.com/submission/getSubmissionsForStaff?staffEmail=${staffEmail}`
         );
         const data = await res.json();
         setAllSubmissions(data);
